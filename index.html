@@ -492,17 +492,79 @@
             object-fit: cover;
         }
 
-        /* Testimonials Wrapper */
+        /* Testimonials Styles (Static Layout) */
         .testimonials {
             padding: 4rem 0;
             background-color: #F9FAFB;
-            min-height: 300px;
             width: 100%;
         }
 
-        .widget-wrapper {
-            width: 100%;
-            margin-top: 1.5rem;
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .testimonials-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        .testimonial-card {
+            background-color: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.01);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .stars {
+            color: #FBBF24;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-text {
+            color: #4B5563;
+            font-size: 0.95rem;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .client-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-top: 1px solid #F3F4F6;
+            padding-top: 1rem;
+        }
+
+        .client-avatar {
+            width: 2.5rem;
+            height: 2.5rem;
+            background-color: #FFEFE6;
+            color: #E8651F;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .client-details h4 {
+            font-size: 0.95rem;
+            color: #111827;
+            font-weight: 600;
+        }
+
+        .client-details p {
+            font-size: 0.8rem;
+            color: #9CA3AF;
         }
 
         /* Contact Section & Review Box */
@@ -756,7 +818,7 @@
         </div>
     </section>
 
-    <!-- NEW SECTION: HOW IT WORKS -->
+    <!-- SECTION: HOW IT WORKS -->
     <section class="steps-section" id="how-it-works">
         <div class="container">
             <div class="section-header">
@@ -819,7 +881,7 @@
         </div>
     </section>
 
-    <!-- NEW SECTION: TRANSPARENT PRICING -->
+    <!-- SECTION: TRANSPARENT PRICING -->
     <section class="pricing-section" id="tarifs">
         <div class="container">
             <div class="section-header">
@@ -857,7 +919,7 @@
                     <div class="b2b-icon">🍔</div>
                     <div class="b2b-info">
                         <h3>Restaurants & Cafés</h3>
-                        <p>Livrez les plats chauds à vos clients résidant à Essaouira ou dans les zones résidentielles de Ghazoua grâce à nos caissons isothermes professionnels.</p>
+                        <p>Livrez les plats chauds à vos clients résidant à Essaouira ou dans les zones residential de Ghazoua grâce à nos caissons isothermes professionnels.</p>
                     </div>
                 </div>
                 <div class="b2b-card">
@@ -901,6 +963,7 @@
         </div>
     </section>
 
+    <!-- MODIFIED SECTION: NEW STATIC TESTIMONIALS -->
     <section class="testimonials" id="testimonials">
         <div class="container">
             <div class="section-header">
@@ -908,9 +971,51 @@
                 <p>La confiance et la satisfaction de nos clients restent notre plus grande priorité</p>
             </div>
             
-            <div class="widget-wrapper">
-                <script defer src="https://cdn.trustindex.io/loader.js?6de1ac672dac692cf436ed99005"></script>
-                <div class="ti-widget" data-widget-id="6de1ac672dac692cf436ed99005"></div>
+            <div class="testimonials-grid">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card">
+                    <div>
+                        <div class="stars">★★★★★</div>
+                        <p class="testimonial-text">"Un service exceptionnel à Essaouira ! Habitant à Ghazoua, j'avais toujours du mal avec les livraisons. Ghaith Jad Oasis est super rapide, ponctuel et très courtois. Je recommande les yeux fermés."</p>
+                    </div>
+                    <div class="client-info">
+                        <div class="client-avatar">JM</div>
+                        <div class="client-details">
+                            <h4>Jean-Marc L.</h4>
+                            <p>Expatrié résident</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card">
+                    <div>
+                        <div class="stars">★★★★★</div>
+                        <p class="testimonial-text">"Nous externalisons la livraison de nos paniers de produits cosmétiques et d'argan avec eux. Toujours professionnels, sérieux, et le système de paiement à la livraison est ultra transparent."</p>
+                    </div>
+                    <div class="client-info">
+                        <div class="client-avatar">CO</div>
+                        <div class="client-details">
+                            <h4>Coopérative Bio</h4>
+                            <p>Client B2B - Médina</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card">
+                    <div>
+                        <div class="stars">★★★★★</div>
+                        <p class="testimonial-text">"Sauvetage de dernière minute ! J'avais besoin de courses urgentes au supermarché pour mon Riad. Le livreur a été hyper réactif, communication au top sur WhatsApp. Merci infiniment !"</p>
+                    </div>
+                    <div class="client-info">
+                        <div class="client-avatar">SR</div>
+                        <div class="client-details">
+                            <h4>Sarah R.</h4>
+                            <p>Gérante de Maison d'Hôtes</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -938,7 +1043,6 @@
                     </div>
                 </div>
 
-                <!-- ADDED INSTAGRAM OPTION -->
                 <div class="contact-item">
                     <div class="contact-icon instagram">📸</div>
                     <div>
@@ -1031,7 +1135,7 @@
                     </a>
                 </div>
 
-                <!-- NEW PARTNER: BASMA DECO_R -->
+                <!-- PARTNER: BASMA DECO_R -->
                 <div class="partner-card">
                     <div style="display: flex; flex-direction: column; align-items: center;">
                         <img src="https://i.ibb.co/gZLM4TbX/IMG-20260528-WA0021.jpg" alt="BASMA DECO_R" class="partner-logo">
