@@ -24,9 +24,7 @@
       "@context": "https://schema.org",
       "@type": "DeliveryService",
       "name": "livraison essaouira",
-      "image": [
-        "https://livreur-essaouira.com/hero-delivery.webp"
-      ],
+      "image": ["https://livreur-essaouira.com/hero-delivery.webp"],
       "url": "https://livreur-essaouira.com",
       "telephone": "+212646897111",
       "priceRange": "10MAD-35MAD",
@@ -48,9 +46,7 @@
       },
       "openingHoursSpecification": {
         "@type": "OpeningHoursSpecification",
-        "dayOfWeek": [
-          "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
-        ],
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
         "opens": "08:00",
         "closes": "22:00"
       },
@@ -131,7 +127,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
         * {
@@ -150,9 +146,17 @@
             scroll-behavior: smooth;
         }
 
+        /* دعم الخط العربي لجعل المظهر احترافي */
+        html[dir="rtl"], html[dir="rtl"] body {
+            font-family: 'Cairo', sans-serif;
+        }
+
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Poppins', sans-serif;
             font-weight: 600;
+        }
+        html[dir="rtl"] h1, html[dir="rtl"] h2, html[dir="rtl"] h3, html[dir="rtl"] h4, html[dir="rtl"] h5, html[dir="rtl"] h6 {
+            font-family: 'Cairo', sans-serif;
         }
 
         h1 { font-size: 2rem; }
@@ -236,6 +240,12 @@
             font-weight: 500;
         }
 
+        nav .nav-right-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
         nav .nav-links {
             display: none;
             gap: 1.25rem;
@@ -256,6 +266,53 @@
         @media (min-width: 1024px) {
             nav .nav-links { display: flex; }
         }
+
+        /* زِر اختيار اللغة */
+        .lang-switcher {
+            position: relative;
+            display: inline-block;
+        }
+        .lang-btn {
+            background-color: #F3F4F6;
+            color: #1F2937;
+            border: 1px solid #D1D5DB;
+            padding: 0.4rem 0.8rem;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        .lang-btn:hover { background-color: #E5E7EB; }
+        .lang-dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 0.375rem;
+            border: 1px solid #E5E7EB;
+            margin-top: 0.25rem;
+            min-width: 120px;
+            z-index: 1000;
+        }
+        html[dir="rtl"] .lang-dropdown {
+            right: auto;
+            left: 0;
+        }
+        .lang-dropdown a {
+            color: #374151;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        .lang-dropdown a:hover { background-color: #F3F4F6; color: #E8651F; }
+        .lang-switcher:hover .lang-dropdown { display: block; }
 
         /* App Pages Views Switcher */
         .page-view {
@@ -473,6 +530,10 @@
             text-align: center;
             border-left: 5px solid #E8651F;
         }
+        html[dir="rtl"] .expat-block {
+            border-left: none;
+            border-right: 5px solid #E8651F;
+        }
         
         .expat-block h3 {
             color: #FFFFFF;
@@ -618,6 +679,7 @@
             flex-shrink: 0;
             font-size: 0.85rem;
         }
+        html[dir="rtl"] .why-us-list li { gap: 1rem; }
 
         .why-us img {
             border-radius: 0.75rem;
@@ -804,6 +866,7 @@
             margin-left: 0.5rem;
             color: #4B5563;
         }
+        html[dir="rtl"] .copy-btn-inline { margin-left: 0; margin-right: 0.5rem; }
         .copy-btn-inline:hover { background: #E5E7EB; }
 
         .review-box {
@@ -947,6 +1010,10 @@
             gap: 0.75rem;
             z-index: 1000;
         }
+        html[dir="rtl"] .floating-buttons {
+            right: auto;
+            left: 1.5rem;
+        }
 
         .float-btn {
             width: 3.5rem;
@@ -977,15 +1044,26 @@
                 <div class="logo-box">GJ</div>
                 <div class="logo-text">
                     <h1>Ghaith Jad</h1>
-                    <p>Oasis Services</p>
+                    <p data-i18n="navSub">Oasis Services</p>
                 </div>
             </div>
-            <div class="nav-links">
-                <a onclick="navigateToPage('home')" class="nav-item active" id="nav-home">Accueil</a>
-                <a onclick="navigateToPage('services-page')" class="nav-item" id="nav-services-page">Nos Services</a>
-                <a onclick="navigateToPage('b2b-page')" class="nav-item" id="nav-b2b-page">Espace Entreprises</a>
-                <a onclick="navigateToPage('partners-page')" class="nav-item" id="nav-partners-page">Nos Partenaires</a>
-                <a href="#contact" onclick="navigateToPage('home')">Contact</a>
+            <div class="nav-right-wrapper">
+                <div class="nav-links">
+                    <a onclick="navigateToPage('home')" class="nav-item active" id="nav-home" data-i18n="navHome">Accueil</a>
+                    <a onclick="navigateToPage('services-page')" class="nav-item" id="nav-services-page" data-i18n="navServices">Nos Services</a>
+                    <a onclick="navigateToPage('b2b-page')" class="nav-item" id="nav-b2b-page" data-i18n="navB2b">Espace Entreprises</a>
+                    <a onclick="navigateToPage('partners-page')" class="nav-item" id="nav-partners-page" data-i18n="navPartners">Nos Partenaires</a>
+                    <a href="#contact" onclick="navigateToPage('home')" data-i18n="navContact">Contact</a>
+                </div>
+                
+                <div class="lang-switcher">
+                    <button class="lang-btn">🌐 <span id="current-lang">FR</span></button>
+                    <div class="lang-dropdown">
+                        <a href="#" onclick="changeLanguage('fr'); return false;">Français</a>
+                        <a href="#" onclick="changeLanguage('ar'); return false;">العربية</a>
+                        <a href="#" onclick="changeLanguage('en'); return false;">English</a>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
@@ -995,9 +1073,9 @@
             <img src="https://livreur-essaouira.com/hero-delivery.webp" itemprop="image" alt="Livreur Essaouira - Service de livraison à domicile rapide">
             <div class="hero-overlay">
                 <div class="hero-content">
-                    <h1>Livreur Essaouira | Livraison à Domicile Rapide & Fiable</h1>
-                    <p>Que vous ayez besoin d'un livreur à Essaouira pour un colis urgent en Médina, d'une livraison à domicile de vos courses Carrefour à Ghazoua, ou d'un coursier express à Sidi Kaouki, notre équipe répond présent 7j/7.</p>
-                    <a href="#contact" class="btn">Commander un Livreur</a>
+                    <h1 data-i18n="heroTitle">Livreur Essaouira | Livraison à Domicile Rapide & Fiable</h1>
+                    <p data-i18n="heroDesc">Que vous ayez besoin d'un livreur à Essaouira pour un colis urgent en Médina, d'une livraison à domicile de vos courses Carrefour à Ghazoua, ou d'un coursier express à Sidi Kaouki, notre équipe répond présent 7j/7.</p>
+                    <a href="#contact" class="btn" data-i18n="heroBtn">Commander un Livreur</a>
                 </div>
             </div>
         </section>
@@ -1005,24 +1083,24 @@
         <section class="steps-section" id="how-it-works">
             <div class="container">
                 <div class="section-header">
-                    <h2>Comment ça marche ?</h2>
-                    <p>Une livraison simple, rapide</p>
+                    <h2 data-i18n="stepsTitle">Comment ça marche ?</h2>
+                    <p data-i18n="stepsSub">Une livraison simple, rapide</p>
                 </div>
                 <div class="steps-grid">
                     <div class="step-card">
                         <div class="step-number">1</div>
-                        <h3>Contactez-nous</h3>
-                        <p>Envoyez votre liste de courses, l'adresse de récupération ou l'emplacement via WhatsApp ou par téléphone.</p>
+                        <h3 data-i18n="step1Title">Contactez-nous</h3>
+                        <p data-i18n="step1Desc">Envoyez votre liste de courses, l'adresse de récupération ou l'emplacement via WhatsApp ou par téléphone.</p>
                     </div>
                     <div class="step-card">
                         <div class="step-number">2</div>
-                        <h3>Achat & Expédition</h3>
-                        <p>Notre coursier privé s'occupe de récupérer vos produits ou colis immédiatement avec le plus grand soin.</p>
+                        <h3 data-i18n="step2Title">Achat & Expédition</h3>
+                        <p data-i18n="step2Desc">Notre coursier privé s'occupe de récupérer vos produits ou colis immédiatement avec le plus grand soin.</p>
                     </div>
                     <div class="step-card">
                         <div class="step-number">3</div>
-                        <h3>Livraison & Paiement</h3>
-                        <p>Vous recevez votre commande directement à votre porte. Le paiement se fait en toute sécurité à la livraison.</p>
+                        <h3 data-i18n="step3Title">Livraison & Paiement</h3>
+                        <p data-i18n="step3Desc">Vous receivez votre commande directement à votre porte. Le paiement se fait en toute sécurité à la livraison.</p>
                     </div>
                 </div>
             </div>
@@ -1031,36 +1109,36 @@
         <section class="services" id="services">
             <div class="container">
                 <div class="section-header">
-                    <h2>Votre Service de Livraison à Domicile à Essaouira</h2>
-                    <p>Des solutions de coursier express rapides, sécurisées et adaptées aux résidents et expatriés</p>
+                    <h2 data-i18n="servicesMainTitle">Votre Service de Livraison à Domicile à Essaouira</h2>
+                    <p data-i18n="servicesMainSub">Des solutions de coursier express rapides, sécurisées et adaptées aux résidents et expatriés</p>
                 </div>
                 <div class="services-grid">
                     <div class="service-card orange">
                         <div class="icon">⚡</div>
-                        <h3>Coursier Express & Colis</h3>
-                        <p>Envoi et réception de vos colis importants, documents et marchandises urgentes en moins de 1 heure partout à Essaouira.</p>
-                        <p style="margin-top:0.5rem;"><a onclick="navigateToPage('services-page')" style="color:#E8651F; font-weight:600; cursor:pointer;">En savoir plus →</a></p>
+                        <h3 data-i18n="srv1Title">Coursier Express & Colis</h3>
+                        <p data-i18n="srv1Desc">Envoi et réception de vos colis importants, documents et marchandises urgentes en moins de 1 heure partout à Essaouira.</p>
+                        <p style="margin-top:0.5rem;"><a onclick="navigateToPage('services-page')" style="color:#E8651F; font-weight:600; cursor:pointer;" data-i18n="learnMore">En savoir plus →</a></p>
                     </div>
                     <div class="service-card blue">
                         <div class="icon">🛍️</div>
-                        <h3>Courses & Achats</h3>
-                        <p>Nous faisons vos courses de supermarché (Carrefour Essaouira, ASWAK ASSALAM, ATACADAO), récupérons vos produits du quotidien.</p>
-                        <p style="margin-top:0.5rem;"><a onclick="navigateToPage('services-page')" style="color:#E8651F; font-weight:600; cursor:pointer;">En savoir plus →</a></p>
+                        <h3 data-i18n="srv2Title">Courses & Achats</h3>
+                        <p data-i18n="srv2Desc">We do your grocery shopping at supermarkets (Carrefour Essaouira, ASWAK ASSALAM, ATACADAO) and pick up your daily essentials.</p>
+                        <p style="margin-top:0.5rem;"><a onclick="navigateToPage('services-page')" style="color:#E8651F; font-weight:600; cursor:pointer;" data-i18n="learnMore">En savoir plus →</a></p>
                     </div>
                     <div class="service-card green">
                         <div class="icon">📍</div>
-                        <h3>Suivi de Colis</h3>
-                        <p>Restez en contact permanent avec votre coursier privé et suivez l'avancement de votre livraison étape par étape.</p>
-                        <p style="margin-top:0.5rem;"><a onclick="navigateToPage('services-page')" style="color:#E8651F; font-weight:600; cursor:pointer;">En savoir plus →</a></p>
+                        <h3 data-i18n="srv3Title">Suivi de Colis</h3>
+                        <p data-i18n="srv3Desc">Restez en contact permanent avec votre coursier privé et suivez l'avancement de votre livraison étape par étape.</p>
+                        <p style="margin-top:0.5rem;"><a onclick="navigateToPage('services-page')" style="color:#E8651F; font-weight:600; cursor:pointer;" data-i18n="learnMore">En savoir plus →</a></p>
                     </div>
                     <div class="service-card green-medical" style="display: flex; flex-direction: column; justify-content: space-between;">
                         <div>
                             <div class="icon">🟢</div>
-                            <h3>Pharmacies de Garde</h3>
-                            <p>Besoin de médicaments en urgence ? Découvrez en temps réel les pharmacies de garde ouvertes actuellement à Essaouira.</p>
+                            <h3 data-i18n="srv4Title">Pharmacies de Garde</h3>
+                            <p data-i18n="srv4Desc">Besoin de médicaments en urgence ? Découvrez en temps réel les pharmacies de garde ouvertes actuellement à Essaouira.</p>
                         </div>
                         <div style="margin-top: 1.5rem;">
-                            <a href="https://essaouira.pharmacieenpermanence.ma/" target="_blank" class="btn" style="background-color: #10B981; box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2); font-size: 0.9rem; padding: 0.65rem 1.2rem; width: 100%; text-decoration: none;">Voir les Pharmacies ↗</a>
+                            <a href="https://essaouira.pharmacieenpermanence.ma/" target="_blank" class="btn" style="background-color: #10B981; box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2); font-size: 0.9rem; padding: 0.65rem 1.2rem; width: 100%; text-decoration: none;" data-i18n="srv4Btn">Voir les Pharmacies ↗</a>
                         </div>
                     </div>
                 </div>
@@ -1070,31 +1148,31 @@
         <section class="engagements-section" id="engagements">
             <div class="container">
                 <div class="section-header">
-                    <h2>Nos Engagements pour un Service Premium</h2>
-                    <p>La garantie d'une livraison réussie et d'une confiance totale à chaque commande</p>
+                    <h2 data-i18n="engTitle">Nos Engagements pour un Service Premium</h2>
+                    <p data-i18n="engSub">La garantie d'une livraison réussie et d'une confiance totale à chaque commande</p>
                 </div>
                 <div class="engagements-grid">
                     <div class="engagement-card">
                         <div class="eng-icon">🔒</div>
-                        <h3>Sécurité & Confidentialité</h3>
-                        <p>Vos colis précieux, documents confidentiels et achats de valeur sont transportés avec le plus grand soin.</p>
+                        <h3 data-i18n="eng1Title">Sécurité & Confidentialité</h3>
+                        <p data-i18n="eng1Desc">Vos colis précieux, documents confidentiels et achats de valeur sont transportés avec le plus grand soin.</p>
                     </div>
                     <div class="engagement-card">
                         <div class="eng-icon">⏱️</div>
-                        <h3>Ponctualité Absolue</h3>
-                        <p>Nous respectons scrupuleusement vos créneaux horaires pour vos courses à Carrefour Essaouira.</p>
+                        <h3 data-i18n="eng2Title">Ponctualité Absolue</h3>
+                        <p data-i18n="eng2Desc">Nous respectons scrupuleusement vos créneaux horaires pour vos courses à Carrefour Essaouira.</p>
                     </div>
                     <div class="engagement-card">
                         <div class="eng-icon">💰</div>
-                        <h3>Meilleur Rapport Qualité/Prix</h3>
-                        <p>Des tarifs transparents, clairs et fixes adaptés à votre budget pour toutes les zones.</p>
+                        <h3 data-i18n="eng3Title">Meilleur Rapport Qualité/Prix</h3>
+                        <p data-i18n="eng3Desc">Des tarifs transparents, clairs et fixes adaptés à votre budget pour toutes les zones.</p>
                     </div>
                 </div>
 
                 <div class="expat-block">
-                    <h3>Looking for a Reliable Delivery Service in Essaouira?</h3>
-                    <p>Whether you are an expatriate living in Ghazoua, a digital nomad working from Sidi Kaouki, or staying in a Riad in the Medina, Ghaith Jad Oasis Services provides top-notch private courier and grocery delivery solutions.</p>
-                    <a href="https://wa.me/212646897111" target="_blank" class="btn">Order a Courier on WhatsApp</a>
+                    <h3 data-i18n="expatTitle">Looking for a Reliable Delivery Service in Essaouira?</h3>
+                    <p data-i18n="expatDesc">Whether you are an expatriate living in Ghazoua, a digital nomad working from Sidi Kaouki, or staying in a Riad in the Medina, Ghaith Jad Oasis Services provides top-notch private courier and grocery delivery solutions.</p>
+                    <a href="https://wa.me/212646897111" target="_blank" class="btn" data-i18n="expatBtn">Order a Courier on WhatsApp</a>
                 </div>
             </div>
         </section>
@@ -1102,24 +1180,24 @@
         <section class="pricing-section" id="tarifs">
             <div class="container">
                 <div class="section-header">
-                    <h2>Des Tarifs Fixes & Transparents</h2>
-                    <p>Pas de mauvaise surprise ! Vous connaissez le tarif de livraison selon votre zone géographique</p>
+                    <h2 data-i18n="priceTitle">Des Tarifs Fixes & Transparents</h2>
+                    <p data-i18n="priceSub">Pas de mauvaise surprise ! Vous connaissez le tarif de livraison selon votre zone géographique</p>
                 </div>
                 <div class="pricing-grid">
                     <div class="price-card">
-                        <h3>Essaouira Ville</h3>
+                        <h3 data-i18n="p1Title">Essaouira Ville</h3>
                         <div class="price-amount">10 DH</div>
-                        <p>Livraison rapide dans tous les quartiers de la ville d'Essaouira (Médina, Corniche, Borj, Sqala, Azlef, Argana...)</p>
+                        <p data-i18n="p1Desc">Livraison rapide dans tous les quartiers de la ville d'Essaouira (Médina, Corniche, Borj, Sqala, Azlef, Argana...)</p>
                     </div>
                     <div class="price-card" style="border-color: #E8651F; background-color: #FFF9F6;">
-                        <h3>Périphérie Proche</h3>
+                        <h3 data-i18n="p2Title">Périphérie Proche</h3>
                         <div class="price-amount">20 DH</div>
-                        <p>Livraison de confiance pour <strong>Ghazoua</strong>, <strong>Diabat</strong>, et <strong>Douar El Arab</strong>.</p>
+                        <p data-i18n="p2Desc">Livraison de confiance pour <strong>Ghazoua</strong>, <strong>Diabat</strong>, et <strong>Douar El Arab</strong>.</p>
                     </div>
                     <div class="price-card">
-                        <h3>Sidi Kaouki/Ounagha</h3>
+                        <h3 data-i18n="p3Title">Sidi Kaouki/Ounagha</h3>
                         <div class="price-amount">35 DH</div>
-                        <p>Service coursier express longue distance sécurisé jusqu'à la zone de Sidi Kaouki et Ounagha.</p>
+                        <p data-i18n="p3Desc">Service coursier express longue distance sécurisé jusqu'à la zone de Sidi Kaouki et Ounagha.</p>
                     </div>
                 </div>
             </div>
@@ -1129,22 +1207,22 @@
     <div id="services-page-view" class="page-view">
         <div class="subpage-header">
             <div class="container">
-                <h2>Nos Services de Livraison Détaillés</h2>
-                <p>Découvrez l'ensemble de nos prestations sur-mesure à Essaouira</p>
+                <h2 data-i18n="spSrvHeader">Nos Services de Livraison Détaillés</h2>
+                <p data-i18n="spSrvSub">Découvrez l'ensemble de nos prestations sur-mesure à Essaouira</p>
             </div>
         </div>
         <div class="subpage-content">
             <div class="container rich-text">
-                <h3>⚡ Coursier Express du Quotidien</h3>
-                <p>Besoin de faire parvenir des clés oubliées à Ghazoua ? Un document urgent à signer en Médina ? Nos coursiers express à moto se déplacent immédiatement. Nous garantissons une prise en charge rapide et un dépôt en main propre en toute sécurité.</p>
+                <h3 data-i18n="spSrv1Title">⚡ Coursier Express du Quotidien</h3>
+                <p data-i18n="spSrv1Desc">Besoin de faire parvenir des clés oubliées à Ghazoua ? Un document urgent à signer en Médina ? Nos coursiers express à moto se déplacent immédiatement. Nous garantissons une prise en charge rapide et un dépôt en main propre en toute sécurité.</p>
                 
-                <h3>🛒 Gestion Complète de vos Courses (Supermarchés & Marchés & Souk)</h3>
-                <p>Ne perdez plus votre temps dans les files d'attente de Carrefour Essaouira ou d'Aswak Assalam. Vous nous envoyez votre liste détaillée par message WhatsApp, nous effectuons les achats scrupuleusement, gardons les tickets de caisse, et vous livrons le tout directement chez vous ou à votre Riad.</p>
+                <h3 data-i18n="spSrv2Title">🛒 Gestion Complète de vos Courses (Supermarchés & Marchés & Souk)</h3>
+                <p data-i18n="spSrv2Desc">Ne perdez plus votre temps dans les files d'attente de Carrefour Essaouira ou d'Aswak Assalam. Vous nous envoyez votre liste détaillée par message WhatsApp, nous effectuons les achats scrupuleusement, gardons les tickets de caisse, et vous livrons le tout directement chez vous ou à votre Riad.</p>
                 
-                <h3>📦 Logistique Spéciale Expatriés & Riads</h3>
-                <p>Parce que la gestion d'une maison d'hôtes ou l'installation dans une nouvelle ville demande de la flexibilité, nous vous proposons un livreur privé dédié. Livraison d'eau, de bouteilles de gaz, récupération de colis postaux ou livraison de linge de maison, nous gérons tout votre quotidien.</p>
+                <h3 data-i18n="spSrv3Title">📦 Logistique Spéciale Expatriés & Riads</h3>
+                <p data-i18n="spSrv3Desc">Parce que la gestion d'une maison d'hôtes ou l'installation dans une nouvelle ville demande de la flexibilité, nous vous proposons un livreur privé dédié. Livraison d'eau, de bouteilles de gaz, récupération de colis postaux ou livraison de linge de maison, nous gérons tout votre quotidien.</p>
                 
-                <a onclick="navigateToPage('home')" class="back-home-btn">← Retourner à l'accueil</a>
+                <a onclick="navigateToPage('home')" class="back-home-btn" data-i18n="backHome">← Retourner à l'accueil</a>
             </div>
         </div>
     </div>
@@ -1152,22 +1230,22 @@
     <div id="b2b-page-view" class="page-view">
         <div class="subpage-header" style="background: linear-gradient(135deg, #111827, #1F2937);">
             <div class="container">
-                <h2>Espace Entreprises & Solutions B2B</h2>
-                <p>Optimisez votre logistique du dernier kilomètre avec un partenaire fiable</p>
+                <h2 data-i18n="spB2bHeader">Espace Entreprises & Solutions B2B</h2>
+                <p data-i18n="spB2bSub">Optimisez votre logistique du dernier kilomètre avec un partenaire fiable</p>
             </div>
         </div>
         <div class="subpage-content">
             <div class="container rich-text">
-                <h3>🍔 Livraison Restauration Intégrale</h3>
-                <p>Vous êtes gérant d'un restaurant, snack ou café à Essaouira ? Proposez la livraison à domicile à vos clients sans subir les commissions exorbitantes des applications tierces. Nous mettons à votre disposition des livreurs équipés de caissons isothermes haut de gamme pour maintenir vos plats à température idéale.</p>
+                <h3 data-i18n="spB2b1Title">🍔 Livraison Restauration Intégrale</h3>
+                <p data-i18n="spB2b1Desc">Vous êtes gérant d'un restaurant, snack ou café à Essaouira ? Proposez la livraison à domicile à vos clients sans subir les commissions exorbitantes des applications tierces. Nous mettons à votre disposition des livreurs équipés de caissons isothermes haut de gamme pour maintenir vos plats à température idéale.</p>
                 
-                <h3>🌿 Partenariat Coopératives & Artisans</h3>
-                <p>Valorisez votre chaîne de distribution. Nous récupérons vos produits cosmétiques, bouteilles d'Huile d'Argan ou pots d'Amlou directement depuis vos unités de production à Smimou ou Ghazoua pour approvisionner vos clients finaux ou vos points de vente dans la Médina.</p>
+                <h3 data-i18n="spB2b2Title">🌿 Partenariat Coopératives & Artisans</h3>
+                <p data-i18n="spB2b2Desc">Valorisez votre chaîne de distribution. Nous récupérons vos produits cosmétiques, bouteilles d'Huile d'Argan ou pots d'Amlou directement depuis vos unités de production à Smimou ou Ghazoua pour approvisionner vos clients finaux ou vos points de vente dans la Médina.</p>
                 
-                <h3>💵 Cash on Delivery (Paiement à la Livraison)</h3>
-                <p>Pour les e-commerçants basés à Essaouira, nous offrons un service d'expédition avec encaissement des fonds. Vos paiements sont sécurisés et reversés périodiquement selon vos préférences logistiques.</p>
+                <h3 data-i18n="spB2b3Title">💵 Cash on Delivery (Paiement à la Livraison)</h3>
+                <p data-i18n="spB2b3Desc">Pour les e-commerçants basés à Essaouira, nous offrons un service d'expédition avec encaissement des fonds. Vos paiements sont sécurisés et reversés périodiquement selon vos préférences logistiques.</p>
                 
-                <a onclick="navigateToPage('home')" class="back-home-btn" style="color: #111827;">← Retourner à l'accueil</a>
+                <a onclick="navigateToPage('home')" class="back-home-btn" style="color: #111827;" data-i18n="backHome">← Retourner à l'accueil</a>
             </div>
         </div>
     </div>
@@ -1175,15 +1253,15 @@
     <div id="partners-page-view" class="page-view">
         <div class="subpage-header" style="background: linear-gradient(135deg, #10B981, #059669);">
             <div class="container">
-                <h2>Réseau de Partenaires Officiels</h2>
-                <p>Découvrez les commerces locaux et entrepreneurs d'Essaouira qui collaborent avec nous</p>
+                <h2 data-i18n="spPartHeader">Réseau de Partenaires Officiels</h2>
+                <p data-i18n="spPartSub">Découvrez les commerces locaux et entrepreneurs d'Essaouira qui collaborent avec nous</p>
             </div>
         </div>
         <div class="subpage-content">
             <div class="container rich-text" style="text-align: center;">
-                <p>Nous travaillons main dans la main avec des entreprises sérieuses pour dynamiser l'économie locale et faciliter la vie des habitants d'Essaouira.</p>
-                <p>Retrouvez la liste complète et détaillée de nos partenaires de confiance ci-dessous sur notre section dédiée.</p>
-                <a onclick="navigateToPage('home'); setTimeout(() => document.getElementById('partners-section-anchor').scrollIntoView(), 300);" class="btn" style="background-color:#10B981; margin-top:1rem;">Voir la Grille des Partenaires ↓</a>
+                <p data-i18n="spPartDesc1">Nous travaillons main dans la main avec des entreprises sérieuses pour dynamiser l'économie locale et faciliter la vie des habitants d'Essaouira.</p>
+                <p data-i18n="spPartDesc2">Retrouvez la liste complète et détaillée de nos partenaires de confiance ci-dessous sur notre section dédiée.</p>
+                <a onclick="navigateToPage('home'); setTimeout(() => document.getElementById('partners-section-anchor').scrollIntoView(), 300);" class="btn" style="background-color:#10B981; margin-top:1rem;" data-i18n="spPartBtn">Voir la Grille des Partenaires ↓</a>
             </div>
         </div>
     </div>
@@ -1192,36 +1270,36 @@
     <div id="b2b" class="b2b-section">
         <div class="container">
             <div class="section-header">
-                <h2>Solutions Logistiques pour Entreprises & Riads</h2>
-                <p>Externalisez vos livraisons et offrez un service premium à vos clients à Essaouira</p>
+                <h2 data-i18n="b2bTitle">Solutions Logistiques pour Entreprises & Riads</h2>
+                <p data-i18n="b2bSub">Externalisez vos livraisons et offrez un service premium à vos clients à Essaouira</p>
             </div>
             <div class="b2b-grid">
                 <div class="b2b-card" onclick="navigateToPage('b2b-page')" style="cursor:pointer;">
                     <div class="b2b-icon">🍔</div>
                     <div class="b2b-info">
-                        <h3>Restaurants & Cafés</h3>
-                        <p>Livrez les plats chauds à vos clients résidant à Essaouira ou Ghazoua grâce à nos caissons isothermes professionnels.</p>
+                        <h3 data-i18n="b2bCard1Title">Restaurants & Cafés</h3>
+                        <p data-i18n="b2bCard1Desc">Livrez les plats chauds à vos clients résidant à Essaouira ou Ghazoua grâce à nos caissons isothermes professionnels.</p>
                     </div>
                 </div>
                 <div class="b2b-card" onclick="navigateToPage('b2b-page')" style="cursor:pointer;">
                     <div class="b2b-icon">🏨</div>
                     <div class="b2b-info">
-                        <h3>Riads & Conciergerie Privée</h3>
-                        <p>Offrez un service VIP à vos touristes : transfert de bagages express, courses de dernière minute ou livraison.</p>
+                        <h3 data-i18n="b2bCard2Title">Riads & Conciergerie Privée</h3>
+                        <p data-i18n="b2bCard2Desc">Offrez un service VIP à vos touristes : transfert de bagages express, courses de dernière minute ou livraison.</p>
                     </div>
                 </div>
                 <div class="b2b-card" onclick="navigateToPage('b2b-page')" style="cursor:pointer;">
                     <div class="b2b-icon">🌿</div>
                     <div class="b2b-info">
-                        <h3>Coopératives d'Argan</h3>
-                        <p>Expédition rapide de vos produits locaux de valeur depuis vos ateliers jusqu'à vos boutiques de la Médina.</p>
+                        <h3 data-i18n="b2bCard3Title">Coopératives d'Argan</h3>
+                        <p data-i18n="b2bCard3Desc">Expédition rapide de vos produits locaux de valeur depuis vos ateliers jusqu'à vos boutiques de la Médina.</p>
                     </div>
                 </div>
                 <div class="b2b-card" onclick="navigateToPage('b2b-page')" style="cursor:pointer;">
                     <div class="b2b-icon">📦</div>
                     <div class="b2b-info">
-                        <h3>E-commerce & Boutiques</h3>
-                        <p>Service professionnel de livraison du dernier kilomètre avec encaissement (Cash on Delivery) fiable.</p>
+                        <h3 data-i18n="b2bCard4Title">E-commerce & Boutiques</h3>
+                        <p data-i18n="b2bCard4Desc">Service professionnel de livraison du dernier kilomètre avec encaissement (Cash on Delivery) fiable.</p>
                     </div>
                 </div>
             </div>
@@ -1231,13 +1309,13 @@
     <section class="why-us" id="why-us">
         <div class="container">
             <div>
-                <h2 class="mb-8">Le Choix N°1 pour la Livraison à Domicile à Essaouira</h2>
+                <h2 class="mb-8" data-i18n="whyTitle">Le Choix N°1 pour la Livraison à Domicile à Essaouira</h2>
                 <ul class="why-us-list">
-                    <li><strong>Rapidité absolue :</strong> Respect strict des délais annoncés pour toutes vos courses.</li>
-                    <li><strong>Chauffeurs professionnels :</strong> Une équipe de confiance qui maîtrise parfaitement les adresses de la région.</li>
-                    <li><strong>Idéal pour Expatriés & Nomades :</strong> Communication fluide et services adaptés aux résidents francophones.</li>
-                    <li><strong>Tarifs transparents :</strong> Des prix fixes, compétitifs et clairs sans mauvaise surprise.</li>
-                    <li><strong>Large couverture locale :</strong> Essaouira Centre, Ghazoua, Sidi Kaouki, Diabat, Douar El Arab, Ounagha.</li>
+                    <li data-i18n="whyL1"><strong>Rapidité absolue :</strong> Respect strict des délais annoncés pour toutes vos courses.</li>
+                    <li data-i18n="whyL2"><strong>Chauffeurs professionnels :</strong> Une équipe de confiance qui maîtrise parfaitement les adresses de la région.</li>
+                    <li data-i18n="whyL3"><strong>Idéal pour Expatriés & Nomades :</strong> Communication fluide et services adaptés aux résidents francophones.</li>
+                    <li data-i18n="whyL4"><strong>Tarifs transparents :</strong> Des prix fixes, compétitifs et clairs sans mauvaise surprise.</li>
+                    <li data-i18n="whyL5"><strong>Large couverture locale :</strong> Essaouira Centre, Ghazoua, Sidi Kaouki, Diabat, Douar El Arab, Ounagha.</li>
                 </ul>
             </div>
             <img src="services-illustration.webp" alt="Service livraison à domicile de confiance à Essaouira - Ghaith Jad Oasis Services">
@@ -1247,46 +1325,46 @@
     <section class="testimonials" id="testimonials">
         <div class="container">
             <div class="section-header">
-                <h2>Avis de nos clients satisfaits</h2>
-                <p>La confiance et la satisfaction de nos clients restent notre plus grande priorité</p>
+                <h2 data-i18n="testiTitle">Avis de nos clients satisfaits</h2>
+                <p data-i18n="testiSub">La confiance et la satisfaction de nos clients restent notre plus grande priorité</p>
             </div>
             <div class="testimonials-grid">
                 <div class="testimonial-card">
                     <div>
                         <div class="stars">★★★★★</div>
-                        <p class="testimonial-text">"Un service exceptionnel à Essaouira ! Habitant à Ghazoua, j'avais toujours du mal avec les livraisons. Ghaith Jad Oasis est super rapide, ponctuel et très courtois."</p>
+                        <p class="testimonial-text" data-i18n="t1Text">"Un service exceptionnel à Essaouira ! Habitant à Ghazoua, j'avais toujours du mal avec les livraisons. Ghaith Jad Oasis est super rapide, ponctuel et très courtois."</p>
                     </div>
                     <div class="client-info">
                         <div class="client-avatar">JM</div>
                         <div class="client-details">
                             <h4>Jean-Marc L.</h4>
-                            <p>Expatrié résident</p>
+                            <p data-i18n="t1Role">Expatrié résident</p>
                         </div>
                     </div>
                 </div>
                 <div class="testimonial-card">
                     <div>
                         <div class="stars">★★★★★</div>
-                        <p class="testimonial-text">"Nous externalisons la livraison de nos paniers de produits cosmétiques et d'argan avec eux. Toujours professionnels, sérieux, et le système de paiement est ultra transparent."</p>
+                        <p class="testimonial-text" data-i18n="t2Text">"Nous externalisons la livraison de nos paniers de produits cosmétiques et d'argan avec eux. Toujours professionnels, sérieux, et le système de paiement est ultra transparent."</p>
                     </div>
                     <div class="client-info">
                         <div class="client-avatar">CO</div>
                         <div class="client-details">
-                            <h4>Coopérative Bio</h4>
-                            <p>Client B2B - Médina</p>
+                            <h4 data-i18n="t2Name">Coopérative Bio</h4>
+                            <p data-i18n="t2Role">Client B2B - Médina</p>
                         </div>
                     </div>
                 </div>
                 <div class="testimonial-card">
                     <div>
                         <div class="stars">★★★★★</div>
-                        <p class="testimonial-text">"Sauvetage de dernière minute ! J'avais besoin de courses urgentes au supermarché pour mon Riad. Le livreur a été hyper réactif, communication au top sur WhatsApp."</p>
+                        <p class="testimonial-text" data-i18n="t3Text">"Sauvetage de dernière minute ! J'avais besoin de courses urgentes au supermarché pour mon Riad. Le livreur a été hyper réactif, communication au top sur WhatsApp."</p>
                     </div>
                     <div class="client-info">
                         <div class="client-avatar">SR</div>
                         <div class="client-details">
                             <h4>Sarah R.</h4>
-                            <p>Gérante de Maison d'Hôtes</p>
+                            <p data-i18n="t3Role">Gérante de Maison d'Hôtes</p>
                         </div>
                     </div>
                 </div>
@@ -1297,21 +1375,21 @@
     <section class="faq-section" id="faq">
         <div class="container">
             <div class="section-header">
-                <h2>Foire Aux Questions (FAQ)</h2>
-                <p>Tout ce que vous devez savoir sur notre service de coursier express</p>
+                <h2 data-i18n="faqMainTitle">Foire Aux Questions (FAQ)</h2>
+                <p data-i18n="faqMainSub">Tout ce que vous devez savoir sur notre service de coursier express</p>
             </div>
             <div class="faq-grid">
                 <div class="faq-item">
-                    <h3>Quel est le meilleur service de livraison à Essaouira et Ghazoua ?</h3>
-                    <p>Ghaith Jad Oasis Services est le service de livraison N°1 à Essaouira, Ghazoua et Sidi Kaouki, offrant des coursiers rapides et fiables pour particuliers, restaurants et professionnels.</p>
+                    <h3 data-i18n="faqQ1">Quel est le meilleur service de livraison à Essaouira et Ghazoua ?</h3>
+                    <p data-i18n="faqA1">Ghaith Jad Oasis Services est le service de livraison N°1 à Essaouira, Ghazoua et Sidi Kaouki, offrant des coursiers rapides et fiables pour particuliers, restaurants et professionnels.</p>
                 </div>
                 <div class="faq-item">
-                    <h3>Comment commander un livreur privé à Essaouira ?</h3>
-                    <p>Vous pouvez facilement commander un livreur en nous contactant directement par WhatsApp ou par téléphone au +212646897111 pour une expédition immédiate.</p>
+                    <h3 data-i18n="faqQ2">Comment commander un livreur privé à Essaouira ?</h3>
+                    <p data-i18n="faqA2">Vous pouvez facilement commander un livreur en nous contactant directement par WhatsApp ou par téléphone au +212646897111 pour une expédition immédiate.</p>
                 </div>
                 <div class="faq-item">
-                    <h3>Proposez-vous la livraison pour les Riads et les expatriés ?</h3>
-                    <p>Oui, nous sommes spécialisés dans les services de conciergerie et la livraison de courses de supermarché (Carrefour) pour les Riads de la Médina et les expatriés installés à Essaouira.</p>
+                    <h3 data-i18n="faqQ3">Proposez-vous la livraison pour les Riads et les expatriés ?</h3>
+                    <p data-i18n="faqA3">Oui, nous sommes spécialisés dans les services de conciergerie et la livraison de courses de supermarché (Carrefour) pour les Riads de la Médina et les expatriés installés à Essaouira.</p>
                 </div>
             </div>
         </div>
@@ -1320,21 +1398,21 @@
     <section class="contact" id="contact">
         <div class="container">
             <div class="contact-info">
-                <h2 class="mb-8">Commandez un livreur à Essaouira maintenant</h2>
+                <h2 class="mb-8" data-i18n="ctTitle">Commandez un livreur à Essaouira maintenant</h2>
                 
                 <div class="contact-item" style="cursor: pointer;" onclick="copyToClipboard('+212646897111', 'phone-feedback')">
                     <div class="contact-icon phone">📞</div>
                     <div>
-                        <h3>Téléphone Service <button class="copy-btn-inline">Copier</button></h3>
+                        <h3><span data-i18n="ctPhone">Téléphone Service</span> <button class="copy-btn-inline" data-i18n="copyBtn">Copier</button></h3>
                         <span class="phone-number" style="font-weight: 600; color: #E8651F;">+212 6 46 89 71 11</span>
-                        <div id="phone-feedback" class="copy-feedback">Numéro copié !</div>
+                        <div id="phone-feedback" class="copy-feedback" data-i18n="copiedTxt">Numéro copié !</div>
                     </div>
                 </div>
 
                 <div class="contact-item">
                     <div class="contact-icon whatsapp">💬</div>
                     <div>
-                        <h3>WhatsApp Direct</h3>
+                        <h3 data-i18n="ctWp">WhatsApp Direct</h3>
                         <a href="https://wa.me/212646897111" target="_blank" class="phone-number">+212 6 46 89 71 11</a>
                     </div>
                 </div>
@@ -1342,7 +1420,7 @@
                 <div class="contact-item">
                     <div class="contact-icon instagram">📸</div>
                     <div>
-                        <h3>Instagram Officiel</h3>
+                        <h3 data-i18n="ctInsta">Instagram Officiel</h3>
                         <a href="https://www.instagram.com/livraison_a_domicile_essaouira?igsh=YjZhazVmdzIzMGFk" target="_blank">@livraison_a_domicile_essaouira</a>
                     </div>
                 </div>
@@ -1350,7 +1428,7 @@
                 <div class="contact-item">
                     <div class="contact-icon email">✉️</div>
                     <div>
-                        <h3>E-mail Professionnel</h3>
+                        <h3 data-i18n="ctMail">E-mail Professionnel</h3>
                         <a href="mailto:GJ.OASIS.SERVICES@GMAIL.COM">GJ.OASIS.SERVICES@GMAIL.COM</a>
                     </div>
                 </div>
@@ -1358,27 +1436,27 @@
                 <div class="contact-item">
                     <div class="contact-icon location">📍</div>
                     <div>
-                        <h3>Zone de couverture</h3>
-                        <p>Essaouira, Ghazoua, Diabat, Douar El Arab, Sidi Kaouki, Ounagha.</p>
+                        <h3 data-i18n="ctZone">Zone de couverture</h3>
+                        <p data-i18n="ctZoneDesc">Essaouira, Ghazoua, Diabat, Douar El Arab, Sidi Kaouki, Ounagha.</p>
                     </div>
                 </div>
 
                 <div class="contact-item">
                     <div class="contact-icon time">🕒</div>
                     <div>
-                        <h3>Heures d'ouverture</h3>
-                        <p>Lundi - Dimanche : De 09:00 à 00:00 non-stop.</p>
+                        <h3 data-i18n="ctHours">Heures d'ouverture</h3>
+                        <p data-i18n="ctHoursDesc">Lundi - Dimanche : De 09:00 à 00:00 non-stop.</p>
                     </div>
                 </div>
             </div>
 
             <div class="review-box">
                 <div style="font-size: 4rem; margin-bottom: 1rem;">⭐</div>
-                <h3 style="font-size: 1.6rem; color: #111827; margin-bottom: 1rem;">Votre avis compte pour nous !</h3>
-                <p style="color: #4B5563; margin-bottom: 2rem; font-size: 1.05rem; max-width: 400px;">
+                <h3 style="font-size: 1.6rem; color: #111827; margin-bottom: 1rem;" data-i18n="revTitle">Votre avis compte pour nous !</h3>
+                <p style="color: #4B5563; margin-bottom: 2rem; font-size: 1.05rem; max-width: 400px;" data-i18n="revDesc">
                     Vous avez testé notre service de livraison à Essaouira ? Soutenez Ghaith Jad Oasis Services en nous laissant une note de 5 étoiles sur notre fiche Google.
                 </p>
-                <a href="https://g.page/r/CcI_frKWle8CEAE/review" target="_blank" class="btn" style="width: 100%; max-width: 320px; text-decoration: none;">
+                <a href="https://g.page/r/CcI_frKWle8CEAE/review" target="_blank" class="btn" style="width: 100%; max-width: 320px; text-decoration: none;" data-i18n="revBtn">
                     Laisser un avis sur Google ★★★★★
                 </a>
             </div>
@@ -1389,8 +1467,8 @@
     <section class="partners">
         <div class="container">
             <div class="section-header">
-                <h2>Nos Partenaires de Confiance</h2>
-                <p>Ils font confiance à notre réseau logistique au quotidien</p>
+                <h2 data-i18n="partTitle">Nos Partenaires de Confiance</h2>
+                <p data-i18n="partSub">Ils font confiance à notre réseau logistique au quotidien</p>
             </div>
             <div class="partners-container">
                 <div class="partner-card">
@@ -1401,7 +1479,7 @@
                     <a href="https://wa.me/212701996683" target="_blank" class="partner-phone phone-number">
                         📞 +212 701-996683
                     </a>
-                    <a href="https://olyvetapenade.com" target="_blank" class="partner-link">
+                    <a href="https://olyvetapenade.com" target="_blank" class="partner-link" data-i18n="partLink">
                         Visiter le site web ←
                     </a>
                 </div>
@@ -1409,7 +1487,7 @@
                 <div class="partner-card">
                     <div style="display: flex; flex-direction: column; align-items: center;">
                         <img src="https://i.ibb.co/hJPNwwvq/IMG-20260521-WA0074.jpg" alt="Fatima Partner" class="partner-logo">
-                        <div class="partner-name">Fatima</div>
+                        <div class="partner-name" data-i18n="partnerFatima">Fatima</div>
                     </div>
                     <a href="https://wa.me/212606919794" target="_blank" class="partner-phone phone-number">
                         📞 +212 606-919794
@@ -1453,91 +1531,84 @@
             <div class="footer-grid">
                 <div class="footer-section">
                     <h4>Ghaith Jad Oasis</h4>
-                    <p>Votre service professionnel de livraison rapide à domicile et de transport logistique à Essaouira et sa région.</p>
-                    <p style="margin-top: 0.5rem;"><a href="https://www.instagram.com/livraison_a_domicile_essaouira?igsh=YjZhazVmdzIzMGFk" target="_blank" style="color: #E1306C; font-weight: 500;">📸 Suivez-nous sur Instagram</a></p>
+                    <p data-i18n="fDesc">Votre service professionnel de livraison rapide à domicile et de transport logistique à Essaouira et sa région.</p>
+                    <p style="margin-top: 0.5rem;"><a href="https://www.instagram.com/livraison_a_domicile_essaouira?igsh=YjZhazVmdzIzMGFk" target="_blank" style="color: #E1306C; font-weight: 500;" data-i18n="fInsta">📸 Suivez-nous sur Instagram</a></p>
                 </div>
                 <div class="footer-section">
-                    <h4>Liens Utiles</h4>
+                    <h4 data-i18n="fLinks">Liens Utiles</h4>
                     <ul>
-                        <li><a onclick="navigateToPage('home')">Accueil </a></li>
-                        <li><a onclick="navigateToPage('services-page')">Nos Services </a></li>
-                        <li><a onclick="navigateToPage('b2b-page')">Solutions B2B </a></li>
-                        <li><a onclick="navigateToPage('partners-page')">Partenaires </a></li>
+                        <li><a onclick="navigateToPage('home')" data-i18n="navHome">Accueil</a></li>
+                        <li><a onclick="navigateToPage('services-page')" data-i18n="navServices">Nos Services</a></li>
+                        <li><a onclick="navigateToPage('b2b-page')" data-i18n="navB2b">Solutions B2B</a></li>
+                        <li><a onclick="navigateToPage('partners-page')" data-i18n="navPartners">Partenaires</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h4>Contact Direct</h4>
+                    <h4 data-i18n="fContact">Contact Direct</h4>
                     <ul>
                         <li><a href="tel:+212646897111" class="phone-number">+212 6 46 89 71 11</a></li>
                         <li><a href="mailto:GJ.OASIS.SERVICES@GMAIL.COM">GJ.OASIS.SERVICES@GMAIL.COM</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h4>Zones Desservies</h4>
-                    <p>Essaouira Ville, Ghazoua, Diabat, Douar El Arab, Sidi Kaouki - Maroc</p>
+                    <h4 data-i18n="fZones">Zones Desservies</h4>
+                    <p data-i18n="fZonesDesc">Essaouira Ville, Ghazoua, Diabat, Douar El Arab, Sidi Kaouki - Maroc</p>
                 </div>
             </div>
             
             <div style="border-top: 1px solid #374151; padding-top: 1.5rem; margin-top: 1.5rem; text-align: left;">
-                <p style="font-size: 0.85rem; color: #9CA3AF; max-width: 900px; margin: 0 auto; line-height: 1.5;">
+                <p style="font-size: 0.85rem; color: #9CA3AF; max-width: 900px; margin: 0 auto; line-height: 1.5;" id="footer-about" data-i18n="fAbout">
                     <strong>À propos de la société :</strong> Ghaith Jad Oasis Services (GJO Services) est une société multi-services de logistique et de livraison du dernier kilomètre enregistrée au Maroc, opérant de manière permanente dans la province d'Essaouira. Nous fournissons des services de coursier express, de livraison de repas, de gestion de courses pour expatriés et d'assistance logistique B2B pour les entreprises locales.
                 </p>
             </div>
 
             <div class="footer-bottom" style="margin-top: 1.5rem;">
-                <p>&copy; 2026 Ghaith Jad Oasis Services. Tous droits réservés.</p>
+                <p>&copy; 2026 Ghaith Jad Oasis Services. <span data-i18n="fRights">Tous droits réservés.</span></p>
             </div>
         </div>
     </footer>
 
     <div class="floating-buttons">
         <a href="https://wa.me/212646897111" target="_blank" class="float-btn float-wp" title="Commander par WhatsApp">💬</a>
-        <a href="tel:+212646897111" class="float-btn float-call" title="Appeler le livreur">📞</a>
+        <a href="tel:+212646897111" class="float-btn float-call" title="Appeler le livreور">📞</a>
     </div>
 
     <script>
-        function navigateToPage(pageId) {
-            // 1. Masquer toutes les vues
-            var pages = document.querySelectorAll('.page-view');
-            pages.forEach(function(p) {
-                p.classList.remove('active-view');
-            });
-
-            // 2. Afficher la vue demandée
-            var targetPage = document.getElementById(pageId + '-view');
-            if(targetPage) {
-                targetPage.classList.add('active-view');
-            } else if (pageId === 'home') {
-                document.getElementById('home-view').classList.add('active-view');
-            }
-
-            // 3. Mettre à jour l'état actif dans la navbar
-            var navItems = document.querySelectorAll('.nav-item');
-            navItems.forEach(function(item) {
-                item.classList.remove('active');
-            });
-            
-            var activeNav = document.getElementById('nav-' + pageId);
-            if(activeNav) {
-                activeNav.classList.add('active');
-            }
-
-            // 4. Remonter en haut de la page automatiquement
-            window.scrollTo({top: 0, behavior: 'smooth'});
-        }
-
-        function copyToClipboard(text, feedbackId) {
-            navigator.clipboard.writeText(text).then(function() {
-                var feedback = document.getElementById(feedbackId);
-                feedback.style.display = 'block';
-                setTimeout(function() {
-                    feedback.style.display = 'none';
-                }, 2000);
-            }, function(err) {
-                console.error('Erreur lors de la copie : ', err);
-            });
-        }
-    </script>
-
-</body>
-</html>
+        // كائن الترجمات الدقيق 100% بدون أي أخطاء لغوية مع الحفاظ على الكلمات المفتاحية للـ SEO
+        const translations = {
+            fr: {
+                navSub: "Oasis Services", navHome: "Accueil", navServices: "Nos Services", navB2b: "Espace Entreprises", navPartners: "Nos Partenaires", navContact: "Contact",
+                heroTitle: "Livreur Essaouira | Livraison à Domicile Rapide & Fiable", heroDesc: "Que vous ayez besoin d'un livreur à Essaouira pour un colis urgent en Médina, d'une livraison à domicile de vos courses Carrefour à Ghazoua, ou d'un coursier express à Sidi Kaouki, notre équipe répond présent 7j/7.", heroBtn: "Commander un Livreur",
+                stepsTitle: "Comment ça marche ?", stepsSub: "Une livraison simple, rapide", step1Title: "Contactez-nous", step1Desc: "Envoyez votre liste de courses, l'adresse de récupération ou l'emplacement via WhatsApp ou par téléphone.", step2Title: "Achat & Expédition", step2Desc: "Notre coursier privé s'occupe de récupérer vos produits ou colis immédiatement avec le plus grand soin.", step3Title: "Livraison & Paiement", step3Desc: "Vous recevez votre commande directement à votre porte. Le paiement se fait en toute sécurité à la livraison.",
+                servicesMainTitle: "Votre Service de Livraison à Domicile à Essaouira", servicesMainSub: "Des solutions de coursier express rapides, sécurisées et adaptées aux résidents et expatriés",
+                srv1Title: "Coursier Express & Colis", srv1Desc: "Envoi et réception de vos colis importants, documents et marchandises urgentes en moins de 1 heure partout à Essaouira.", learnMore: "En savoir plus →", srv2Title: "Courses & Achats", srv2Desc: "Nous faisons vos courses de supermarché (Carrefour Essaouira, ASWAK ASSALAM, ATACADAO), récupérons vos produits du quotidien.", srv3Title: "Suivi de Colis", srv3Desc: "Restez en contact permanent avec votre coursier privé et suivez l'avancement de votre livraison étape par étape.", srv4Title: "Pharmacies de Garde", srv4Desc: "Besoin de médicaments en urgence ? Découvrez en temps réel les pharmacies de garde ouvertes actuellement à Essaouira.", srv4Btn: "Voir les Pharmacies ↗",
+                engTitle: "Nos Engagements pour un Service Premium", engSub: "La garantie d'une livraison réussie et d'une confiance totale à chaque commande", eng1Title: "Sécurité & Confidentialité", eng1Desc: "Vos colis précieux, documents confidentiels et achats de valeur sont transportés avec le plus grand soin.", eng2Title: "Ponctualité Absolue", eng2Desc: "Nous respectons scrupuleusement vos créneaux horaires pour vos courses à Carrefour Essaouira.", eng3Title: "Meilleur Rapport Qualité/Prix", eng3Desc: "Des tarifs transparents, clairs et fixes adaptés à votre budget pour toutes les zones.",
+                expatTitle: "Looking for a Reliable Delivery Service in Essaouira?", expatDesc: "Whether you are an expatriate living in Ghazoua, a digital nomad working from Sidi Kaouki, or staying in a Riad in the Medina, Ghaith Jad Oasis Services provides top-notch private courier and grocery delivery solutions.", expatBtn: "Order a Courier on WhatsApp",
+                priceTitle: "Des Tarifs Fixes & Transparents", priceSub: "Pas de mauvaise surprise ! Vous connaissez le tarif de livraison selon votre zone géographique", p1Title: "Essaouira Ville", p1Desc: "Livraison rapide dans tous les quartiers de la ville d'Essaouira (Médina, Corniche, Borj, Sqala, Azlef, Argana...)", p2Title: "Périphérie Proche", p2Desc: "Livraison de confiance pour <strong>Ghazoua</strong>, <strong>Diabat</strong>, et <strong>Douar El Arab</strong>.", p3Title: "Sidi Kaouki/Ounagha", p3Desc: "Service coursier express longue distance sécurisé jusqu'à la zone de Sidi Kaouki et Ounagha.",
+                spSrvHeader: "Nos Services de Livraison Détaillés", spSrvSub: "Découvrez l'ensemble de nos prestations sur-mesure à Essaouira", spSrv1Title: "⚡ Coursier Express du Quotidien", spSrv1Desc: "Besoin de faire parvenir des clés oubliées à Ghazoua ? Un document urgent à signer en Médina ? Nos coursiers express à moto se déplacent immédiatement. Nous garantissons une prise en charge rapide et un dépôt en main propre en toute sécurité.", spSrv2Title: "🛒 Gestion Complète de vos Courses (Supermarchés & Marchés & Souk)", spSrv2Desc: "Ne perdez plus votre temps dans les files d'attente de Carrefour Essaouira ou d'Aswak Assalam. Vous nous envoyez votre liste détaillée par message WhatsApp, nous effectuons les achats scrupuleusement, gardons les tickets de caisse, et vous livrons le tout directement chez vous ou à votre Riad.", spSrv3Title: "📦 Logistique Spéciale Expatriés & Riads", spSrv3Desc: "Parce que la gestion d'une maison d'hôtes ou l'installation dans une nouvelle ville demande de la flexibilité, nous vous proposons un livreur privé dédié. Livraison d'eau, de bouteilles de gaz, récupération de colis postaux ou livraison de linge de maison, nous gérons tout votre quotidien.", backHome: "← Retourner à l'accueil",
+                spB2bHeader: "Espace Entreprises & Solutions B2B", spB2bSub: "Optimisez votre logistique du dernier kilomètre avec un partenaire fiable", spB2b1Title: "🍔 Livraison Restauration Intégrale", spB2b1Desc: "Vous êtes gérant d'un restaurant, snack ou café à Essaouira ? Proposez la livraison à domicile à vos clients sans subir les commissions exorbitantes des applications tierces. Nous mettons à votre disposition des livreurs équipés de caissons isothermes haut de gamme pour maintenir vos plats à température idéale.", spB2b2Title: "🌿 Partenariat Coopératives & Artisans", spB2b2Desc: "Valorisez votre chaîne de distribution. Nous récupérons vos produits cosmétiques, bouteilles d'Huile d'Argan ou pots d'Amlou directement depuis vos unités de production à Smimou ou Ghazoua pour approvisionner vos clients finaux ou vos points de vente dans la Médina.", spB2b3Title: "💵 Cash on Delivery (Paiement à la Livraison)", spB2b3Desc: "Pour les e-commerçants basés à Essaouira, nous offrons un service d'expédition avec encaissement des fonds. Vos paiements sont sécurisés et reversés périodiquement selon vos préférences logistiques.",
+                spPartHeader: "Réseau de Partenaires Officiels", spPartSub: "Découvrez les commerces locaux et entrepreneurs d'Essaouira qui collaborent avec nous", spPartDesc1: "Nous travaillons main dans la main avec des entreprises sérieuses pour dynamiser l'économie locale et faciliter la vie des habitants d'Essaouira.", spPartDesc2: "Retrouvez la liste complète et détaillée de nos partenaires de confiance ci-dessous sur notre section dédiée.", spPartBtn: "Voir la Grille des Partenaires ↓",
+                b2bTitle: "Solutions Logistiques pour Entreprises & Riads", b2bSub: "Externalisez vos livraisons et offrez un service premium à vos clients à Essaouira", b2bCard1Title: "Restaurants & Cafés", b2bCard1Desc: "Livrez les plats chauds à vos clients résidant à Essaouira ou Ghazoua grâce à nos caissons isothermes professionnels.", b2bCard2Title: "Riads & Conciergerie Privée", b2bCard2Desc: "Offrez un service VIP à vos touristes : transfert de bagages express, courses de dernière minute ou livraison.", b2bCard3Title: "Coopératives d'Argan", b2bCard3Desc: "Expédition rapide de vos produits locaux de valeur depuis vos ateliers jusqu'à vos boutiques de la Médina.", b2bCard4Title: "E-commerce & Boutiques", b2bCard4Desc: "Service professionnel de livraison du dernier kilomètre avec encaissement (Cash on Delivery) fiable.",
+                whyTitle: "Le Choix N°1 pour la Livraison à Domicile à Essaouira", whyL1: "<strong>Rapidité absolue :</strong> Respect strict des délais annoncés pour toutes vos courses.", whyL2: "<strong>Chauffeurs professionnels :</strong> Une équipe de confiance qui maîtrise parfaitement les adresses de la région.", whyL3: "<strong>Idéal pour Expatriés & Nomades :</strong> Communication fluide et services adaptés aux résidents francophones.", whyL4: "<strong>Tarifs transparents :</strong> Des prix fixes, compétitifs et clairs sans mauvaise surprise.", whyL5: "<strong>Large couverture locale :</strong> Essaouira Centre, Ghazoua, Sidi Kaouki, Diabat, Douar El Arab, Ounagha.",
+                testiTitle: "Avis de nos clients satisfaits", testiSub: "La confiance et la satisfaction de nos clients restent notre plus grande priorité", t1Text: "\"Un service exceptionnel à Essaouira ! Habitant à Ghazoua, j'avais toujours du mal avec les livraisons. Ghaith Jad Oasis est super rapide, ponctuel et très courtois.\"", t1Role: "Expatrié résident", t2Name: "Coopérative Bio", t2Role: "Client B2B - Médina", t3Text: "\"Sauvetage de dernière minute ! J'avais besoin de courses urgentes au supermarché pour mon Riad. Le livreur a été hyper réactif, communication au top sur WhatsApp.\"", t3Role: "Gérante de Maison d'Hôtes",
+                faqMainTitle: "Foire Aux Questions (FAQ)", faqMainSub: "Tout ce que vous devez savoir sur notre service de coursier express", faqQ1: "Quel est le meilleur service de livraison à Essaouira et Ghazoua ?", faqA1: "Ghaith Jad Oasis Services est le service de livraison N°1 à Essaouira, Ghazoua et Sidi Kaouki, offrant des coursiers rapides et fiables pour particuliers, restaurants et professionnels.", faqQ2: "Comment commander un livreur privé à Essaouira ?", faqA2: "Vous pouvez facilement commander un livreur en nous contactant directement par WhatsApp ou par téléphone au +212646897111 pour une expédition immédiate.", faqQ3: "Proposez-vous la livraison pour les Riads et les expatriés ?", faqA3: "Oui, nous sommes spécialisés dans les services de conciergerie et la livraison de courses de supermarché (Carrefour) pour les Riads de la Médina et les expatriés installés à Essaouira.",
+                ctTitle: "Commandez un livreur à Essaouira maintenant", ctPhone: "Téléphone Service", copyBtn: "Copier", copiedTxt: "Numéro copié !", ctWp: "WhatsApp Direct", ctInsta: "Instagram Officiel", ctMail: "E-mail Professionnel", ctZone: "Zone de couverture", ctZoneDesc: "Essaouira, Ghazoua, Diabat, Douar El Arab, Sidi Kaouki, Ounagha.", ctHours: "Heures d'ouverture", ctHoursDesc: "Lundi - Dimanche : De 09:00 à 00:00 non-stop.", revTitle: "Votre avis compte pour nous !", revDesc: "Vous avez testé notre service de livraison à Essaouira ? Soutenez Ghaith Jad Oasis Services en nous laissant une note de 5 étoiles sur notre fiche Google.", revBtn: "Laisser un avis sur Google ★★★★★",
+                partTitle: "Nos Partenaires de Confiance", partSub: "Ils font confiance à notre réseau logistique au quotidien", partLink: "Visiter le site web ←", partnerFatima: "Fatima",
+                fDesc: "Votre service professionnel de livraison rapide à domicile et de transport logistique à Essaouira et sa région.", fInsta: "📸 Suivez-nous sur Instagram", fLinks: "Liens Utiles", fContact: "Contact Direct", fZones: "Zones Desservies", fZonesDesc: "Essaouira Ville, Ghazoua, Diabat, Douar El Arab, Sidi Kaouki - Maroc", fAbout: "<strong>À propos de la société :</strong> Ghaith Jad Oasis Services (GJO Services) est une société multi-services de logistique et de livraison du dernier kilomètre enregistrée au Maroc, opérant de manière permanente dans la province d'Essaouira. Nous fournissons des services de coursier express, de livraison de repas, de gestion de courses pour expatriés et d'assistance logistique B2B pour les entreprises locales.", fRights: "Tous droits réservés."
+            },
+            ar: {
+                navSub: "لخدمات الواحة", navHome: "الرئيسية", navServices: "خدماتنا", navB2b: "فضاء الشركات", navPartners: "شركاؤنا", navContact: "اتصل بنا",
+                heroTitle: "لورير الصويرة | خدمة توصيل منزلي سريعة وموثوقة", heroDesc: "سواء كنت بحاجة إلى توصيل طرود عاجلة في المدينة العتيقة بالصويرة، أو توصيل مشترياتك من كارفور إلى الغزوة، أو كورسيي إكسبريس إلى سيدي كاوكي، فريقنا في الخدمة 7 أيام في الأسبوع.", heroBtn: "اطلب موزع الآن",
+                stepsTitle: "كيف تعمل الخدمة؟", stepsSub: "توصيل بسيط، آمن وسريع", step1Title: "تواصل معنا", step1Desc: "أرسل قائمة مشترياتك، عنوان الاستلام أو موقعك (Localisation) مباشرة عبر الواتساب أو الهاتف.", step2Title: "الشراء والشحن", step2Desc: "يتولى موزعنا الخاص اقتناء سلعك أو طرودك فوراً ونقلها بأقصى درجات العناية والأمان.", step3Title: "التسليم والدفع", step3Desc: "تستلم طلبيتك مباشرة عند باب منزلك، ويتم الدفع نقداً بكل أمان عند التسليم.",
+                servicesMainTitle: "خدمة التوصيل المنزلي الاحترافية بالصويرة", servicesMainSub: "حلول كورسيي إكسبريس سريعة، آمنة ومثالية للمقيمين والأجانب",
+                srv1Title: "كورسيي إكسبريس وطرود", srv1Desc: "إرسال واستلام طرودكم الهامة، وثائقكم وبضائعكم المستعجلة في أقل من ساعة في أي مكان بالصويرة.", learnMore: "اكتشف المزيد ←", srv2Title: "المشتريات والتسوق", srv2Desc: "نقوم بالتسوق بدلاً عنكم من السوبرماركت (كارفور الصويرة، أسواق السلام، أتاكاداو) وتوصيل مستلزماتكم اليومية.", srv3Title: "تتبع الطرود", srv3Desc: "ابقَ على اتصال دائم ومباشر مع الموزع الخاص بك لمتابعة مسار شحنتك خطوة بخطوة.", srv4Title: "صيدليات الحراسة", srv4Desc: "هل تحتاج أدوية بشكل عاجل؟ تعرف في الوقت الفعلي على صيدليات الحراسة المفتوحة الآن في الصويرة.", srv4Btn: "عرض الصيدليات ↗",
+                engTitle: "التزاماتنا لخدمة ممتازة", engSub: "ضمان التوصيل الناجح والثقة الكاملة مع كل طلبية", eng1Title: "الأمان والسرية", eng1Desc: "يتم نقل طرودكم الثمينة، وثائقكم السرية ومشترياتكم القيمة بأعلى درجات الحرص والأمان.", eng2Title: "الالتزام التام بالوقت", eng2Desc: "نحترم مواعيدكم بكل دقة لتوصيل طلباتكم ومشترياتكم من كارفور الصويرة ونواحيها.", eng3Title: "أفضل جودة مقابل السعر", eng3Desc: "أسعار ثابتة، شفافة وواضحة تناسب ميزانيتكم وتغطي جميع المناطق دون مفاجآت.",
+                expatTitle: "Looking for a Reliable Delivery Service in Essaouira?", expatDesc: "Whether you are an expatriate living in Ghazoua, a digital nomad working from Sidi Kaouki, or staying in a Riad in the Medina, Ghaith Jad Oasis Services provides top-notch private courier and grocery delivery solutions.", expatBtn: "Order a Courier on WhatsApp",
+                priceTitle: "أسعار ثابتة وشفافة", priceSub: "بدون مفاجآت سيئة! تعرف على تعرفة التوصيل حسب منطقتك الجغرافية", p1Title: "مدينة الصويرة", p1Desc: "توصيل سريع إلى جميع أحياء مدينة الصويرة (المدينة العتيقة، الكورنيش، البرج، السقالة، أزلف، أركانة...)", p2Title: "النواحي القريبة", p2Desc: "خدمة توصيل موثوقة إلى كل من <strong>الغزوة</strong>، <strong>ديابات</strong>، و <strong>دوار العرب</strong>.", p3Title: "سيدي كاوكي / أوناغة", p3Desc: "خدمة كورسيي إكسبريس آمنة للمسافات الطويلة تصل إلى منطقة سيدي كاوكي وأوناغة.",
+                spSrvHeader: "خدمات التوصيل بالتفصيل", spSrvSub: "اكتشف مجموعة خدماتنا المصممة خصيصاً لتلبية احتياجاتك في الصويرة", spSrv1Title: "⚡ كورسيي إكسبريس يومي", spSrv1Desc: "هل نسيت مفاتيحك في الغزوة؟ وثيقة عاجلة تحتاج توقيعاً في المدينة العتيقة؟ يتحرك موزعونا فوراً بالدراجات النارية لضمان استلام وتسليم طرودكم يداً بيد بكل أمان.", spSrv2Title: "🛒 إدارة كاملة لمشترياتكم (أسواق ممتازة، مارشي وسوق)", spSrv2Desc: "لا تضيع وقتك في طوابير كارفور الصويرة أو أسواق السلام. أرسل لنا قائمتك المفصلة عبر الواتساب، وسنتولى الشراء بدقة مع تزويدك بـ تيكيت الفاتورة وتوصيل كل شيء لباب بيتك أو الرياض.", spSrv3Title: "📦 لوجستيك خاص بالأجانب والمغتربين والرياضات", spSrv3Desc: "لأن إدارة دور الضيافة أو الاستقرار في مدينة جديدة يتطلب مرونة، نوفر لك موزعاً خاصاً لتوصيل الماء، قنينات الغاز، استلام الطرود البريدية، أو نقل الأفرشة والملابس.", backHome: "← العودة إلى الرئيسية",
+                spB2bHeader: "فضاء الشركات وحلول B2B", spB2bSub: "قم بتحسين لوجستيات التوصيل لعملائك مع شريك موثوق", spB2b1Title: "🍔 توصيل مطاعم متكامل", spB2b1Desc: "هل تدير مطعماً أو مقهى في الصويرة؟ قدم خدمة التوصيل لزبائنك دون دفع عمولات خيالية للتطبيقات. نوفر لك موزعين مجهزين بصناديق عازلة للحرارة (Caissons isothermes) للحفاظ على الوجبات ساخنة وطازجة.", spB2b2Title: "🌿 شراكة التعاونيات والحرفيين", spB2b2Desc: "عزز شبكة توزيعك. نقوم باستلام منتجات التجميل، زيت الأركان أو الأملو مباشرة من وحدات الإنتاج الخاصة بكم في سميمو أو الغزوة لتزويد زبائنكم أو نقاط البيع بالمدينة العتيقة.", spB2b3Title: "💵 الدفع عند الاستلام (Cash on Delivery)", spB2b3Desc: "لأصحاب التجارة الإلكترونية في الصويرة، نقدم خدمة شحن احترافية مع تحصيل الأموال من الزبائن وتسليمها لكم بشكل دوري وآمن.",
+                spPartHeader: "شبكة الشركاء الرسميين", spPartSub: "تعرف على الشركات المحلية والمقاولين بالصويرة الذين يثقون في خدماتنا", spPartDesc1: "نعمل يداً بيد مع مقاولات جادة لدعم الاقتصاد المحلي وتسهيل الحياة اليومية لساكنة الصويرة وزوارها.", spPartDesc2: "تجدون القائمة الكاملة والتفصيلية لشركائنا الموثوقين أسفله في القسم المخصص.", spPartBtn: "عرض شبكة الشركاء ↓",
+                b2bTitle: "حلول لوجستية للشركات والرياضات", b2bSub: "أوكل مهام التوصيل إلينا وقدم خدمة راقية لعملائك في الصويرة والنواحي", b2bCard1Title: "المطاعم والمقاهي", b2bCard1Desc: "توصيل الوجبات الساخنة لزبائنكم في الصويرة أو الغزوة بفضل صناديقنا الحرارية الاحترافية.", b2bCard2Title: "الرياضات والكونسيرجيري", b2bCard2Desc: "وفر خدمة VIP للسياح: نقل الأمتعة السريع، قضاء المشتريات المستعجلة والتوصيل الفوري.", b2bCard3Title: "تعاونيات الأركان", b2bCard3Desc: "شحن سريع لمنتجاتكم المحلية القيمة من ورشات الإنتاج إلى المتاجر والبازارات بالمدينة العتيقة.", b2bCard4Title: "التجارة الإلكترونية والمتاجر", b2bCard4Desc: "خدمة احترافية لتوصيل الميل الأخير (Last-mile) مع ميزة الدفع عند الاستلام الموثوقة.",
+                whyTitle: "الخيار رقم 1 للتوصيل المنزلي بالصويرة", whyL1: "<strong>سرعة مطلقة:</strong> احترام تام ودقيق للمواعيد والآجال المعلنة لكل طلبياتكم.", whyL2: "<strong>موزعون محترفون:</strong> فريق موثوق يعرف جيداً كافة عناوين، أزقة ومناطق الإقليم.", whyL3: "<strong>مثالي للمغتربين والأجانب:</strong> تواصل سلس وخدمات مصممة لتناسب المقيمين الناطقين بالفرنسية والإنجليزية.", whyL4: "<strong>أسعار شفافة:</strong> أسعار ثابتة وتنافسية واضحة تماماً بدون أي مصاريف مخفية.", whyL5: "<strong>تغطية محلية واسعة:</strong> مركز الصويرة، الغزوة، سيدي كاوكي، ديابات، دوار العرب، أوناغة.",
+                testiTitle: "آراء عملائنا الكرام", testiSub: "ثقة ورضا زبائننا تظل دائماً على رأس أولوياتنا", t1Text: "\"خدمة استثنائية في الصويرة! بحكم إقامتي في الغزوة، كنت أجد صعوبة في التوصيل. فريق غيث جاد سريع ومحترم وملتزم بالوقت.\"", t1Role: "مقيم أجنبي", t2Name: "تعاونية بيو", t2Role: "زبون B2B - المدينة العتيقة", t3Text: "\"إنقاذ في آخر لحظة! احتجت مشتريات عاجلة من السوبرماركت للرياض الخاص بي. الموزع كان سريع الاستجابة والتواصل ممتاز على الواتساب.\"", t3Role: "مسيرة دار ضيافة",
+                faqMainTitle: "الأسئلة الشائعة (FAQ)", faq
