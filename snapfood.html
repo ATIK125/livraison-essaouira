@@ -1,0 +1,858 @@
+<!-- يمكنك نسخ الكود بالكامل من هنا أو تحميل الملف الجاهز index.html مباشرة من الأعلى -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snap Food Menu</title>
+    <!-- Boxicons for modern premium icons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FFFC00;
+            --dark: #111111;
+            --dark-accent: #1e1e1e;
+            --light: #f5f5f7;
+            --whatsapp: #25D366;
+            --text-dark: #111111;
+            --text-muted: #666666;
+            --border: #e0e0e0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: all 0.2s ease;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--text-dark);
+            padding-bottom: 60px;
+        }
+
+        /* Language Switcher Navbar */
+        .top-nav {
+            background-color: var(--dark);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .logo-area i {
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+
+        .lang-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .lang-btn {
+            background: #222;
+            color: white;
+            border: 1px solid #444;
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .lang-btn.active {
+            background-color: var(--primary);
+            color: var(--dark);
+            border-color: var(--primary);
+        }
+
+        /* Hero Banner */
+        .hero {
+            background-color: var(--dark-accent);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.85;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Layout Container */
+        .main-layout {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            display: flex;
+            gap: 30px;
+            position: relative;
+        }
+
+        /* Menu Section */
+        .menu-container {
+            flex: 1;
+        }
+
+        .category-block {
+            margin-bottom: 40px;
+        }
+
+        .category-header {
+            background: var(--dark);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .category-header i {
+            color: var(--primary);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .product-info h3 {
+            font-size: 1.15rem;
+            margin-bottom: 6px;
+            font-weight: 700;
+        }
+
+        .product-info .desc {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            line-height: 1.4;
+            min-height: 40px;
+        }
+
+        .variant-selector {
+            margin-bottom: 15px;
+        }
+
+        .variant-selector label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--text-muted);
+        }
+
+        .variant-selector select {
+            width: 100%;
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            background: #fafafa;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .product-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed var(--border);
+        }
+
+        .price-display {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #e02424;
+        }
+
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            background: var(--light);
+            border-radius: 20px;
+            padding: 2px;
+            border: 1px solid var(--border);
+        }
+
+        .qty-btn {
+            background: transparent;
+            border: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .qty-btn:hover {
+            background: #e0e0e0;
+        }
+
+        .qty-val {
+            width: 30px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .add-to-cart-btn {
+            background-color: var(--primary);
+            color: var(--dark);
+            border: none;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: #e5e200;
+        }
+
+        /* Floating Sidebar Cart (Panier Flottant) */
+        .cart-sidebar {
+            width: 360px;
+            background: white;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            padding: 20px;
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .cart-title i {
+            font-size: 1.5rem;
+        }
+
+        .cart-items-list {
+            max-height: 320px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+            padding-right: 5px;
+        }
+
+        .cart-item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 0.9rem;
+        }
+
+        .cart-item-details {
+            flex: 1;
+            padding-right: 10px;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+        }
+
+        .cart-item-sub {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        .cart-item-right {
+            text-align: right;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .remove-item-btn {
+            background: transparent;
+            border: none;
+            color: #ff4d4d;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        .cart-summary {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .summary-row.total-row {
+            border-top: 1px solid #ddd;
+            padding-top: 8px;
+            margin-bottom: 0;
+            font-weight: bold;
+            font-size: 1.15rem;
+            color: var(--dark);
+        }
+
+        .submit-order-btn {
+            background-color: var(--whatsapp);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .submit-order-btn:hover {
+            background-color: #20ba5a;
+            transform: translateY(-2px);
+        }
+
+        .empty-cart-text {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 30px 0;
+            font-style: italic;
+        }
+
+        /* RTL Adjustments */
+        body.rtl-mode {
+            direction: rtl;
+        }
+        body.rtl-mode .category-header, 
+        body.rtl-mode .product-footer,
+        body.rtl-mode .cart-title,
+        body.rtl-mode .summary-row,
+        body.rtl-mode .cart-item-row {
+            direction: rtl;
+        }
+        body.rtl-mode .cart-item-details {
+            padding-right: 0;
+            padding-left: 10px;
+        }
+        body.rtl-mode .cart-item-right {
+            text-align: left;
+        }
+
+        @media (max-width: 992px) {
+            .main-layout {
+                flex-direction: column;
+            }
+            .cart-sidebar {
+                width: 100%;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                top: auto;
+                z-index: 2000;
+                border-radius: 16px 16px 0 0;
+                box-shadow: 0 -5px 25px rgba(0,0,0,0.15);
+                max-height: 70vh;
+                display: none;
+            }
+            .cart-sidebar.mobile-open {
+                display: flex;
+            }
+            .mobile-cart-toggle {
+                display: flex !important;
+            }
+        }
+
+        .mobile-cart-toggle {
+            display: none;
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            background: var(--dark);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            z-index: 3000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+        .mobile-cart-toggle .badge {
+            background: var(--primary);
+            color: var(--dark);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="top-nav">
+        <div class="logo-area">
+            <i class='bx bxs-ghost'></i>
+            <span>Snap Food</span>
+        </div>
+        <div class="lang-buttons">
+            <button class="lang-btn" onclick="setLanguage('ar')">العربية</button>
+            <button class="lang-btn active" onclick="setLanguage('fr')">Français</button>
+            <button class="lang-btn" onclick="setLanguage('en')">English</button>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1 id="hero-title">Snap Food Menu</h1>
+        <p id="hero-desc">Délicieux & Frais - Choisissez vos plats préférés et commandez directement via WhatsApp !</p>
+    </header>
+
+    <main class="main-layout">
+        <section class="menu-container" id="menu-sections-wrapper"></section>
+
+        <aside class="cart-sidebar" id="floating-cart">
+            <div class="cart-title">
+                <span id="cart-header-text">Mon Panier</span>
+                <i class='bx bx-shopping-bag' style="color: var(--primary);"></i>
+            </div>
+            <div class="cart-items-list" id="cart-items-container">
+                <div class="empty-cart-text" id="empty-msg">Votre panier est vide</div>
+            </div>
+            <div class="cart-summary">
+                <div class="summary-row">
+                    <span id="lbl-items-count">Articles</span>
+                    <span id="summary-count">0</span>
+                </div>
+                <div class="summary-row total-row">
+                    <span id="lbl-total">Total</span>
+                    <span><span id="summary-total">0</span> DH</span>
+                </div>
+            </div>
+            <button class="submit-order-btn" onclick="sendWhatsAppOrder()">
+                <i class='bx bxl-whatsapp'></i>
+                <span id="btn-send-text">Envoyer sur WhatsApp</span>
+            </button>
+        </aside>
+    </main>
+
+    <button class="mobile-cart-toggle" onclick="toggleMobileCart()">
+        <i class='bx bx-shopping-bag'></i>
+        <span id="lbl-mob-cart">Panier</span>
+        <span class="badge" id="mobile-badge">0</span>
+    </button>
+
+    <script>
+        const dict = {
+            fr: {
+                heroTitle: "Snap Food Menu",
+                heroDesc: "Délicieux & Frais - Choisissez vos plats préférés et commandez directement via WhatsApp !",
+                cartHeader: "Mon Panier",
+                emptyCart: "Votre panier est vide",
+                itemsCount: "Articles",
+                total: "Total",
+                sendBtn: "Envoyer sur WhatsApp",
+                addBtn: "Ajouter",
+                sizeLabel: "Taille / Option :",
+                mobCart: "Panier",
+                alertEmpty: "Votre panier est vide ! Veuillez ajouter des produits.",
+                cartFormatTitle: "Bonjour Snap Food, voici ma commande :"
+            },
+            ar: {
+                heroTitle: "منيو سـناب فـود",
+                heroDesc: "بنين وجديد - اختر وجباتك المفضلة وأرسل طلبك مباشرة عبر الواتساب !",
+                cartHeader: "سلة المشتريات",
+                emptyCart: "السلة فارغة حالياً",
+                itemsCount: "عدد المنتجات",
+                total: "المجموع الإجمالي",
+                sendBtn: "إرسال الطلب عبر الواتساب",
+                addBtn: "إضافة للسلة",
+                sizeLabel: "الحجم / الخيار :",
+                mobCart: "السلة",
+                alertEmpty: "سلتك فارغة! يرجى إضافة بعض المأكولات أولاً.",
+                cartFormatTitle: "مرحباً Snap Food، أريد تقديم طلب جديد :"
+            },
+            en: {
+                heroTitle: "Snap Food Menu",
+                heroDesc: "Delicious & Fresh - Choose your favorite meals and order directly via WhatsApp!",
+                cartHeader: "My Cart",
+                emptyCart: "Your cart is empty",
+                itemsCount: "Items count",
+                total: "Total Amount",
+                sendBtn: "Send via WhatsApp",
+                addBtn: "Add to Cart",
+                sizeLabel: "Size / Option:",
+                mobCart: "Cart",
+                alertEmpty: "Your cart is empty! Please add some items first.",
+                cartFormatTitle: "Hello Snap Food, here is my order:"
+            }
+        };
+
+        const fullMenuData = [
+            {
+                category: "Pizza 🍕", icon: "bx-pizza",
+                items: [
+                    { name: "Margarita", desc: "Sauce tomate, mozzarella, olive", variants: [{label: "M", price: 15}, {label: "G", price: 25}] },
+                    { name: "Végétarienne", desc: "Légume, Sauce tomate, mozzarella, olive", variants: [{label: "M", price: 20}, {label: "G", price: 30}] },
+                    { name: "Italiène", desc: "Sauce tomate, mozzarella, olive, charcuterie", variants: [{label: "M", price: 25}, {label: "G", price: 35}] },
+                    { name: "Thon Pizza", desc: "Sauce tomate, mozzarella, Thon", variants: [{label: "M", price: 25}, {label: "G", price: 35}] },
+                    { name: "4 Fromages", desc: "Crème fraîche, mozzarella, 4 fromages", variants: [{label: "M", price: 25}, {label: "G", price: 35}] },
+                    { name: "Viande hachée Pizza", desc: "Sauce tomate, mozzarella, Viande hachée", variants: [{label: "M", price: 25}, {label: "G", price: 35}] },
+                    { name: "Dinde Pizza", desc: "Sauce tomate, mozzarella, olive, Dinde", variants: [{label: "M", price: 25}, {label: "G", price: 35}] },
+                    { name: "Fruits de mer", desc: "Sauce tomate, mozzarella, Crevette, calamar", variants: [{label: "M", price: 30}, {label: "G", price: 40}] },
+                    { name: "Royal", desc: "Toutes les garnitures incluses", variants: [{label: "M", price: 30}, {label: "G", price: 45}] }
+                ]
+            },
+            {
+                category: "Tacos 🌯", icon: "bx-wrap",
+                items: [
+                    { name: "Tacos Viande hachée", desc: "Sauce fromagère, frites", variants: [{label: "Sans Frite", price: 25}, {label: "Avec Frite", price: 30}] },
+                    { name: "Tacos Dinde", desc: "Sauce au choix, frites, dinde", variants: [{label: "Sans Frite", price: 25}, {label: "Avec Frite", price: 30}] },
+                    { name: "Tacos Mixte", desc: "Mélange de viandes savoureuses", variants: [{label: "Sans Frite", price: 30}, {label: "Avec Frite", price: 35}] },
+                    { name: "Tacos Nuggets", desc: "Nuggets croustillants", variants: [{label: "Sans Frite", price: 30}, {label: "Avec Frite", price: 35}] },
+                    { name: "Tacos Chawarma", desc: "Viande chawarma marinée", variants: [{label: "Sans Frite", price: 30}, {label: "Avec Frite", price: 35}] }
+                ]
+            },
+            {
+                category: "Jus 🍹", icon: "bx-drink",
+                items: [
+                    { name: "Jus Pommes", price: 10 }, { name: "Jus Banane", price: 10 },
+                    { name: "Jus D'orange", price: 13 }, { name: "Jus Avocat", price: 15 },
+                    { name: "Jus Avocat fruits secs", price: 20 }, { name: "Jus Mangue", price: 20 },
+                    { name: "Jus Ananas", price: 20 }, { name: "Jus Papaye", price: 15 },
+                    { name: "Jus Panaché", price: 15 }
+                ]
+            },
+            {
+                category: "Plat 🍽️", icon: "bx-dish",
+                items: [
+                    { name: "Plat Viande hachée", price: 30 }, { name: "Plat Dinde", price: 30 },
+                    { name: "Plat Saucisse", price: 30 }, { name: "Plat Mixte", price: 35 },
+                    { name: "Plat Nuggette", price: 35 }
+                ]
+            },
+            {
+                category: "Burger 🍔", icon: "bx-cookie",
+                items: [
+                    { name: "Cheese burger", price: 20 },
+                    { name: "Eags burger", price: 25 },
+                    { name: "Big burger", price: 30 }
+                ]
+            },
+            {
+                category: "Sandwich 🥪", icon: "bx-bread",
+                items: [
+                    { name: "Sandwich Thon", price: 13 }, { name: "Sandwich Omelette", price: 13 },
+                    { name: "Sandwich Dinde", price: 15 }, { name: "Sandwich Saucisse", price: 15 },
+                    { name: "Sandwich Viande hachée", price: 15 }, { name: "Sandwich Mixte", price: 20 },
+                    { name: "Sandwich Chawarma", price: 20 }
+                ]
+            },
+            {
+                category: "Pasticcio 🥘", icon: "bx-bowl-hot",
+                items: [
+                    { name: "Pasticcio Viande hachée", price: 30 }, { name: "Pasticcio Dinde", price: 30 },
+                    { name: "Pasticcio Mixte", price: 35 }, { name: "Pasticcio Neggette", price: 35 },
+                    { name: "Pasticcio Dinde fumée", price: 30 }
+                ]
+            },
+            {
+                category: "Baguette 🥖", icon: "bx-fridge",
+                items: [
+                    { name: "Baguette Viande hachée", price: 30 }, { name: "Baguette Dinde", price: 30 },
+                    { name: "Baguette Dinde fumée", price: 30 }, { name: "Baguette Mixte", price: 35 }
+                ]
+            },
+            {
+                category: "Panini 🥪", icon: "bx-select-multiple",
+                items: [
+                    { name: "Panini Thon", price: 13 }, { name: "Panini Fromage", price: 15 },
+                    { name: "Panini Dinde", price: 17 }, { name: "Panini Viande hachée", price: 17 },
+                    { name: "Panini Chawarma", price: 25 }, { name: "Panini Mixte", price: 25 }
+                ]
+            },
+            {
+                category: "Chawarma Wrap 🌯", icon: "bx-circle-quarter",
+                items: [
+                    { name: "Chawarma (sans frit)", price: 25 },
+                    { name: "Chawarma (avec frit)", price: 30 }
+                ]
+            },
+            {
+                category: "Poulet Rôti 🍗", icon: "bx-bone",
+                items: [
+                    { name: "1/4 Poulet", price: 30 },
+                    { name: "1/2 Poulet", price: 60 },
+                    { name: "Poulet Entier", price: 120 }
+                ]
+            },
+            {
+                category: "Salade 🥗", icon: "bx-leaf",
+                items: [
+                    { name: "Salade Marocaine", price: 15 }, { name: "Salade Niçoise", price: 20 },
+                    { name: "Salade de pâtes", price: 20 }, { name: "Salade Chef", price: 25 }
+                ]
+            }
+        ];
+
+        let currentLang = 'fr';
+        let cart = [];
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.getAttribute('onclick').includes(lang)) btn.classList.add('active');
+            });
+
+            if (lang === 'ar') {
+                document.body.classList.add('rtl-mode');
+            } else {
+                document.body.classList.remove('rtl-mode');
+            }
+
+            document.getElementById('hero-title').innerText = dict[lang].heroTitle;
+            document.getElementById('hero-desc').innerText = dict[lang].heroDesc;
+            document.getElementById('cart-header-text').innerText = dict[lang].cartHeader;
+            document.getElementById('lbl-items-count').innerText = dict[lang].itemsCount;
+            document.getElementById('lbl-total').innerText = dict[lang].total;
+            document.getElementById('btn-send-text').innerText = dict[lang].sendBtn;
+            document.getElementById('lbl-mob-cart').innerText = dict[lang].mobCart;
+
+            renderMenuHTML();
+            updateCartUI();
+        }
+
+        function renderMenuHTML() {
+            const container = document.getElementById('menu-sections-wrapper');
+            container.innerHTML = '';
+
+            fullMenuData.forEach((catObj, catIdx) => {
+                let sectionHTML = `
+                    <div class="category-block">
+                        <div class="category-header">
+                            <i class='bx ${catObj.icon}'></i>
+                            <span>${catObj.category}</span>
+                        </div>
+                        <div class="products-grid">
+                `;
+
+                catObj.items.forEach((item, itemIdx) => {
+                    const uniqueId = `item_${catIdx}_${itemIdx}`;
+                    const hasVariants = !!item.variants;
+                    const defaultPrice = hasVariants ? item.variants[0].price : item.price;
+
+                    sectionHTML += `
+                        <div class="product-card" id="card_${uniqueId}">
+                            <div class="product-info">
+                                <h3>${item.name}</h3>
+                                <p class="desc">${item.desc || ""}</p>
+                                ${hasVariants ? `
+                                    <div class="variant-selector">
+                                        <label>${dict[currentLang].sizeLabel}</label>
+                                        <select id="select_${uniqueId}" onchange="changeVariantPrice('${uniqueId}')">
+                                            ${item.variants.map(v => `<option value="${v.price}">${v.label} - ${v.price} DH</option>`).join('')}
+                                        </select>
+                                    </div>
+                                ` : ''}
+                            </div>
+                            <div class="product-footer">
+                                <span class="price-display" id="price_${uniqueId}">${defaultPrice} DH</span>
+                                <div class="qty-controls">
+                                    <button class="qty-btn" onclick="adjustQty('${uniqueId}', -1)">-</button>
+                                    <span class="qty-val" id="qty_${uniqueId}">1</span>
+                                    <button class="qty-btn" onclick="adjustQty('${uniqueId}', 1)">+</button>
+                                </div>
+                                <button class="add-to-cart-btn" onclick="addItemToCart('${uniqueId}', '${item.name}', ${hasVariants})">
+                                    <i class='bx bx-plus-circle'></i>
+                                    <span>${dict[currentLang].addBtn}</span>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+                sectionHTML += `</div></div>`;
+                container.innerHTML += sectionHTML;
+            });
+        }
+
+        function adjustQty(id, delta) {
+            const qtyEl = document.getElementById(`qty_${id}`);
+            let currentQty = parseInt(qtyEl.innerText);
+            currentQty += delta;
+            if (currentQty < 1) currentQty = 1;
+            qtyEl.innerText = currentQty;
+        }
+
+        function changeVariantPrice(id) {
+            const select = document.getElementById(`select_${id}`);
+            document.getElementById(`price_${id}`).innerText = select.value + " DH";
+        }
+
+        function addItemToCart(id, baseName, hasVariants) {
+            const qty = parseInt(document.getElementById(`qty_${id}`).innerText);
+            let finalPrice = 0;
+            let finalName = baseName;
+
+            if(hasVariants) {
+                const select = document.getElementById(`select_${id}`);
+                const selectedOpt = select.options[select.selectedIndex].text;
+                finalPrice = parseInt(select.value);
+                finalName += ` (${selectedOpt.split(' - ')[0]})`;
+            } else {
+                finalPrice = parseInt(document.getElementById(`price_${id}`).innerText);
+            }
+
+            const existing = cart.find(item => item.name === finalName);
+            if(existing) {
+                existing.qty += qty;
+            } else {
+                cart.push({ name: finalName, price: finalPrice, qty: qty });
+            }
+
+            document.getElementById(`qty_${id}`).innerText = "1";
+            updateCartUI();
+        }
+
+        function removeCartItem(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const listContainer = document.getElementById('cart-items-container');
+            const totalCountEl = document.getElementById('summary-count');
+            const totalPriceEl = document.getElementById('summary-total');
+            const mobileBadge = document.getElementById('mobile-badge');
+
+            listContainer.innerHTML = '';
+
+            if(cart.length === 0) {
+                listContainer.innerHTML = `<div class="empty-cart-text">${dict[currentLang].emptyCart}</div>`;
+                totalCountEl.innerText = "0";
+                totalPriceEl.innerText = "0";
+                mobileBadge.innerText = "0";
+                return;
+            }
+
+            let grandTotal = 0;
+            let totalItems = 0;
+
+            cart.forEach((item, index) => {
+                grandTotal += item.price * item.qty;
+                totalItems += item.qty;
+                listContainer.innerHTML += `
+                    <div class="cart-item-row">
+                        <div class="cart-item-details">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-sub">${item.qty} x ${item.price} DH</div>
+                        </div>
+                        <div class="cart-item-right">
+                            <strong>${item.price * item.qty} DH</strong>
+                            <button class="remove-item-btn" onclick="removeCartItem(${index})"><i class='bx bx-trash'></i></button>
+                        </div>
+                    </div>`;
+            });
+
+            totalCountEl.innerText = totalItems;
+            totalPriceEl.innerText = grandTotal;
+            mobileBadge.innerText = totalItems;
+        }
+
+        function toggleMobileCart() {
+            const sidebar = document.getElementById('floating-cart');
+            sidebar.classList.toggle('mobile-open');
+            sidebar.style.display = sidebar.classList.contains('mobile-open') ? 'flex' : 'none';
+        }
+
+        function sendWhatsAppOrder() {
+            if(cart.length === 0) {
+                alert(dict[currentLang].alertEmpty);
+                return;
+            }
+            let msg = `*${dict[currentLang].cartFormatTitle}*\n\n`;
+            cart.forEach((item) => {
+                msg += `🔹 *${item.name}*\n    ${item.qty} x ${item.price} DH ➔ *${item.qty * item.price} DH*\n`;
+            });
+            msg += `\n📦 *${dict[currentLang].total}:* ${document.getElementById('summary-total').innerText} DH\n`;
+            window.open("https://api.whatsapp.com/send?phone=212646897111&text=" + encodeURIComponent(msg), '_blank');
+        }
+
+        window.onload = function() { setLanguage('fr'); };
+    </script>
+</body>
+</html>
