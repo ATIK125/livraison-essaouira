@@ -1048,13 +1048,15 @@
                 </div>
             </div>
             <div class="nav-right-wrapper">
-                <div class="nav-links">
+               <div class="nav-links">
                     <a onclick="navigateToPage('home')" class="nav-item active" id="nav-home" data-i18n="navHome">Accueil</a>
                     <a onclick="navigateToPage('services-page')" class="nav-item" id="nav-services-page" data-i18n="navServices">Nos Services</a>
+                    <a onclick="navigateToPage('snapfood-page')" class="nav-item" id="nav-snapfood-page" data-i18n="navSnapFood">Snap Food</a>
                     <a onclick="navigateToPage('b2b-page')" class="nav-item" id="nav-b2b-page" data-i18n="navB2b">Espace Entreprises</a>
                     <a onclick="navigateToPage('partners-page')" class="nav-item" id="nav-partners-page" data-i18n="navPartners">Nos Partenaires</a>
                     <a href="#contact" onclick="navigateToPage('home')" data-i18n="navContact">Contact</a>
-                </div>
+                 </div>
+                
                 
                 <div class="lang-switcher">
                     <button class="lang-btn">🌐 <span id="current-lang">FR</span></button>
@@ -1079,6 +1081,26 @@
                 </div>
             </div>
         </section>
+        
+    <!-- واجهة سناب فود الإضافية (Snap Food View) -->
+    <div id="snapfood-page-view" class="page-view">
+        <div class="subpage-header" style="background: linear-gradient(135deg, #FF1493, #FF4500); padding: 40px 0; color: #fff; text-align: center;">
+            <div class="container">
+                <h2 data-i18n="spSnapHeader">Snap Food Essaouira</h2>
+                <p data-i18n="spSnapSub">Vos restaurants préférés livrés chez vous en un éclair</p>
+            </div>
+        </div>
+        <div class="subpage-content container" style="padding: 40px 20px;">
+            <div class="rich-text" style="max-width: 800px; margin: 0 auto; text-align: center;">
+                <h3 data-i18n="spSnapTitle" style="font-size: 2rem; margin-bottom: 20px;">🍔 Livraison Rapide de Restauration</h3>
+                <p data-i18n="spSnapDesc" style="font-size: 1.1rem; line-height: 1.6; margin-bottom: 30px;">
+                    Commandez depuis les meilleurs snacks, restos et cafés d'Essaouira et Ghazoua. Nos livreurs équipés de caissons isothermes haut de gamme vous garantissent des repas chauds et impeccables à l'arrivée.
+                </p>
+                <a onclick="navigateToPage('home')" class="back-home-btn" style="color: #FF4500; text-decoration: none; font-weight: bold; cursor: pointer;" data-i18n="backHome">← Retourner à l'accueil</a>
+            </div>
+         </div>
+    </div> <!-- قفلة snapfood-page-view -->
+</div> <!-- اضغط Enter وأضف قفلة home-view هنا -->
 
         <section class="steps-section" id="how-it-works">
             <div class="container">
@@ -1641,6 +1663,9 @@
                 fDesc: "Your professional partner for fast home delivery and logistics transport in Essaouira city and its surrounding region.", fInsta: "📸 Follow us on Instagram", fLinks: "Useful Links", fContact: "Direct Contact", fZones: "Served Areas", fZonesDesc: "Essaouira City, Ghazoua, Diabat, Douar El Arab, Sidi Kaouki - Morocco", fAbout: "<strong>About the company:</strong> Ghaith Jad Oasis Services (GJO Services) is a registered Moroccan multi-service logistics and last-mile delivery company operating permanently within Essaouira province. We provide express couriers, food delivery, expat grocery management, and B2B logistics assistance for local businesses.", fRights: "All rights reserved."
             }
         };
+        
+<script>
+    // بداية كود الجافا سكريبت اللي باين عندك في الصورة...
 
         function changeLanguage(lang) {
             // تحديث الكلمة الظاهرة في الزر الحالي
