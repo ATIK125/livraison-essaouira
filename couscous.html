@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ghaith Jad - Couscous du Vendredi</title>
+    <!-- Boxicons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gold: #d4af37;
+            --primary-dark: #0f2b23;
+            --accent-green: #1a4d3e;
+            --light-bg: #f8f9fa;
+            --whatsapp: #25D366;
+            --text-dark: #111111;
+            --text-muted: #666666;
+            --border: #e0e0e0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: all 0.25s ease;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            padding-bottom: 50px;
+        }
+
+        /* Top Navbar */
+        .top-nav {
+            background-color: var(--primary-dark);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--primary-gold);
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .logo-area i {
+            color: var(--primary-gold);
+            font-size: 1.8rem;
+        }
+
+        .lang-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .lang-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid #555;
+            padding: 6px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .lang-btn.active {
+            background-color: var(--primary-gold);
+            color: var(--primary-dark);
+            border-color: var(--primary-gold);
+        }
+
+        /* Hero Banner */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-green) 100%);
+            color: white;
+            text-align: center;
+            padding: 45px 20px;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        .hero h1 {
+            font-size: 2.2rem;
+            color: var(--primary-gold);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero p {
+            font-size: 1.05rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .notice-badge {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.2);
+            border: 1px solid var(--primary-gold);
+            color: var(--primary-gold);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 30px;
+        }
+
+        /* Options Cards */
+        .options-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .couscous-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .couscous-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        .card-body {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .card-header-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+
+        .card-price {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--primary-gold);
+            background: var(--primary-dark);
+            padding: 4px 12px;
+            border-radius: 8px;
+        }
+
+        .card-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .qty-action-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 10px;
+            padding-top: 15px;
+            border-top: 1px dashed var(--border);
+        }
+
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            background: var(--light-bg);
+            border-radius: 20px;
+            padding: 3px;
+            border: 1px solid var(--border);
+        }
+
+        .qty-btn {
+            background: white;
+            border: 1px solid var(--border);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .qty-val {
+            width: 35px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .add-btn {
+            background-color: var(--primary-dark);
+            color: var(--primary-gold);
+            border: 1px solid var(--primary-gold);
+            padding: 10px 18px;
+            border-radius: 25px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .add-btn:hover {
+            background-color: var(--accent-green);
+        }
+
+        /* Order Sidebar */
+        .order-sidebar {
+            background: white;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            padding: 22px;
+            height: fit-content;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 20px;
+        }
+
+        .sidebar-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            border-bottom: 2px solid var(--primary-gold);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cart-items-list {
+            max-height: 220px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 0.9rem;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .remove-btn {
+            background: transparent;
+            border: none;
+            color: #e02424;
+            cursor: pointer;
+            font-size: 1.1rem;
+            margin-left: 8px;
+        }
+
+        .delivery-group {
+            margin-bottom: 20px;
+        }
+
+        .delivery-group label {
+            display: block;
+            font-size: 0.88rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--primary-dark);
+        }
+
+        .delivery-group select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: #fafafa;
+            font-size: 0.9rem;
+            font-weight: 600;
+            outline: none;
+        }
+
+        .summary-box {
+            background: var(--light-bg);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .summary-row.total {
+            border-top: 1px solid #ddd;
+            padding-top: 8px;
+            margin-bottom: 0;
+            font-weight: 800;
+            font-size: 1.15rem;
+            color: var(--primary-dark);
+        }
+
+        .whatsapp-btn {
+            background-color: var(--whatsapp);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
+        }
+
+        .whatsapp-btn:hover {
+            background-color: #20ba5a;
+        }
+
+        .empty-cart-msg {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 20px 0;
+            font-style: italic;
+        }
+
+        /* RTL Mode */
+        body.rtl-mode {
+            direction: rtl;
+        }
+        body.rtl-mode .remove-btn {
+            margin-left: 0;
+            margin-right: 8px;
+        }
+
+        @media (max-width: 850px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="top-nav">
+        <div class="logo-area">
+            <i class='bx bxs-food-menu'></i>
+            <span>GHAITH JAD Services</span>
+        </div>
+        <div class="lang-buttons">
+            <button class="lang-btn" onclick="setLanguage('ar')">العربية</button>
+            <button class="lang-btn active" onclick="setLanguage('fr')">Français</button>
+            <button class="lang-btn" onclick="setLanguage('en')">English</button>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1 id="hero-title">PLAT COUSCOUS DU VENDREDI</h1>
+        <p id="hero-desc">Commandez votre plat de couscous traditionnel avant chaque vendredi !</p>
+        <div class="notice-badge" id="hero-badge">📦 Service Delivery - Livré chez vous</div>
+    </header>
+
+    <main class="container">
+        <!-- Options List -->
+        <section class="options-section">
+            <!-- Beef Couscous Card -->
+            <div class="couscous-card">
+                <div class="card-body">
+                    <div>
+                        <div class="card-header-info">
+                            <h2 class="card-title" id="title-beef">Couscous Bœuf 🥩</h2>
+                            <span class="card-price">50 DH</span>
+                        </div>
+                        <p class="card-desc" id="desc-beef">Couscous traditionnel aux légumes frais et viande de bœuf savoureuse.</p>
+                    </div>
+                    <div class="qty-action-row">
+                        <div class="qty-controls">
+                            <button class="qty-btn" onclick="adjustQty('beef', -1)">-</button>
+                            <span class="qty-val" id="qty-beef">1</span>
+                            <button class="qty-btn" onclick="adjustQty('beef', 1)">+</button>
+                        </div>
+                        <button class="add-btn" onclick="addToOrder('beef')">
+                            <i class='bx bx-plus-circle'></i>
+                            <span id="btn-add-beef">Ajouter au panier</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chicken Couscous Card -->
+            <div class="couscous-card">
+                <div class="card-body">
+                    <div>
+                        <div class="card-header-info">
+                            <h2 class="card-title" id="title-poulet">Couscous Poulet 🍗</h2>
+                            <span class="card-price">45 DH</span>
+                        </div>
+                        <p class="card-desc" id="desc-poulet">Couscous traditionnel aux légumes frais et poulet délicieusement assaisonné.</p>
+                    </div>
+                    <div class="qty-action-row">
+                        <div class="qty-controls">
+                            <button class="qty-btn" onclick="adjustQty('poulet', -1)">-</button>
+                            <span class="qty-val" id="qty-poulet">1</span>
+                            <button class="qty-btn" onclick="adjustQty('poulet', 1)">+</button>
+                        </div>
+                        <button class="add-btn" onclick="addToOrder('poulet')">
+                            <i class='bx bx-plus-circle'></i>
+                            <span id="btn-add-poulet">Ajouter au panier</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sidebar / Order summary -->
+        <aside class="order-sidebar">
+            <div class="sidebar-title">
+                <i class='bx bx-dish'></i>
+                <span id="sidebar-header">Votre Commande</span>
+            </div>
+
+            <div class="cart-items-list" id="cart-list">
+                <div class="empty-cart-msg" id="empty-msg">Votre panier est vide</div>
+            </div>
+
+            <div class="delivery-group">
+                <label id="lbl-location">Lieu de livraison :</label>
+                <select id="delivery-select" onchange="renderCart()">
+                    <!-- Auto Injected Locations -->
+                </select>
+            </div>
+
+            <div class="summary-box">
+                <div class="summary-row">
+                    <span id="lbl-subtotal">Sous-total</span>
+                    <span><span id="val-subtotal">0</span> DH</span>
+                </div>
+                <div class="summary-row">
+                    <span id="lbl-shipping">Livraison</span>
+                    <span><span id="val-shipping">0</span> DH</span>
+                </div>
+                <div class="summary-row total">
+                    <span id="lbl-total">Total</span>
+                    <span><span id="val-total">0</span> DH</span>
+                </div>
+            </div>
+
+            <button class="whatsapp-btn" onclick="sendOrder()">
+                <i class='bx bxl-whatsapp' style="font-size: 1.4rem;"></i>
+                <span id="btn-send">Commander via WhatsApp</span>
+            </button>
+        </aside>
+    </main>
+
+    <script>
+        const dict = {
+            fr: {
+                heroTitle: "PLAT COUSCOUS DU VENDREDI",
+                heroDesc: "Demandez votre plat de couscous traditionnel avant chaque vendredi !",
+                badge: "📦 Service Delivery - Livré chez vous",
+                titleBeef: "Couscous Bœuf 🥩",
+                descBeef: "Couscous traditionnel aux légumes frais et viande de bœuf savoureuse.",
+                titlePoulet: "Couscous Poulet 🍗",
+                descPoulet: "Couscous traditionnel aux légumes frais et poulet délicieusement assaisonné.",
+                addBtn: "Ajouter au panier",
+                sidebarTitle: "Votre Commande",
+                emptyMsg: "Votre panier est vide",
+                lblLocation: "Lieu de livraison :",
+                subtotal: "Sous-total",
+                shipping: "Livraison",
+                total: "Total",
+                sendBtn: "Commander via WhatsApp",
+                alertEmpty: "Veuillez choisir au moins un plat de couscous !",
+                orderTitle: "Bonjour Ghaith Jad Services, voici ma commande de couscous pour vendredi :",
+                locations: [
+                    { name: "Essaouira", price: 10 },
+                    { name: "Ghazoua, Diabat", price: 20 },
+                    { name: "KM 8", price: 30 },
+                    { name: "Douar El Arab", price: 50 },
+                    { name: "Sidi Kaouki", price: 70 },
+                    { name: "Ounagha", price: 70 }
+                ]
+            },
+            ar: {
+                heroTitle: "طبق كسكس الجمعة المباركة",
+                heroDesc: "اططلب طبق الكسكس المغربي الأصيل قبل كل جمعة !",
+                badge: "📦 خدمة التوصيل إلى غاية منزلكم",
+                titleBeef: "كسكس بـلحم البقر 🥩",
+                descBeef: "كسكس مغربي أصيل بالخضر الطرية ولحم البقر الشهي.",
+                titlePoulet: "كسكس بالـدجاج 🍗",
+                descPoulet: "كسكس مغربي أصيل بالخضر الطرية والدجاج المتبل.",
+                addBtn: "إضافة للطلب",
+                sidebarTitle: "تفاصيل الطلب",
+                emptyMsg: "لم تقم بإضافة أي طبق بعد",
+                lblLocation: "مكان التوصيل :",
+                subtotal: "مجموع الأطباق",
+                shipping: "مصاريف التوصيل",
+                total: "المجموع الكلي",
+                sendBtn: "إرسال الطلب عبر الواتساب",
+                alertEmpty: "يرجى اختيار طبق كسكس واحد على الأقل!",
+                orderTitle: "مرحباً Ghaith Jad Services، أريد طلب كسكس يوم الجمعة :",
+                locations: [
+                    { name: "الصويرة", price: 10 },
+                    { name: "الغزوة، الديابات", price: 20 },
+                    { name: "KM 8", price: 30 },
+                    { name: "دوار العرب", price: 50 },
+                    { name: "سيدي كاوكي", price: 70 },
+                    { name: "اوناغة", price: 70 }
+                ]
+            },
+            en: {
+                heroTitle: "FRIDAY COUSCOUS SPECIAL",
+                heroDesc: "Order your traditional couscous dish before every Friday!",
+                badge: "📦 Home Delivery Service",
+                titleBeef: "Beef Couscous 🥩",
+                descBeef: "Traditional couscous with fresh vegetables and tender beef.",
+                titlePoulet: "Chicken Couscous 🍗",
+                descPoulet: "Traditional couscous with fresh vegetables and seasoned chicken.",
+                addBtn: "Add to Order",
+                sidebarTitle: "Your Order",
+                emptyMsg: "Your cart is empty",
+                lblLocation: "Delivery Location:",
+                subtotal: "Subtotal",
+                shipping: "Delivery Fee",
+                total: "Total Amount",
+                sendBtn: "Order via WhatsApp",
+                alertEmpty: "Please select at least one couscous dish!",
+                orderTitle: "Hello Ghaith Jad Services, here is my Friday couscous order:",
+                locations: [
+                    { name: "Essaouira", price: 10 },
+                    { name: "Ghazoua, Diabat", price: 20 },
+                    { name: "KM 8", price: 30 },
+                    { name: "Douar El Arab", price: 50 },
+                    { name: "Sidi Kaouki", price: 70 },
+                    { name: "Ounagha", price: 70 }
+                ]
+            }
+        };
+
+        const productsData = {
+            beef: { price: 50 },
+            poulet: { price: 45 }
+        };
+
+        let currentLang = 'fr';
+        let order = {
+            beef: 0,
+            poulet: 0
+        };
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.getAttribute('onclick').includes(lang)) btn.classList.add('active');
+            });
+
+            if (lang === 'ar') {
+                document.body.classList.add('rtl-mode');
+            } else {
+                document.body.classList.remove('rtl-mode');
+            }
+
+            document.getElementById('hero-title').innerText = dict[lang].heroTitle;
+            document.getElementById('hero-desc').innerText = dict[lang].heroDesc;
+            document.getElementById('hero-badge').innerText = dict[lang].badge;
+            document.getElementById('title-beef').innerText = dict[lang].titleBeef;
+            document.getElementById('desc-beef').innerText = dict[lang].descBeef;
+            document.getElementById('title-poulet').innerText = dict[lang].titlePoulet;
+            document.getElementById('desc-poulet').innerText = dict[lang].descPoulet;
+            document.getElementById('btn-add-beef').innerText = dict[lang].addBtn;
+            document.getElementById('btn-add-poulet').innerText = dict[lang].addBtn;
+            document.getElementById('sidebar-header').innerText = dict[lang].sidebarTitle;
+            document.getElementById('lbl-location').innerText = dict[lang].lblLocation;
+            document.getElementById('lbl-subtotal').innerText = dict[lang].subtotal;
+            document.getElementById('lbl-shipping').innerText = dict[lang].shipping;
+            document.getElementById('lbl-total').innerText = dict[lang].total;
+            document.getElementById('btn-send').innerText = dict[lang].sendBtn;
+
+            const select = document.getElementById('delivery-select');
+            select.innerHTML = dict[lang].locations.map((loc, idx) => 
+                `<option value="${loc.price}" data-idx="${idx}">${loc.name} (+${loc.price} DH)</option>`
+            ).join('');
+
+            renderCart();
+        }
+
+        function adjustQty(type, delta) {
+            const qtyEl = document.getElementById(`qty-${type}`);
+            let val = parseInt(qtyEl.innerText) + delta;
+            if (val < 1) val = 1;
+            qtyEl.innerText = val;
+        }
+
+        function addToOrder(type) {
+            const qty = parseInt(document.getElementById(`qty-${type}`).innerText);
+            order[type] += qty;
+            document.getElementById(`qty-${type}`).innerText = "1";
+            renderCart();
+        }
+
+        function removeFromOrder(type) {
+            order[type] = 0;
+            renderCart();
+        }
+
+        function renderCart() {
+            const cartContainer = document.getElementById('cart-list');
+            cartContainer.innerHTML = '';
+
+            let subtotal = 0;
+            let count = 0;
+
+            if (order.beef > 0) {
+                count++;
+                const itemTotal = order.beef * productsData.beef.price;
+                subtotal += itemTotal;
+                cartContainer.innerHTML += `
+                    <div class="cart-item">
+                        <div class="cart-item-info">
+                            <strong>${dict[currentLang].titleBeef}</strong><br>
+                            <small>${order.beef} x ${productsData.beef.price} DH</small>
+                        </div>
+                        <div>
+                            <strong>${itemTotal} DH</strong>
+                            <button class="remove-btn" onclick="removeFromOrder('beef')"><i class='bx bx-trash'></i></button>
+                        </div>
+                    </div>`;
+            }
+
+            if (order.poulet > 0) {
+                count++;
+                const itemTotal = order.poulet * productsData.poulet.price;
+                subtotal += itemTotal;
+                cartContainer.innerHTML += `
+                    <div class="cart-item">
+                        <div class="cart-item-info">
+                            <strong>${dict[currentLang].titlePoulet}</strong><br>
+                            <small>${order.poulet} x ${productsData.poulet.price} DH</small>
+                        </div>
+                        <div>
+                            <strong>${itemTotal} DH</strong>
+                            <button class="remove-btn" onclick="removeFromOrder('poulet')"><i class='bx bx-trash'></i></button>
+                        </div>
+                    </div>`;
+            }
+
+            if (count === 0) {
+                cartContainer.innerHTML = `<div class="empty-cart-msg">${dict[currentLang].emptyMsg}</div>`;
+            }
+
+            const select = document.getElementById('delivery-select');
+            const shipping = select.value ? parseInt(select.value) : 0;
+
+            document.getElementById('val-subtotal').innerText = subtotal;
+            document.getElementById('val-shipping').innerText = shipping;
+            document.getElementById('val-total').innerText = subtotal > 0 ? (subtotal + shipping) : 0;
+        }
+
+        function sendOrder() {
+            if (order.beef === 0 && order.poulet === 0) {
+                alert(dict[currentLang].alertEmpty);
+                return;
+            }
+
+            const select = document.getElementById('delivery-select');
+            const selectedOpt = select.options[select.selectedIndex];
+            const locIndex = selectedOpt.getAttribute('data-idx');
+            const locName = dict[currentLang].locations[locIndex].name;
+            const shippingPrice = parseInt(select.value);
+
+            let msg = `*${dict[currentLang].orderTitle}*\n\n`;
+
+            if (order.beef > 0) {
+                msg += `🥩 *${dict[currentLang].titleBeef}*\n   ${order.beef} x ${productsData.beef.price} DH ➔ *${order.beef * productsData.beef.price} DH*\n`;
+            }
+            if (order.poulet > 0) {
+                msg += `🍗 *${dict[currentLang].titlePoulet}*\n   ${order.poulet} x ${productsData.poulet.price} DH ➔ *${order.poulet * productsData.poulet.price} DH*\n`;
+            }
+
+            const subtotal = (order.beef * productsData.beef.price) + (order.poulet * productsData.poulet.price);
+            const total = subtotal + shippingPrice;
+
+            msg += `\n📍 *${dict[currentLang].lblLocation}* ${locName} (+${shippingPrice} DH)`;
+            msg += `\n💵 *${dict[currentLang].subtotal}:* ${subtotal} DH`;
+            msg += `\n📦 *${dict[currentLang].total}:* ${total} DH\n`;
+
+            window.open("https://api.whatsapp.com/send?phone=212646897111&text=" + encodeURIComponent(msg), '_blank');
+        }
+
+        window.onload = function() { setLanguage('fr'); };
+    </script>
+</body>
+</html>
