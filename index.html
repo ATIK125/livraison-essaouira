@@ -182,6 +182,91 @@
             unicode-bidi: embed;
         }
 
+        /* Friday Couscous Promo Banner */
+.couscous-promo-banner {
+    background: linear-gradient(135deg, #0f2b23 0%, #1a4d3e 100%);
+    border: 2px solid #d4af37;
+    border-radius: 16px;
+    padding: 20px 25px;
+    margin-bottom: 25px;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.couscous-promo-banner:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.promo-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.promo-badge {
+    background: #d4af37;
+    color: #0f2b23;
+    font-size: 0.8rem;
+    font-weight: 800;
+    padding: 4px 12px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 8px;
+}
+
+.promo-text h2 {
+    color: #ffffff;
+    font-size: 1.5rem;
+    margin-bottom: 4px;
+}
+
+.promo-text p {
+    color: #e0e0e0;
+    font-size: 0.95rem;
+}
+
+.promo-btn {
+    background-color: #d4af37;
+    color: #0f2b23;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 30px;
+    font-weight: 800;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.promo-btn i {
+    font-size: 1.3rem;
+}
+
+/* RTL adjustment for Arabic */
+html[dir="rtl"] .promo-btn i,
+body.rtl-mode .promo-btn i {
+    transform: rotate(180deg);
+}
+
+@media (max-width: 600px) {
+    .promo-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .promo-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
         .copy-feedback {
             font-size: 0.8rem;
             color: #10B981;
@@ -1081,7 +1166,23 @@
                 </div>
             </div>
         </section>
-
+        <!-- أضف كود البنر هنا -->
+        <div class="container" style="margin-top: 25px;">
+            <div class="couscous-promo-banner" onclick="window.location.href='couscous.html'">
+                <div class="promo-content">
+                    <div class="promo-text">
+                        <span class="promo-badge" id="lbl-friday-badge">Special Vendredi 🍲</span>
+                        <h2 id="lbl-couscous-title">Plat Couscous du Vendredi</h2>
+                        <p id="lbl-couscous-desc">Commandez votre كسكس (Bœuf ou Poulet) livré directement chez vous !</p>
+                    </div>
+                    <button class="promo-btn" id="lbl-order-now-btn">
+                        <span>Commander</span>
+                        <i class='bx bx-right-arrow-alt'></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
         <section class="steps-section" id="how-it-works">
             <div class="container">
                 <div class="section-header">
@@ -1612,7 +1713,13 @@
                 faqMainTitle: "Foire Aux Questions (FAQ)", faqMainSub: "Tout ce que vous devez savoir sur notre service de coursier express", faqQ1: "Quel est le meilleur service de livraison à Essaouira et Ghazoua ?", faqA1: "Ghaith Jad Oasis Services est le service de livraison N°1 à Essaouira, Ghazoua et Sidi Kaouki, offrant des coursiers rapides et fiables pour particuliers, restaurants et professionnels.", faqQ2: "Comment commander un livreur privé à Essaouira ?", faqA2: "Vous pouvez facilement commander un livreur en nous contactant directement par WhatsApp ou par téléphone au +212646897111 pour une expédition immédiate.", faqQ3: "Proposez-vous la livraison pour les Riads et les expatriés ?", faqA3: "Oui, nous sommes spécialisés dans les services de conciergerie et la livraison de courses de supermarché (Carrefour) pour les Riads de la Médina et les expatriés installés à Essaouira.",
                 ctTitle: "Commandez un livreur à Essaouira maintenant", ctPhone: "Téléphone Service", copyBtn: "Copier", copiedTxt: "Numéro copié !", ctWp: "WhatsApp Direct", ctInsta: "Instagram Officiel", ctMail: "E-mail Professionnel", ctZone: "Zone de couverture", ctZoneDesc: "Essaouira, Ghazoua, Diabat, Douar El Arab, Sidi Kaouki, Ounagha.", ctHours: "Heures d'ouverture", ctHoursDesc: "Lundi - Dimanche : De 09:00 à 00:00 non-stop.", revTitle: "Votre avis compte pour nous !", revDesc: "Vous avez testé notre service de livraison à Essaouira ? Soutenez Ghaith Jad Oasis Services en nous laissant une note de 5 étoiles sur notre fiche Google.", revBtn: "Laisser un avis sur Google ★★★★★",
                 partTitle: "Nos Partenaires de Confiance", partSub: "Ils font confiance à notre réseau logistique au quotidien", partLink: "Visiter le site web ←", partnerFatima: "Fatima",
-                fDesc: "Votre service professionnel de livraison rapide à domicile et de transport logistique à Essaouira et sa région.", fInsta: "📸 Suivez-nous sur Instagram", fLinks: "Liens Utiles", fContact: "Contact Direct", fZones: "Zones Desservies", fZonesDesc: "Essaouira Ville, Ghazoua, Diabat, Douar El Arab, Sidi Kaouki - Maroc", fAbout: "<strong>À propos de la société :</strong> Ghaith Jad Oasis Services (GJO Services) is une société multi-services de logistique et de livraison du dernier kilomètre enregistrée au Maroc, opérant de manière permanente dans la province d'Essaouira. Nous fournissons des services de coursier express, de livraison de repas, de gestion de courses pour expatriés et d'assistance logistique B2B pour les entreprises locales.", fRights: "Tous droits réservés."
+                fDesc: "Votre service professionnel de livraison rapide à domicile et de transport logistique à Essaouira et sa région.", fInsta: "📸 Suivez-nous sur Instagram", fLinks: "Liens Utiles", fContact: "Contact Direct", fZones: "Zones Desservies", fZonesDesc: "Essaouira Ville, Ghazoua, Diabat, Douar El Arab, Sidi Kaouki - Maroc", fAbout: "<strong>À propos de la société :</strong> Ghaith Jad Oasis Services (GJO Services) is une société multi-services de logistique et de livraison du dernier kilomètre enregistrée au Maroc, opérant de manière permanente dans la province d'Essaouira. Nous fournissons des services de coursier express, de livraison de repas, de gestion de courses pour expatriés et d'assistance logistique B2B pour les entreprises locales.", fRights: "Tous droits réservés.", 
+        fridayBadge: "Spécial Vendredi 🍲",
+        couscousTitle: "Plat Couscous du Vendredi",
+        couscousDesc: "Reservez votre couscous (Bœuf 50DH / Poulet 45DH) avant vendredi !",
+        orderNow: "Commander", 
+    },
+
             },
             ar: {
                 navSub: "لخدمات الواحة", navHome: "الرئيسية", navServices: "خدماتنا", navB2b: "فضاء الشركات", navPartners: "شركاؤنا", navContact: "اتصل بنا",
@@ -1632,7 +1739,12 @@
                 faqMainTitle: "الأسئلة الشائعة (FAQ)", faqMainSub: "كل ما تود معرفته عن خدمة التوصيل السريع بالصويرة", faqQ1: "ما هي أفضل خدمة توصيل في الصويرة والغزوة؟", faqA1: "شركة غيث جاد واحة الخدمات هي الخدمة رقم 1 بالصويرة، الغزوة وسيدي كاوكي، حيث توفر موزعين سريعين وموثوقين للأفراد، المطاعم والمهنيين.", faqQ2: "كيف يمكنني طلب لورير خاص بالصويرة؟", faqA2: "يمكنك طلب موزع بكل سهولة عبر الاتصال بنا مباشرة أو مراسلتنا على الواتساب عبر الرقم 212646897111+ لشحن طلبك فوراً.", faqQ3: "هل توفرون خدمة التوصيل للرياضات والأجانب؟", faqA3: "نعم، نحن متخصصون في خدمات الكونسيرجيري وتوصيل الطلبيات والمشتريات من السوبرماركت (كارفور) لفائدة رياضات المدينة العتيقة والمغتربين المقيمين بالصويرة.",
                 ctTitle: "اطلب موزعاً في الصويرة الآن", ctPhone: "هاتف الخدمة", copyBtn: "نسخ", copiedTxt: "تم نسخ الرقم!", ctWp: "واتساب مباشر", ctInsta: "إنستغرام الرسمي", ctMail: "البريد الإلكتروني", ctZone: "مناطق التغطية", ctZoneDesc: "الصويرة، الغزوة، ديابات، دوار العرب، سيدي كاوكي، أوناغة.", ctHours: "ساعات العمل", ctHoursDesc: "من الإثنين إلى الأحد: من 09:00 صباحاً إلى 00:00 ليلاً دون انقطاع.", revTitle: "رأيك يهمنا كثيراً!", revDesc: "هل جربت خدمة التوصيل معنا في الصويرة؟ ادعم شركة غيث جاد واحة الخدمات بترك تقييم 5 نجوم على صفحتنا في جوجل.", revBtn: "اترك تقييمًا على جوجل ★★★★★",
                 partTitle: "شركاء النجاح الموثوقين", partSub: "يعتمدون على شبكتنا اللوجستية بشكل يومي لإنجاح أعمالهم", partLink: "زيارة الموقع الإلكتروني ←", partnerFatima: "فاطمة",
-                fDesc: "شريككم المهني لخدمات التوصيل السريع للمنازل والنقل اللوجستي في مدينة الصويرة وجهتها.", fInsta: "📸 تابعونا على إنستغرام", fLinks: "روابط مفيدة", fContact: "اتصال مباشر", fZones: "المناطق المغطاة", fZonesDesc: "مدينة الصويرة، الغزوة، ديابات، دوار العرب، سيدي كاوكي - المغرب", fAbout: "<strong>عن الشركة:</strong> شركة غيث جاد واحة الخدمات (GJO Services) هي شركة مغربية متعددة الخدمات متخصصة في اللوجستيك وتوصيل الميل الأخير، تعمل بصفة دائمة في إقليم الصويرة. نقدم خدمات الكورسيي إكسبريس، توصيل الوجبات، إدارة مشتريات المقيمين الأجانب والدعم اللوجستي B2B للشركات المحلية.", fRights: "جميع الحقوق محفوظة."
+                fDesc: "شريككم المهني لخدمات التوصيل السريع للمنازل والنقل اللوجستي في مدينة الصويرة وجهتها.", fInsta: "📸 تابعونا على إنستغرام", fLinks: "روابط مفيدة", fContact: "اتصال مباشر", fZones: "المناطق المغطاة", fZonesDesc: "مدينة الصويرة، الغزوة، ديابات، دوار العرب، سيدي كاوكي - المغرب", fAbout: "<strong>عن الشركة:</strong> شركة غيث جاد واحة الخدمات (GJO Services) هي شركة مغربية متعددة الخدمات متخصصة في اللوجستيك وتوصيل الميل الأخير، تعمل بصفة دائمة في إقليم الصويرة. نقدم خدمات الكورسيي إكسبريس، توصيل الوجبات، إدارة مشتريات المقيمين الأجانب والدعم اللوجستي B2B للشركات المحلية.", fRights: "جميع الحقوق محفوظة.", 
+                fridayBadge: "خاص بيوم الجمعة 🍲",
+        couscousTitle: "طبق كسكس الجمعة المباركة",
+        couscousDesc: "احجز طبق الكسكس (لحم 50د / دجاج 45د) والتوصيل لغايتك!",
+        orderNow: "اطلب الآن", 
+
             },
             en: {
                 navSub: "Oasis Services", navHome: "Home", navServices: "Our Services", navB2b: "Business Solutions", navPartners: "Our Partners", navContact: "Contact",
@@ -1652,7 +1764,12 @@
                 faqMainTitle: "Frequently Asked Questions (FAQ)", faqMainSub: "Everything you need to know about our express courier delivery service", faqQ1: "What is the best delivery service in Essaouira and Ghazoua?", faqA1: "Ghaith Jad Oasis Services is the #1 delivery service in Essaouira, Ghazoua, and Sidi Kaouki, offering fast, reliable couriers for individuals, restaurants, and professionals.", faqQ2: "How do I order a private courier in Essaouira?", faqA2: "You can easily order a courier by contacting us directly via WhatsApp or phone at +212646897111 for immediate dispatch.", faqQ3: "Do you offer delivery for Riads and expatriates?", faqA3: "Yes, we specialize in concierge services and supermarket grocery delivery (Carrefour) for Medina Riads and expats settled in Essaouira.",
                 ctTitle: "Order a Courier in Essaouira Now", ctPhone: "Service Phone", copyBtn: "Copy", copiedTxt: "Number copied!", ctWp: "Direct WhatsApp", ctInsta: "Official Instagram", ctMail: "Professional Email", ctZone: "Coverage Area", ctZoneDesc: "Essaouira, Ghazoua, Diabat, Douar El Arab, Sidi Kaouki, Ounagha.", ctHours: "Opening Hours", ctHoursDesc: "Monday - Sunday: From 09:00 AM to 00:00 AM non-stop.", revTitle: "Your Opinion Matters To Us!", revDesc: "Have you tried our delivery service in Essaouira? Support Ghaith Jad Oasis Services by leaving a 5-star review on Google.", revBtn: "Leave a Review on Google ★★★★★",
                 partTitle: "Trusted Business Partners", partSub: "They rely on our professional logistics network on a daily basis", partLink: "Visit website ←", partnerFatima: "Fatima",
-                fDesc: "Your professional partner for fast home delivery and logistics transport in Essaouira city and its surrounding region.", fInsta: "📸 Follow us on Instagram", fLinks: "Useful Links", fContact: "Direct Contact", fZones: "Served Areas", fZonesDesc: "Essaouira City, Ghazoua, Diabat, Douar El Arab, Sidi Kaouki - Morocco", fAbout: "<strong>About the company:</strong> Ghaith Jad Oasis Services (GJO Services) is a registered Moroccan multi-service logistics and last-mile delivery company operating permanently within Essaouira province. We provide express couriers, food delivery, expat grocery management, and B2B logistics assistance for local businesses.", fRights: "All rights reserved."
+                fDesc: "Your professional partner for fast home delivery and logistics transport in Essaouira city and its surrounding region.", fInsta: "📸 Follow us on Instagram", fLinks: "Useful Links", fContact: "Direct Contact", fZones: "Served Areas", fZonesDesc: "Essaouira City, Ghazoua, Diabat, Douar El Arab, Sidi Kaouki - Morocco", fAbout: "<strong>About the company:</strong> Ghaith Jad Oasis Services (GJO Services) is a registered Moroccan multi-service logistics and last-mile delivery company operating permanently within Essaouira province. We provide express couriers, food delivery, expat grocery management, and B2B logistics assistance for local businesses.", fRights: "All rights reserved.",
+                fridayBadge: "Friday Special 🍲",
+        couscousTitle: "Friday Couscous Special",
+        couscousDesc: "Order your couscous (Beef 50DH / Poulet 45DH) for delivery!",
+        orderNow: "Order Now", 
+
             }
         };
 
@@ -1678,7 +1795,14 @@
                     elem.innerHTML = translations[lang][key];
                 }
             });
-            
+            if (document.getElementById('lbl-friday-badge')) {
+    document.getElementById('lbl-friday-badge').innerText = translations[lang].fridayBadge;
+    document.getElementById('lbl-couscous-title').innerText = translations[lang].couscousTitle;
+    document.getElementById('lbl-couscous-desc').innerText = translations[lang].couscousDesc;
+    if (document.getElementById('lbl-order-now-btn')) {
+        document.getElementById('lbl-order-now-btn').querySelector('span').innerText = translations[lang].orderNow;
+    }
+       
             // حفظ اختيار المستخدم في المتصفح ليعود إليه تلقائياً
             localStorage.setItem('preferredLang', lang);
         }
