@@ -1791,14 +1791,19 @@ body.rtl-mode .promo-btn i {
                     elem.innerHTML = translations[lang][key];
                 }
             });
-            if (document.getElementById('lbl-friday-badge')) {
-    document.getElementById('lbl-friday-badge').innerText = translations[lang].fridayBadge;
-    document.getElementById('lbl-couscous-title').innerText = translations[lang].couscousTitle;
-    document.getElementById('lbl-couscous-desc').innerText = translations[lang].couscousDesc;
-    if (document.getElementById('lbl-order-now-btn')) {
-        document.getElementById('lbl-order-now-btn').querySelector('span').innerText = translations[lang].orderNow;
-    }
-       
+            // تحديث بنر الكسكس بأمان وبلا ما يبلوكي الكود
+var badgeElem = document.getElementById('lbl-friday-badge');
+var titleElem = document.getElementById('lbl-couscous-title');
+var descElem = document.getElementById('lbl-couscous-desc');
+var orderBtnElem = document.getElementById('lbl-order-now-btn');
+
+if (badgeElem) badgeElem.innerText = translations[lang].fridayBadge;
+if (titleElem) titleElem.innerText = translations[lang].couscousTitle;
+if (descElem) descElem.innerText = translations[lang].couscousDesc;
+if (orderBtnElem && orderBtnElem.querySelector('span')) {
+    orderBtnElem.querySelector('span').innerText = translations[lang].orderNow;
+}
+
             // حفظ اختيار المستخدم في المتصفح ليعود إليه تلقائياً
             localStorage.setItem('preferredLang', lang);
         }
