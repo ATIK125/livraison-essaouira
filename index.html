@@ -1803,6 +1803,18 @@ if (descElem) descElem.innerText = translations[lang].couscousDesc;
 if (orderBtnElem && orderBtnElem.querySelector('span')) {
     orderBtnElem.querySelector('span').innerText = translations[lang].orderNow;
 }
+// Samir Boucherie Banner Translation Update
+if (translations[lang]) {
+    var samirTitle = document.getElementById('lbl-samir-title');
+    var samirDesc = document.getElementById('lbl-samir-desc');
+    var samirBtn = document.getElementById('lbl-samir-btn');
+
+    if (samirTitle && translations[lang].samirTitle) samirTitle.innerText = translations[lang].samirTitle;
+    if (samirDesc && translations[lang].samirDesc) samirDesc.innerText = translations[lang].samirDesc;
+    if (samirBtn && translations[lang].orderNow) {
+        var btnIcon = lang === 'ar' ? "<i class='bx bx-left-arrow-alt'></i>" : "<i class='bx bx-right-arrow-alt'></i>";
+        samirBtn.innerHTML = '<span>' + translations[lang].orderNow + '</span> ' + btnIcon;
+    }
 
             // حفظ اختيار المستخدم في المتصفح ليعود إليه تلقائياً
             localStorage.setItem('preferredLang', lang);
