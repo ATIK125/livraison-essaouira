@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAMIR BOUCHERIE EL BORJ - Menu & Commande</title>
+    <title>SAMIR BOUCHERIE EL BORJ - Menu & Order</title>
     <!-- Google Fonts & FontAwesome icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -37,6 +37,30 @@
             padding-bottom: 120px;
             background-image: radial-gradient(#222 1px, transparent 0);
             background-size: 24px 24px;
+        }
+
+        /* Top Navigation Bar */
+        .top-nav {
+            background: #000000;
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .back-home-btn {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.2s;
+        }
+
+        .back-home-btn:hover {
+            color: #ffffff;
         }
 
         /* Header / Banner */
@@ -229,11 +253,9 @@
             margin-bottom: 2px;
         }
 
-        .card .title-ar {
-            font-size: 0.9rem;
+        .card .title-en {
+            font-size: 0.85rem;
             color: var(--accent);
-            direction: rtl;
-            text-align: right;
             display: block;
             margin-top: 2px;
             font-weight: 500;
@@ -377,6 +399,7 @@
             display: flex;
             align-items: center;
             gap: 15px;
+            cursor: pointer;
         }
 
         .cart-icon-wrapper {
@@ -389,7 +412,6 @@
             align-items: center;
             justify-content: center;
             font-size: 1.2rem;
-            cursor: pointer;
         }
 
         .cart-badge {
@@ -598,11 +620,18 @@
 </head>
 <body>
 
+    <!-- Top Navigation Bar for Linking to Home Page -->
+    <div class="top-nav">
+        <a href="index.html" class="back-home-btn">
+            <i class="fa-solid fa-arrow-left"></i> Retour à l'accueil / Back to Home
+        </a>
+    </div>
+
     <!-- Header / Banner -->
     <header>
-        <div class="header-badge"><i class="fa-solid fa-drumstick-bite"></i> Boucherie Halal Premier</div>
+        <div class="header-badge"><i class="fa-solid fa-drumstick-bite"></i> Halal Butcher Shop</div>
         <h1>SAMIR BOUCHERIE <span>EL BORJ</span></h1>
-        <p>Viandes fraîches de haute qualité & Découpe sur mesure</p>
+        <p>Viandes fraîches de haute qualité & Découpe sur mesure | Premium Fresh Meat & Custom Cuts</p>
         <div class="header-info">
             <span><i class="fa-solid fa-phone"></i> +212 646-897111</span>
             <span><i class="fa-solid fa-location-dot"></i> Quartier El Borj</span>
@@ -614,13 +643,13 @@
         <div class="controls">
             <div class="search-box">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="searchInput" placeholder="Rechercher une viande..." oninput="filterItems()">
+                <input type="text" id="searchInput" placeholder="Rechercher / Search..." oninput="filterItems()">
             </div>
             <div class="category-pills">
-                <button class="pill active" onclick="filterCategory('all', this)">Tous</button>
-                <button class="pill" onclick="filterCategory('viande', this)">Viandes</button>
-                <button class="pill" onclick="filterCategory('hache', this)">Hachés</button>
-                <button class="pill" onclick="filterCategory('specialite', this)">Spécialités</button>
+                <button class="pill active" onclick="filterCategory('all', this)">Tous / All</button>
+                <button class="pill" onclick="filterCategory('viande', this)">Viandes / Meats</button>
+                <button class="pill" onclick="filterCategory('hache', this)">Hachés / Minced</button>
+                <button class="pill" onclick="filterCategory('specialite', this)">Spécialités / Specialties</button>
             </div>
         </div>
 
@@ -638,13 +667,13 @@
                 <div class="cart-badge" id="cartBadge">0</div>
             </div>
             <div class="cart-details">
-                <span class="cart-count" id="cartCountText">0 articles sélectionnés</span>
+                <span class="cart-count" id="cartCountText">0 article(s)</span>
                 <span class="cart-total" id="cartTotalText">0.00 DH</span>
             </div>
         </div>
         <button class="btn-whatsapp" onclick="sendWhatsAppOrder()">
             <i class="fa-brands fa-whatsapp" style="font-size: 1.3rem;"></i>
-            Commander
+            Commander / Order
         </button>
     </div>
 
@@ -652,66 +681,63 @@
     <div class="modal-overlay" id="cartModalOverlay" onclick="closeCartModal(event)">
         <div class="cart-modal" onclick="event.stopPropagation()">
             <div class="modal-header">
-                <h2><i class="fa-solid fa-cart-shopping"></i> Mon Panier</h2>
+                <h2><i class="fa-solid fa-cart-shopping"></i> Mon Panier / My Cart</h2>
                 <button class="btn-close" onclick="toggleCartModal()">&times;</button>
             </div>
             <div class="cart-items-list" id="cartItemsList">
                 <!-- Cart Items rendered via JS -->
             </div>
             <div class="modal-footer">
-                <textarea id="customerNotes" class="customer-notes" rows="2" placeholder="Instructions spéciales (ex: découpe fine, sans matière grasse, etc.)..."></textarea>
+                <textarea id="customerNotes" class="customer-notes" rows="2" placeholder="Instructions spéciales / Special instructions..."></textarea>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
-                    <span style="color: var(--text-muted);">Total de la commande:</span>
+                    <span style="color: var(--text-muted);">Total:</span>
                     <span id="modalGrandTotal" style="font-size: 1.3rem; font-weight: 700; color: var(--accent);">0.00 DH</span>
                 </div>
                 <button class="btn-whatsapp" style="width: 100%; justify-content: center; padding: 14px; font-size: 1rem;" onclick="sendWhatsAppOrder()">
                     <i class="fa-brands fa-whatsapp" style="font-size: 1.4rem;"></i>
-                    Envoyer la commande via WhatsApp
+                    Commander via WhatsApp
                 </button>
             </div>
         </div>
     </div>
 
     <script>
-        // Raw Data based on Image Rates (per 1 Kg)
+        // Raw Data with French & English only
         const productsData = [
-            { id: 1,  nameFr: "Viande d'agneau",           nameAr: "لحم الغنم",            priceKg: 140, category: "viande" },
-            { id: 2,  nameFr: "Viande de chèvre",          nameAr: "لحم الماعز",           priceKg: 130, category: "viande" },
-            { id: 3,  nameFr: "Viande de veau",            nameAr: "لحم البقر",            priceKg: 120, category: "viande" },
-            { id: 4,  nameFr: "Steak haché",               nameAr: "كفتة",                priceKg: 130, category: "hache" },
-            { id: 5,  nameFr: "Steak haché diététique",     nameAr: "كفتة رجيم",           priceKg: 140, category: "hache" },
-            { id: 6,  nameFr: "Steak",                     nameAr: "هبرة",                priceKg: 140, category: "viande" },
-            { id: 7,  nameFr: "Foie",                      nameAr: "كبدة",                priceKg: 170, category: "specialite" },
-            { id: 8,  nameFr: "Saucisses",                 nameAr: "صوحيص",               priceKg: 110, category: "hache" },
-            { id: 9,  nameFr: "Côtelettes",                nameAr: "كوتليط",              priceKg: 150, category: "viande" },
-            { id: 10, nameFr: "Steak de dinde",            nameAr: "هبرة داند",           priceKg: 70,  category: "viande" },
-            { id: 11, nameFr: "Filet",                     nameAr: "فيلي",                priceKg: 170, category: "viande" },
-            { id: 12, nameFr: "Faux filet",                nameAr: "فوفيلي",              priceKg: 160, category: "viande" },
-            { id: 13, nameFr: "Cœur",                      nameAr: "قلب",                 priceKg: 160, category: "specialite" },
-            { id: 14, nameFr: "Entrecôte",                 nameAr: "لونتروكوت",           priceKg: 130, category: "viande" },
-            { id: 15, nameFr: "Brochettes aux épices",     nameAr: "بروشيت بالعطرية",      priceKg: 160, category: "hache" },
-            { id: 16, nameFr: "Rate",                      nameAr: "طحال",                priceKg: 90,  category: "specialite" },
-            { id: 17, nameFr: "Rate garni",                nameAr: "طحال معمر",           priceKg: 120, category: "specialite" },
-            { id: 18, nameFr: "Cervelle",                 nameAr: "مخ",                  priceKg: 60,  category: "specialite" }
+            { id: 1,  nameFr: "Viande d'agneau",           nameEn: "Lamb Meat",            priceKg: 140, category: "viande" },
+            { id: 2,  nameFr: "Viande de chèvre",          nameEn: "Goat Meat",            priceKg: 130, category: "viande" },
+            { id: 3,  nameFr: "Viande de veau",            nameEn: "Veal Meat",            priceKg: 120, category: "viande" },
+            { id: 4,  nameFr: "Steak haché",               nameEn: "Minced Meat / Kefta",  priceKg: 130, category: "hache" },
+            { id: 5,  nameFr: "Steak haché diététique",     nameEn: "Lean Minced Meat",     priceKg: 140, category: "hache" },
+            { id: 6,  nameFr: "Steak boneless",            nameEn: "Boneless Meat",        priceKg: 140, category: "viande" },
+            { id: 7,  nameFr: "Foie",                      nameEn: "Liver",                priceKg: 170, category: "specialite" },
+            { id: 8,  nameFr: "Saucisses",                 nameEn: "Sausages",             priceKg: 110, category: "hache" },
+            { id: 9,  nameFr: "Côtelettes",                nameEn: "Chops",                priceKg: 150, category: "viande" },
+            { id: 10, nameFr: "Steak de dinde",            nameEn: "Turkey Steak",         priceKg: 70,  category: "viande" },
+            { id: 11, nameFr: "Filet",                     nameEn: "Tenderloin / Filet",   priceKg: 170, category: "viande" },
+            { id: 12, nameFr: "Faux filet",                nameEn: "Sirloin",              priceKg: 160, category: "viande" },
+            { id: 13, nameFr: "Cœur",                      nameEn: "Heart",                priceKg: 160, category: "specialite" },
+            { id: 14, nameFr: "Entrecôte",                 nameEn: "Ribeye Steak",         priceKg: 130, category: "viande" },
+            { id: 15, nameFr: "Brochettes aux épices",     nameEn: "Spiced Skewers",       priceKg: 160, category: "hache" },
+            { id: 16, nameFr: "Rate",                      nameEn: "Spleen",               priceKg: 90,  category: "specialite" },
+            { id: 17, nameFr: "Rate garni",                nameEn: "Stuffed Spleen",       priceKg: 120, category: "specialite" },
+            { id: 18, nameFr: "Cervelle",                 nameEn: "Brain",                priceKg: 60,  category: "specialite" }
         ];
 
-        // State variables
         let cart = [];
         let currentCategory = 'all';
 
-        // Initialize UI
         function initMenu() {
             renderGrid(productsData);
             updateCartUI();
         }
 
-        // Render Menu Items
         function renderGrid(items) {
             const grid = document.getElementById('menuGrid');
             grid.innerHTML = '';
 
             if (items.length === 0) {
-                grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px;">Aucun article trouvé.</div>';
+                grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px;">Aucun article trouvé / No items found.</div>';
                 return;
             }
 
@@ -723,7 +749,7 @@
                         <div class="card-header">
                             <div class="title-group">
                                 <h3>${item.nameFr}</h3>
-                                <span class="title-ar">${item.nameAr}</span>
+                                <span class="title-en">${item.nameEn}</span>
                             </div>
                             <span class="price-badge">${item.priceKg} DH/Kg</span>
                         </div>
@@ -731,7 +757,7 @@
                     
                     <div class="card-controls">
                         <div class="qty-selector">
-                            <span class="qty-label">Quantité</span>
+                            <span class="qty-label">Quantité / Qty</span>
                             <div class="qty-controls">
                                 <button class="btn-qty" onclick="changeTempQty(${item.id}, -1)">-</button>
                                 <span id="qty-val-${item.id}" style="font-weight:600; min-width: 20px; text-align:center;">1</span>
@@ -740,7 +766,7 @@
                         </div>
 
                         <div class="qty-selector">
-                            <span class="qty-label">Poids / Unité</span>
+                            <span class="qty-label">Poids / Weight</span>
                             <select class="select-weight" id="unit-val-${item.id}" onchange="updateCardCalc(${item.id})">
                                 <option value="0.5">500 g (1/2 Kg)</option>
                                 <option value="1" selected>1 Kg</option>
@@ -758,7 +784,7 @@
                         </div>
 
                         <button class="btn-add" onclick="addToCart(${item.id})">
-                            <i class="fa-solid fa-cart-plus"></i> Ajouter au panier
+                            <i class="fa-solid fa-cart-plus"></i> Ajouter / Add
                         </button>
                     </div>
                 `;
@@ -766,7 +792,6 @@
             });
         }
 
-        // Card Live Calculations
         function changeTempQty(id, delta) {
             const qtyElem = document.getElementById(`qty-val-${id}`);
             let current = parseInt(qtyElem.innerText);
@@ -788,7 +813,6 @@
             document.getElementById(`calc-price-${id}`).innerText = `${totalPrice.toFixed(2)} DH`;
         }
 
-        // Cart Actions
         function addToCart(id) {
             const product = productsData.find(p => p.id === id);
             const count = parseInt(document.getElementById(`qty-val-${id}`).innerText);
@@ -796,7 +820,6 @@
             const totalKg = count * weightUnit;
             const itemPrice = totalKg * product.priceKg;
 
-            // Check if item with same weight unit exists
             const existingIndex = cart.findIndex(ci => ci.id === id && ci.weightUnit === weightUnit);
             
             if (existingIndex > -1) {
@@ -807,7 +830,7 @@
                 cart.push({
                     id: product.id,
                     nameFr: product.nameFr,
-                    nameAr: product.nameAr,
+                    nameEn: product.nameEn,
                     priceKg: product.priceKg,
                     count: count,
                     weightUnit: weightUnit,
@@ -818,7 +841,6 @@
 
             updateCartUI();
             
-            // Temporary feedback effect
             const floatBar = document.querySelector('.cart-float-bar');
             floatBar.style.transform = 'translateX(-50%) scale(1.03)';
             setTimeout(() => {
@@ -842,13 +864,12 @@
             const grandTotal = cart.reduce((sum, item) => sum + item.itemPrice, 0);
 
             badge.innerText = totalItemsCount;
-            cartCountText.innerText = `${cart.length} référence(s) selected`;
+            cartCountText.innerText = `${cart.length} article(s)`;
             cartTotalText.innerText = `${grandTotal.toFixed(2)} DH`;
             modalGrandTotal.innerText = `${grandTotal.toFixed(2)} DH`;
 
-            // Modal List Render
             if (cart.length === 0) {
-                cartItemsList.innerHTML = '<div class="empty-cart-msg"><i class="fa-solid fa-basket-shopping" style="font-size: 2rem; margin-bottom: 10px; display:block;"></i>Votre panier est vide</div>';
+                cartItemsList.innerHTML = '<div class="empty-cart-msg"><i class="fa-solid fa-basket-shopping" style="font-size: 2rem; margin-bottom: 10px; display:block;"></i>Votre panier est vide / Your cart is empty</div>';
             } else {
                 cartItemsList.innerHTML = '';
                 cart.forEach((item, index) => {
@@ -857,7 +878,7 @@
                     itemDiv.className = 'cart-item';
                     itemDiv.innerHTML = `
                         <div>
-                            <div class="cart-item-title">${item.nameFr} (${item.nameAr})</div>
+                            <div class="cart-item-title">${item.nameFr} (${item.nameEn})</div>
                             <div class="cart-item-sub">Quantité: ${item.count} × ${unitText} = <strong>${item.totalKg} Kg</strong></div>
                         </div>
                         <div style="display: flex; align-items: center;">
@@ -872,7 +893,6 @@
             }
         }
 
-        // Cart Drawer Modal Toggle
         function toggleCartModal() {
             const overlay = document.getElementById('cartModalOverlay');
             overlay.classList.toggle('active');
@@ -884,7 +904,6 @@
             }
         }
 
-        // WhatsApp Order Generation
         function sendWhatsAppOrder() {
             if (cart.length === 0) {
                 alert("Votre panier est vide. Veuillez ajouter des produits avant de commander.");
@@ -892,52 +911,38 @@
             }
 
             const phone = "212646897111";
-            let message = `*SAMIR BOUCHERIE EL BORJ*
-`;
-            message += `------------------------------------
-`;
-            message += `*Nouvelle Commande:* 
-
-`;
+            let message = `*SAMIR BOUCHERIE EL BORJ*\n`;
+            message += `------------------------------------\n`;
+            message += `*Nouvelle Commande / New Order:*\n\n`;
 
             cart.forEach((item, i) => {
                 const unitText = item.weightUnit === 0.5 ? "500g" : `${item.weightUnit}Kg`;
-                message += `${i + 1}. *${item.nameFr}* (${item.nameAr})
-`;
-                message += `   • Quantité: ${item.count} × ${unitText} (${item.totalKg} Kg Total)
-`;
-                message += `   • Prix: ${item.itemPrice.toFixed(2)} DH
-
-`;
+                message += `${i + 1}. *${item.nameFr}* (${item.nameEn})\n`;
+                message += `   • Quantité: ${item.count} × ${unitText} (${item.totalKg} Kg Total)\n`;
+                message += `   • Prix: ${item.itemPrice.toFixed(2)} DH\n\n`;
             });
 
             const grandTotal = cart.reduce((sum, item) => sum + item.itemPrice, 0);
-            message += `------------------------------------
-`;
-            message += `*TOTAL À PAYER: ${grandTotal.toFixed(2)} DH*
-`;
+            message += `------------------------------------\n`;
+            message += `*TOTAL: ${grandTotal.toFixed(2)} DH*\n`;
 
             const notes = document.getElementById('customerNotes').value.trim();
             if (notes) {
-                message += `
-*Note / Instructions:* ${notes}
-`;
+                message += `\n*Note:* ${notes}\n`;
             }
 
-            message += `
-Merci de me confirmer la disponibilité et le temps de préparation!`;
+            message += `\nMerci de me confirmer la disponibilité!`;
 
             const encodedMessage = encodeURIComponent(message);
             const whatsappUrl = `https://wa.me/${phone}?text=${encodedMessage}`;
             window.open(whatsappUrl, '_blank');
         }
 
-        // Filters & Search
         function filterItems() {
             const query = document.getElementById('searchInput').value.toLowerCase();
             const filtered = productsData.filter(p => {
                 const matchCat = currentCategory === 'all' || p.category === currentCategory;
-                const matchQuery = p.nameFr.toLowerCase().includes(query) || p.nameAr.includes(query);
+                const matchQuery = p.nameFr.toLowerCase().includes(query) || p.nameEn.toLowerCase().includes(query);
                 return matchCat && matchQuery;
             });
             renderGrid(filtered);
@@ -950,7 +955,6 @@ Merci de me confirmer la disponibilité et le temps de préparation!`;
             filterItems();
         }
 
-        // On Load
         window.onload = initMenu;
     </script>
 </body>
