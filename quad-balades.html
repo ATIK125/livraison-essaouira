@@ -4,34 +4,272 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Activités & Balades - Quad, Cheval, Dromadaire</title>
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f8f9fa; color: #333; line-height: 1.6; padding-bottom: 40px; }
-        header { background: #111; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
-        .lang-select select { padding: 5px 10px; border-radius: 5px; border: none; font-weight: bold; cursor: pointer; }
-        .container { max-width: 900px; margin: 20px auto; padding: 0 15px; }
-        h1, h2 { text-align: center; margin-bottom: 20px; color: #111; }
-        .card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); margin-bottom: 25px; }
-        
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        th, td { border: 1px solid #e2e8f0; padding: 12px 10px; text-align: center; font-size: 14px; }
-        th { background-color: #f1f5f9; font-weight: bold; color: #0f172a; }
-        tr:nth-child(even) { background-color: #f8fafc; }
-        .circuit-text { text-align: left; font-size: 13px; color: #475569; }
-        [dir="rtl"] .circuit-text { text-align: right; }
+        :root {
+            --primary-orange: #ff6b35;
+            --primary-glow: rgba(255, 107, 53, 0.35);
+            --bg-gradient: radial-gradient(circle at 50% -20%, #2b192e, #0f1016 80%);
+            --card-bg: rgba(255, 255, 255, 0.04);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --whatsapp-color: #25D366;
+            --whatsapp-glow: rgba(37, 211, 102, 0.35);
+        }
 
-        .btn-whatsapp { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background-color: #25D366; color: white; text-decoration: none; padding: 8px 16px; border-radius: 6px; font-weight: bold; font-size: 13px; }
-        .btn-whatsapp:hover { background-color: #1eb956; }
-        
-        .back-link { display: inline-block; margin-bottom: 15px; color: #2563eb; text-decoration: none; font-weight: 500; }
-        .back-link:hover { text-decoration: underline; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', 'Cairo', sans-serif;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            background: #0d0e12;
+            background-image: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 60px;
+        }
+
+        /* Header Integration */
+        header {
+            background: rgba(13, 14, 18, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--card-border);
+            padding: 10px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            padding: 8px 16px;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+        }
+
+        .back-link:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateX(-3px);
+        }
+
+        [dir="rtl"] .back-link:hover {
+            transform: translateX(3px);
+        }
+
+        .lang-select select {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-main);
+            padding: 8px 16px;
+            border-radius: 30px;
+            border: 1px solid var(--card-border);
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .lang-select select option {
+            background: #181920;
+            color: var(--text-main);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 960px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .main-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 35px;
+            background: linear-gradient(135deg, #fff 30%, var(--primary-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        /* Glassmorphic Cards */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 28px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary-orange), transparent);
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 22px;
+            color: #fff;
+        }
+
+        /* Custom Icon Styling for titles */
+        .card-title i, .title-icon-svg {
+            color: var(--primary-orange);
+            font-size: 1.8rem;
+            width: 1.8rem;
+            height: 1.8rem;
+            fill: var(--primary-orange);
+            filter: drop-shadow(0 0 8px var(--primary-glow));
+        }
+
+        /* Table Styling */
+        .table-responsive {
+            overflow-x: auto;
+            border-radius: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        th {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--primary-orange);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+            padding: 16px 14px;
+            border-bottom: 1px solid var(--card-border);
+            text-align: center;
+        }
+
+        td {
+            padding: 16px 14px;
+            text-align: center;
+            font-size: 14.5px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            color: var(--text-main);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .badge-duration {
+            font-weight: 700;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 4px 10px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+
+        .price-tag {
+            font-weight: 700;
+            color: #38bdf8;
+        }
+
+        .circuit-text {
+            text-align: left;
+            font-size: 13.5px;
+            color: var(--text-muted);
+            max-width: 260px;
+            line-height: 1.4;
+        }
+
+        [dir="rtl"] .circuit-text {
+            text-align: right;
+        }
+
+        /* WhatsApp Button */
+        .btn-whatsapp {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--whatsapp-color);
+            color: #000;
+            text-decoration: none;
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 13px;
+            box-shadow: 0 4px 15px var(--whatsapp-glow);
+        }
+
+        .btn-whatsapp i {
+            font-size: 18px;
+        }
+
+        .btn-whatsapp:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--whatsapp-glow);
+            filter: brightness(1.1);
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 768px) {
+            header { padding: 10px 15px; }
+            .main-title { font-size: 1.8rem; }
+            .card { padding: 18px 14px; }
+            th, td { padding: 12px 8px; font-size: 13px; }
+            .btn-whatsapp { padding: 6px 12px; font-size: 12px; }
+        }
     </style>
 </head>
 <body>
 
 <header>
-    <a href="index.html" class="back-link" style="color: white; margin: 0;"><i class='bx bx-left-arrow-alt'></i> Retour</a>
+    <div class="header-left">
+        <a href="index.html" class="back-link" id="btn-back">
+            <i class='bx bx-left-arrow-alt'></i> <span>Retour</span>
+        </a>
+    </div>
     <div class="lang-select">
         <select id="langSelector" onchange="changeLanguage(this.value)">
             <option value="fr">Français</option>
@@ -42,12 +280,15 @@
 </header>
 
 <div class="container">
-    <h1 id="txt-main-title">Tarifs Activités & Balades</h1>
+    <h1 class="main-title" id="txt-main-title">Tarifs Activités & Balades</h1>
 
     <!-- Quad Section -->
     <div class="card">
-        <h2 id="txt-quad-title"><i class='bx bx-car'></i> Tarifs Quad</h2>
-        <div style="overflow-x:auto;">
+        <h2 class="card-title" id="txt-quad-title">
+            <svg class="title-icon-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21.5 13.513c0-2.317-1.883-4.2-4.2-4.2-.397 0-.776.06-1.138.163l-1.074-3.161h1.362a.75.75 0 000-1.5h-1.873a2.25 2.25 0 00-2.148 1.574l-.98 2.879a4.17 4.17 0 00-1.449 0l-.98-2.879A2.251 2.251 0 007.822 4.815H5.949a.75.75 0 000 1.5h1.362l-1.074 3.161A4.186 4.186 0 005.1 9.313c-2.317 0-4.2 1.883-4.2 4.2S2.783 17.713 5.1 17.713c2.317 0 4.2-1.883 4.2-4.2 0-.213-.021-.421-.051-.626.467-.184.953-.314 1.451-.383v4.613a.75.75 0 001.5 0v-4.613c.498.069.984.199 1.451.383-.03.205-.051.413-.051.626 0 2.317 1.883 4.2 4.2 4.2s4.2-1.883 4.2-4.2zm-16.4 2.7c-1.489 0-2.7-1.211-2.7-2.7s1.211-2.7 2.7-2.7 2.7 1.211 2.7 2.7-1.211 2.7-2.7 2.7zm11 0c-1.489 0-2.7-1.211-2.7-2.7s1.211-2.7 2.7-2.7 2.7 1.211 2.7 2.7-1.211 2.7-2.7 2.7z"/></svg>
+            <span>Tarifs Quad</span>
+        </h2>
+        <div class="table-responsive">
             <table>
                 <thead>
                     <tr>
@@ -60,44 +301,44 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>1h</td>
-                        <td>300 DH</td>
-                        <td>450 DH</td>
+                        <td><span class="badge-duration">1h</span></td>
+                        <td class="price-tag">300 DH</td>
+                        <td class="price-tag">450 DH</td>
                         <td class="circuit-text" data-key="c1">Diabat plage, forêt</td>
                         <td><a href="https://wa.me/?text=Réservation%20Quad%201h" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
                     </tr>
                     <tr>
-                        <td>2h</td>
-                        <td>500 DH</td>
-                        <td>700 DH</td>
+                        <td><span class="badge-duration">2h</span></td>
+                        <td class="price-tag">500 DH</td>
+                        <td class="price-tag">700 DH</td>
                         <td class="circuit-text" data-key="c2">Diabat plage, forêt, dunes sauvage, source d'eau douce</td>
                         <td><a href="https://wa.me/?text=Réservation%20Quad%202h" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
                     </tr>
                     <tr>
-                        <td>3h</td>
-                        <td>650 DH</td>
-                        <td>900 DH</td>
+                        <td><span class="badge-duration">3h</span></td>
+                        <td class="price-tag">650 DH</td>
+                        <td class="price-tag">900 DH</td>
                         <td class="circuit-text" data-key="c3">Diabat plage, forêt, source d'eau douce, Cap-Cim</td>
                         <td><a href="https://wa.me/?text=Réservation%20Quad%203h" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
                     </tr>
                     <tr>
-                        <td>1/2j</td>
-                        <td>900 DH</td>
-                        <td>1100 DH</td>
+                        <td><span class="badge-duration">1/2j</span></td>
+                        <td class="price-tag">900 DH</td>
+                        <td class="price-tag">1100 DH</td>
                         <td class="circuit-text" data-key="c4">Diabat plage, forêt, source d'eau douce, Cap-Cim, Taguenza, petit port</td>
                         <td><a href="https://wa.me/?text=Réservation%20Quad%20Demi%20journée" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
                     </tr>
                     <tr>
-                        <td>1j Sidi Kaouki</td>
-                        <td>1100 DH</td>
-                        <td>1400 DH</td>
+                        <td><span class="badge-duration">1j Sidi Kaouki</span></td>
+                        <td class="price-tag">1100 DH</td>
+                        <td class="price-tag">1400 DH</td>
                         <td class="circuit-text" data-key="c5">Plage sauvage et des dunes au bord de la plage</td>
                         <td><a href="https://wa.me/?text=Réservation%20Quad%20Sidi%20Kaouki" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
                     </tr>
                     <tr>
-                        <td>1j Sidi M'barek</td>
-                        <td>1400 DH</td>
-                        <td>1700 DH</td>
+                        <td><span class="badge-duration">1j Sidi M'barek</span></td>
+                        <td class="price-tag">1400 DH</td>
+                        <td class="price-tag">1700 DH</td>
                         <td class="circuit-text" data-key="c6">Cascade de Sidi M'barek, plage sauvage et des dunes au bord de la plage</td>
                         <td><a href="https://wa.me/?text=Réservation%20Quad%20Sidi%20Mbarek" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
                     </tr>
@@ -108,44 +349,47 @@
 
     <!-- Dromadaire & Cheval Section -->
     <div class="card">
-        <h2 id="txt-balades-title">Balades à Cheval ou Dromadaire</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th id="th-balade-duration">Durée</th>
-                    <th id="th-balade-price">Prix par personne</th>
-                    <th id="th-balade-action">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1h</td>
-                    <td>200 DH</td>
-                    <td><a href="https://wa.me/?text=Réservation%20Balade%201h" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
-                </tr>
-                <tr>
-                    <td>2h</td>
-                    <td>300 DH</td>
-                    <td><a href="https://wa.me/?text=Réservation%20Balade%202h" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
-                </tr>
-                <tr>
-                    <td>3h</td>
-                    <td>400 DH</td>
-                    <td><a href="https://wa.me/?text=Réservation%20Balade%203h" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
-                </tr>
-                <tr>
-                    <td>1j</td>
-                    <td>700 DH</td>
-                    <td><a href="https://wa.me/?text=Réservation%20Balade%201j" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
-                </tr>
-            </tbody>
-        </table>
+        <h2 class="card-title" id="txt-balades-title"><i class='bx bx-landscape'></i> <span>Balades à Cheval ou Dromadaire</span></h2>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th id="th-balade-duration">Durée</th>
+                        <th id="th-balade-price">Prix par personne</th>
+                        <th id="th-balade-action">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="badge-duration">1h</span></td>
+                        <td class="price-tag">200 DH</td>
+                        <td><a href="https://wa.me/?text=Réservation%20Balade%201h" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge-duration">2h</span></td>
+                        <td class="price-tag">300 DH</td>
+                        <td><a href="https://wa.me/?text=Réservation%20Balade%202h" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge-duration">3h</span></td>
+                        <td class="price-tag">400 DH</td>
+                        <td><a href="https://wa.me/?text=Réservation%20Balade%203h" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge-duration">1j</span></td>
+                        <td class="price-tag">700 DH</td>
+                        <td><a href="https://wa.me/?text=Réservation%20Balade%201j" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
 <script>
     const translations = {
         fr: {
+            back: "Retour",
             title: "Tarifs Activités & Balades",
             quadTitle: "Tarifs Quad",
             baladesTitle: "Balades à Cheval ou Dromadaire",
@@ -166,6 +410,7 @@
             }
         },
         ar: {
+            back: "رجوع",
             title: "أسعار الأنشطة والجولات",
             quadTitle: "أسعار الكواد (Quad)",
             baladesTitle: "جولات على ظهر الخيل أو الجمال",
@@ -186,6 +431,7 @@
             }
         },
         en: {
+            back: "Back",
             title: "Activities & Rides Prices",
             quadTitle: "Quad Biking Prices",
             baladesTitle: "Horse & Camel Rides",
@@ -213,9 +459,15 @@
         html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
 
         const t = translations[lang];
+        
+        // Dynamic back button icon swap for RTL
+        const backIcon = lang === 'ar' ? 'bx-right-arrow-alt' : 'bx-left-arrow-alt';
+        document.getElementById('btn-back').querySelector('i').className = `bx ${backIcon}`;
+        document.getElementById('btn-back').querySelector('span').innerText = t.back;
+
         document.getElementById('txt-main-title').innerText = t.title;
-        document.getElementById('txt-quad-title').innerText = t.quadTitle;
-        document.getElementById('txt-balades-title').innerText = t.baladesTitle;
+        document.getElementById('txt-quad-title').querySelector('span').innerText = t.quadTitle;
+        document.getElementById('txt-balades-title').querySelector('span').innerText = t.baladesTitle;
         
         document.getElementById('th-duration').innerText = t.duration;
         document.getElementById('th-simple').innerText = t.simple;
