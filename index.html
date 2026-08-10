@@ -1862,20 +1862,37 @@ if (orderBtnElem && orderBtnElem.querySelector('span')) {
     orderBtnElem.querySelector('span').innerText = translations[lang].orderNow;
 }
             
-// Samir Boucherie Banner Translation Update
-if (translations[lang]) {
-    var samirTitle = document.getElementById('lbl-samir-title');
-    var samirDesc = document.getElementById('lbl-samir-desc');
-    var samirBtn = document.getElementById('lbl-samir-btn');
+    // Samir Boucherie Banner Translation Update
+    if (translations[lang]) {
+        var samirBadge = document.getElementById('lbl-samir-badge');
+        var samirTitle = document.getElementById('lbl-samir-title');
+        var samirDesc = document.getElementById('lbl-samir-desc');
+        var samirBtn = document.getElementById('lbl-samir-btn');
 
-    if (samirTitle && translations[lang].samirTitle) samirTitle.innerText = translations[lang].samirTitle;
-    if (samirDesc && translations[lang].samirDesc) samirDesc.innerText = translations[lang].samirDesc;
-    if (samirBtn && translations[lang].orderNow) {
-        var btnIcon = lang === 'ar' ? "<i class='bx bx-left-arrow-alt'></i>" : "<i class='bx bx-right-arrow-alt'></i>";
-        samirBtn.innerHTML = '<span>' + translations[lang].orderNow + '</span> ' + btnIcon;
+        if (samirBadge && translations[lang].samirBadge) samirBadge.innerText = translations[lang].samirBadge;
+        if (samirTitle && translations[lang].samirTitle) samirTitle.innerText = translations[lang].samirTitle;
+        if (samirDesc && translations[lang].samirDesc) samirDesc.innerText = translations[lang].samirDesc;
+        if (samirBtn && translations[lang].orderNow) {
+            var btnIcon = lang === 'ar' ? "<i class='bx bx-left-arrow-alt'></i>" : "<i class='bx bx-right-arrow-alt'></i>";
+            samirBtn.innerHTML = '<span>' + translations[lang].orderNow + '</span> ' + btnIcon;
+        }
     }
-}
 
+    // Quad & Balades Banner Translation Update
+    if (translations[lang]) {
+        var quadBadge = document.getElementById('lbl-quad-badge');
+        var quadTitle = document.getElementById('lbl-quad-title');
+        var quadDesc = document.getElementById('lbl-quad-desc');
+        var quadBtn = document.getElementById('lbl-quad-btn');
+
+        if (quadBadge && translations[lang].quadBadge) quadBadge.innerText = translations[lang].quadBadge;
+        if (quadTitle && translations[lang].quadTitle) quadTitle.innerText = translations[lang].quadTitle;
+        if (quadDesc && translations[lang].quadDesc) quadDesc.innerText = translations[lang].quadDesc;
+        if (quadBtn && translations[lang].seePrices) {
+            var btnIcon = lang === 'ar' ? "<i class='bx bx-left-arrow-alt'></i>" : "<i class='bx bx-right-arrow-alt'></i>";
+            quadBtn.innerHTML = '<span>' + translations[lang].seePrices + '</span> ' + btnIcon;
+        }
+    }
             // حفظ اختيار المستخدم في المتصفح ليعود إليه تلقائياً
             localStorage.setItem('preferredLang', lang);
         }
