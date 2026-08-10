@@ -83,10 +83,10 @@
             transform: translateX(3px);
         }
 
-        .lang-select select {
+        .lang-select select, .type-select {
             background: rgba(255, 255, 255, 0.08);
             color: var(--text-main);
-            padding: 8px 16px;
+            padding: 8px 12px;
             border-radius: 30px;
             border: 1px solid var(--card-border);
             font-weight: 600;
@@ -94,7 +94,15 @@
             outline: none;
         }
 
-        .lang-select select option {
+        .type-select {
+            font-size: 13px;
+            padding: 6px 10px;
+            background: rgba(255, 107, 53, 0.1);
+            border-color: rgba(255, 107, 53, 0.3);
+            color: #fff;
+        }
+
+        .lang-select select option, .type-select option {
             background: #181920;
             color: var(--text-main);
         }
@@ -240,6 +248,7 @@
             font-weight: 700;
             font-size: 13px;
             box-shadow: 0 4px 15px var(--whatsapp-glow);
+            cursor: pointer;
         }
 
         .btn-whatsapp i {
@@ -295,6 +304,7 @@
                         <th id="th-duration">Durée</th>
                         <th id="th-simple">Simple</th>
                         <th id="th-double">Double</th>
+                        <th id="th-option">Option</th>
                         <th id="th-circuit">Circuit</th>
                         <th id="th-action">Action</th>
                     </tr>
@@ -304,43 +314,79 @@
                         <td><span class="badge-duration">1h</span></td>
                         <td class="price-tag">300 DH</td>
                         <td class="price-tag">450 DH</td>
+                        <td>
+                            <select class="type-select" id="opt-q1">
+                                <option value="simple">Simple</option>
+                                <option value="double">Double</option>
+                            </select>
+                        </td>
                         <td class="circuit-text" data-key="c1">Diabat plage, forêt</td>
-                        <td><a href="https://wa.me/?text=Réservation%20Quad%201h" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
+                        <td><a href="#" onclick="sendWhatsApp('q1'); return false;" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
                     </tr>
                     <tr>
                         <td><span class="badge-duration">2h</span></td>
                         <td class="price-tag">500 DH</td>
                         <td class="price-tag">700 DH</td>
+                        <td>
+                            <select class="type-select" id="opt-q2">
+                                <option value="simple">Simple</option>
+                                <option value="double">Double</option>
+                            </select>
+                        </td>
                         <td class="circuit-text" data-key="c2">Diabat plage, forêt, dunes sauvage, source d'eau douce</td>
-                        <td><a href="https://wa.me/?text=Réservation%20Quad%202h" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
+                        <td><a href="#" onclick="sendWhatsApp('q2'); return false;" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
                     </tr>
                     <tr>
                         <td><span class="badge-duration">3h</span></td>
                         <td class="price-tag">650 DH</td>
                         <td class="price-tag">900 DH</td>
+                        <td>
+                            <select class="type-select" id="opt-q3">
+                                <option value="simple">Simple</option>
+                                <option value="double">Double</option>
+                            </select>
+                        </td>
                         <td class="circuit-text" data-key="c3">Diabat plage, forêt, source d'eau douce, Cap-Cim</td>
-                        <td><a href="https://wa.me/?text=Réservation%20Quad%203h" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
+                        <td><a href="#" onclick="sendWhatsApp('q3'); return false;" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
                     </tr>
                     <tr>
                         <td><span class="badge-duration">1/2j</span></td>
                         <td class="price-tag">900 DH</td>
                         <td class="price-tag">1100 DH</td>
+                        <td>
+                            <select class="type-select" id="opt-q4">
+                                <option value="simple">Simple</option>
+                                <option value="double">Double</option>
+                            </select>
+                        </td>
                         <td class="circuit-text" data-key="c4">Diabat plage, forêt, source d'eau douce, Cap-Cim, Taguenza, petit port</td>
-                        <td><a href="https://wa.me/?text=Réservation%20Quad%20Demi%20journée" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
+                        <td><a href="#" onclick="sendWhatsApp('q4'); return false;" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
                     </tr>
                     <tr>
                         <td><span class="badge-duration">1j Sidi Kaouki</span></td>
                         <td class="price-tag">1100 DH</td>
                         <td class="price-tag">1400 DH</td>
+                        <td>
+                            <select class="type-select" id="opt-q5">
+                                <option value="simple">Simple</option>
+                                <option value="double">Double</option>
+                            </select>
+                        </td>
                         <td class="circuit-text" data-key="c5">Plage sauvage et des dunes au bord de la plage</td>
-                        <td><a href="https://wa.me/?text=Réservation%20Quad%20Sidi%20Kaouki" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
+                        <td><a href="#" onclick="sendWhatsApp('q5'); return false;" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
                     </tr>
                     <tr>
                         <td><span class="badge-duration">1j Sidi M'barek</span></td>
                         <td class="price-tag">1400 DH</td>
                         <td class="price-tag">1700 DH</td>
+                        <td>
+                            <select class="type-select" id="opt-q6">
+                                <option value="simple">Simple</option>
+                                <option value="double">Double</option>
+                            </select>
+                        </td>
                         <td class="circuit-text" data-key="c6">Cascade de Sidi M'barek, plage sauvage et des dunes au bord de la plage</td>
-                        <td><a href="https://wa.me/?text=Réservation%20Quad%20Sidi%20Mbarek" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
+                        <td><a href="#" onclick="sendWhatsApp('q6'); return false;" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
                     </tr>
                 </tbody>
             </table>
@@ -363,22 +409,22 @@
                     <tr>
                         <td><span class="badge-duration">1h</span></td>
                         <td class="price-tag">200 DH</td>
-                        <td><a href="https://wa.me/?text=Réservation%20Balade%201h" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
+                        <td><a href="#" onclick="sendWhatsApp('b1'); return false;" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
                     </tr>
                     <tr>
                         <td><span class="badge-duration">2h</span></td>
                         <td class="price-tag">300 DH</td>
-                        <td><a href="https://wa.me/?text=Réservation%20Balade%202h" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
+                        <td><a href="#" onclick="sendWhatsApp('b2'); return false;" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
                     </tr>
                     <tr>
                         <td><span class="badge-duration">3h</span></td>
                         <td class="price-tag">400 DH</td>
-                        <td><a href="https://wa.me/?text=Réservation%20Balade%203h" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
+                        <td><a href="#" onclick="sendWhatsApp('b3'); return false;" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
                     </tr>
                     <tr>
                         <td><span class="badge-duration">1j</span></td>
                         <td class="price-tag">700 DH</td>
-                        <td><a href="https://wa.me/?text=Réservation%20Balade%201j" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
+                        <td><a href="#" onclick="sendWhatsApp('b4'); return false;" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
                     </tr>
                 </tbody>
             </table>
@@ -387,6 +433,8 @@
 </div>
 
 <script>
+    let currentLang = 'fr';
+
     const translations = {
         fr: {
             back: "Retour",
@@ -396,6 +444,7 @@
             duration: "Durée",
             simple: "Simple",
             double: "Double",
+            option: "Option",
             circuit: "Circuit",
             price: "Prix par personne",
             action: "Action",
@@ -407,6 +456,22 @@
                 c4: "Diabat plage, forêt, source d'eau douce, Cap-Cim, Taguenza, petit port",
                 c5: "Plage sauvage et des dunes au bord de la plage",
                 c6: "Cascade de Sidi M'barek, plage sauvage et des dunes au bord de la plage"
+            },
+            messages: {
+                q1: "Bonjour, je souhaite réserver une sortie Quad 1h",
+                q2: "Bonjour, je souhaite réserver une sortie Quad 2h",
+                q3: "Bonjour, je souhaite réserver une sortie Quad 3h",
+                q4: "Bonjour, je souhaite réserver une sortie Quad Demi-journée",
+                q5: "Bonjour, je souhaite réserver une sortie Quad 1j (Sidi Kaouki)",
+                q6: "Bonjour, je souhaite réserver une sortie Quad 1j (Sidi M'barek)",
+                b1: "Bonjour, je souhaite réserver une balade Cheval / Dromadaire 1h",
+                b2: "Bonjour, je souhaite réserver une balade Cheval / Dromadaire 2h",
+                b3: "Bonjour, je souhaite réserver une balade Cheval / Dromadaire 3h",
+                b4: "Bonjour, je souhaite réserver une balade Cheval / Dromadaire 1j"
+            },
+            typeLabel: {
+                simple: " (Simple)",
+                double: " (Double)"
             }
         },
         ar: {
@@ -417,6 +482,7 @@
             duration: "المدة",
             simple: "فردي (Simple)",
             double: "زوجي (Double)",
+            option: "الخيار",
             circuit: "المسار (Circuit)",
             price: "الثمن للشخص",
             action: "حجز",
@@ -428,6 +494,22 @@
                 c4: "شاطئ ديابات، الغابة، عين ماء عذب، كاب سيم، تاغوانزا، الميناء الصغير",
                 c5: "شاطئ بري والكثبان الرملية على ضفاف الشاطئ",
                 c6: "شلالات سيدي مبارك، شاطئ بري والكثبان الرملية"
+            },
+            messages: {
+                q1: "مرحبا، أريد حجز جولة كواد لمدة ساعة واحدة",
+                q2: "مرحبا، أريد حجز جولة كواد لمدة ساعتين",
+                q3: "مرحبا، أريد حجز جولة كواد لمدة 3 ساعات",
+                q4: "مرحبا، أريد حجز جولة كواد نصف يوم",
+                q5: "مرحبا، أريد حجز جولة كواد يوم كامل (سيدي كاوكي)",
+                q6: "مرحبا، أريد حجز جولة كواد يوم كامل (سيدي امبارك)",
+                b1: "مرحبا، أريد حجز جولة خيل/جمال لمدة ساعة واحدة",
+                b2: "مرحبا، أريد حجز جولة خيل/جمال لمدة ساعتين",
+                b3: "مرحبا، أريد حجز جولة خيل/جمال لمدة 3 ساعات",
+                b4: "مرحبا، أريد حجز جولة خيل/جمال لمدة يوم كامل"
+            },
+            typeLabel: {
+                simple: " (فردي / Simple)",
+                double: " (زوجي / Double)"
             }
         },
         en: {
@@ -438,6 +520,7 @@
             duration: "Duration",
             simple: "Single",
             double: "Double",
+            option: "Option",
             circuit: "Circuit",
             price: "Price per person",
             action: "Action",
@@ -449,11 +532,28 @@
                 c4: "Diabat beach, forest, fresh water spring, Cap-Cim, Taguenza, small port",
                 c5: "Wild beach and dunes along the beach",
                 c6: "Sidi M'barek waterfall, wild beach and dunes along the beach"
+            },
+            messages: {
+                q1: "Hello, I would like to book a 1h Quad tour",
+                q2: "Hello, I would like to book a 2h Quad tour",
+                q3: "Hello, I would like to book a 3h Quad tour",
+                q4: "Hello, I would like to book a Half-day Quad tour",
+                q5: "Hello, I would like to book a 1-day Quad tour (Sidi Kaouki)",
+                q6: "Hello, I would like to book a 1-day Quad tour (Sidi M'barek)",
+                b1: "Hello, I would like to book a 1h Horse/Camel ride",
+                b2: "Hello, I would like to book a 2h Horse/Camel ride",
+                b3: "Hello, I would like to book a 3h Horse/Camel ride",
+                b4: "Hello, I would like to book a 1-day Horse/Camel ride"
+            },
+            typeLabel: {
+                simple: " (Single)",
+                double: " (Double)"
             }
         }
     };
 
     function changeLanguage(lang) {
+        currentLang = lang;
         const html = document.getElementById('htmlPage');
         html.setAttribute('lang', lang);
         html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
@@ -472,6 +572,7 @@
         document.getElementById('th-duration').innerText = t.duration;
         document.getElementById('th-simple').innerText = t.simple;
         document.getElementById('th-double').innerText = t.double;
+        document.getElementById('th-option').innerText = t.option;
         document.getElementById('th-circuit').innerText = t.circuit;
         document.getElementById('th-action').innerText = t.action;
         
@@ -481,10 +582,32 @@
 
         document.querySelectorAll('.txt-book').forEach(el => el.innerText = t.book);
 
+        // Update option dropdown translations
+        document.querySelectorAll('.type-select').forEach(select => {
+            select.options[0].text = t.simple;
+            select.options[1].text = t.double;
+        });
+
         document.querySelectorAll('.circuit-text').forEach(el => {
             const key = el.getAttribute('data-key');
             if (t.circuits[key]) el.innerText = t.circuits[key];
         });
+    }
+
+    function sendWhatsApp(itemKey) {
+        const t = translations[currentLang];
+        let baseMsg = t.messages[itemKey];
+
+        // Check if item has a Simple/Double option
+        const optSelect = document.getElementById(`opt-${itemKey}`);
+        if (optSelect) {
+            const selectedType = optSelect.value;
+            baseMsg += t.typeLabel[selectedType];
+        }
+
+        const phone = "212646897111";
+        const url = `https://wa.me/${phone}?text=${encodeURIComponent(baseMsg)}`;
+        window.open(url, '_blank');
     }
 </script>
 </body>
