@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr" id="htmlPage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activités & Balades - Quad, Cheval, Dromadaire</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f8f9fa; color: #333; line-height: 1.6; padding-bottom: 40px; }
+        header { background: #111; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .lang-select select { padding: 5px 10px; border-radius: 5px; border: none; font-weight: bold; cursor: pointer; }
+        .container { max-width: 900px; margin: 20px auto; padding: 0 15px; }
+        h1, h2 { text-align: center; margin-bottom: 20px; color: #111; }
+        .card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); margin-bottom: 25px; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { border: 1px solid #e2e8f0; padding: 12px 10px; text-align: center; font-size: 14px; }
+        th { background-color: #f1f5f9; font-weight: bold; color: #0f172a; }
+        tr:nth-child(even) { background-color: #f8fafc; }
+        .circuit-text { text-align: left; font-size: 13px; color: #475569; }
+        [dir="rtl"] .circuit-text { text-align: right; }
+
+        .btn-whatsapp { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background-color: #25D366; color: white; text-decoration: none; padding: 8px 16px; border-radius: 6px; font-weight: bold; font-size: 13px; }
+        .btn-whatsapp:hover { background-color: #1eb956; }
+        
+        .back-link { display: inline-block; margin-bottom: 15px; color: #2563eb; text-decoration: none; font-weight: 500; }
+        .back-link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="index.html" class="back-link" style="color: white; margin: 0;"><i class='bx bx-left-arrow-alt'></i> Retour</a>
+    <div class="lang-select">
+        <select id="langSelector" onchange="changeLanguage(this.value)">
+            <option value="fr">Français</option>
+            <option value="ar">العربية</option>
+            <option value="en">English</option>
+        </select>
+    </div>
+</header>
+
+<div class="container">
+    <h1 id="txt-main-title">Tarifs Activités & Balades</h1>
+
+    <!-- Quad Section -->
+    <div class="card">
+        <h2 id="txt-quad-title"><i class='bx bx-car'></i> Tarifs Quad</h2>
+        <div style="overflow-x:auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th id="th-duration">Durée</th>
+                        <th id="th-simple">Simple</th>
+                        <th id="th-double">Double</th>
+                        <th id="th-circuit">Circuit</th>
+                        <th id="th-action">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1h</td>
+                        <td>300 DH</td>
+                        <td>450 DH</td>
+                        <td class="circuit-text" data-key="c1">Diabat plage, forêt</td>
+                        <td><a href="https://wa.me/?text=Réservation%20Quad%201h" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
+                    </tr>
+                    <tr>
+                        <td>2h</td>
+                        <td>500 DH</td>
+                        <td>700 DH</td>
+                        <td class="circuit-text" data-key="c2">Diabat plage, forêt, dunes sauvage, source d'eau douce</td>
+                        <td><a href="https://wa.me/?text=Réservation%20Quad%202h" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
+                    </tr>
+                    <tr>
+                        <td>3h</td>
+                        <td>650 DH</td>
+                        <td>900 DH</td>
+                        <td class="circuit-text" data-key="c3">Diabat plage, forêt, source d'eau douce, Cap-Cim</td>
+                        <td><a href="https://wa.me/?text=Réservation%20Quad%203h" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
+                    </tr>
+                    <tr>
+                        <td>1/2j</td>
+                        <td>900 DH</td>
+                        <td>1100 DH</td>
+                        <td class="circuit-text" data-key="c4">Diabat plage, forêt, source d'eau douce, Cap-Cim, Taguenza, petit port</td>
+                        <td><a href="https://wa.me/?text=Réservation%20Quad%20Demi%20journée" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
+                    </tr>
+                    <tr>
+                        <td>1j Sidi Kaouki</td>
+                        <td>1100 DH</td>
+                        <td>1400 DH</td>
+                        <td class="circuit-text" data-key="c5">Plage sauvage et des dunes au bord de la plage</td>
+                        <td><a href="https://wa.me/?text=Réservation%20Quad%20Sidi%20Kaouki" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
+                    </tr>
+                    <tr>
+                        <td>1j Sidi M'barek</td>
+                        <td>1400 DH</td>
+                        <td>1700 DH</td>
+                        <td class="circuit-text" data-key="c6">Cascade de Sidi M'barek, plage sauvage et des dunes au bord de la plage</td>
+                        <td><a href="https://wa.me/?text=Réservation%20Quad%20Sidi%20Mbarek" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Dromadaire & Cheval Section -->
+    <div class="card">
+        <h2 id="txt-balades-title">Balades à Cheval ou Dromadaire</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th id="th-balade-duration">Durée</th>
+                    <th id="th-balade-price">Prix par personne</th>
+                    <th id="th-balade-action">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1h</td>
+                    <td>200 DH</td>
+                    <td><a href="https://wa.me/?text=Réservation%20Balade%201h" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
+                </tr>
+                <tr>
+                    <td>2h</td>
+                    <td>300 DH</td>
+                    <td><a href="https://wa.me/?text=Réservation%20Balade%202h" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
+                </tr>
+                <tr>
+                    <td>3h</td>
+                    <td>400 DH</td>
+                    <td><a href="https://wa.me/?text=Réservation%20Balade%203h" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
+                </tr>
+                <tr>
+                    <td>1j</td>
+                    <td>700 DH</td>
+                    <td><a href="https://wa.me/?text=Réservation%20Balade%201j" class="btn-whatsapp"><i class='bx bxl-whatsapp'></i> <span class="txt-book">Réserver</span></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    const translations = {
+        fr: {
+            title: "Tarifs Activités & Balades",
+            quadTitle: "Tarifs Quad",
+            baladesTitle: "Balades à Cheval ou Dromadaire",
+            duration: "Durée",
+            simple: "Simple",
+            double: "Double",
+            circuit: "Circuit",
+            price: "Prix par personne",
+            action: "Action",
+            book: "Réserver",
+            circuits: {
+                c1: "Diabat plage, forêt",
+                c2: "Diabat plage, forêt, dunes sauvage, source d'eau douce",
+                c3: "Diabat plage, forêt, source d'eau douce, Cap-Cim",
+                c4: "Diabat plage, forêt, source d'eau douce, Cap-Cim, Taguenza, petit port",
+                c5: "Plage sauvage et des dunes au bord de la plage",
+                c6: "Cascade de Sidi M'barek, plage sauvage et des dunes au bord de la plage"
+            }
+        },
+        ar: {
+            title: "أسعار الأنشطة والجولات",
+            quadTitle: "أسعار الكواد (Quad)",
+            baladesTitle: "جولات على ظهر الخيل أو الجمال",
+            duration: "المدة",
+            simple: "فردي (Simple)",
+            double: "زوجي (Double)",
+            circuit: "المسار (Circuit)",
+            price: "الثمن للشخص",
+            action: "حجز",
+            book: "احجز الآن",
+            circuits: {
+                c1: "شاطئ ديابات، الغابة",
+                c2: "شاطئ ديابات، الغابة، الكثبان البرية، عين ماء عذب",
+                c3: "شاطئ ديابات، الغابة، عين ماء عذب، كاب سيم",
+                c4: "شاطئ ديابات، الغابة، عين ماء عذب، كاب سيم، تاغوانزا، الميناء الصغير",
+                c5: "شاطئ بري والكثبان الرملية على ضفاف الشاطئ",
+                c6: "شلالات سيدي مبارك، شاطئ بري والكثبان الرملية"
+            }
+        },
+        en: {
+            title: "Activities & Rides Prices",
+            quadTitle: "Quad Biking Prices",
+            baladesTitle: "Horse & Camel Rides",
+            duration: "Duration",
+            simple: "Single",
+            double: "Double",
+            circuit: "Circuit",
+            price: "Price per person",
+            action: "Action",
+            book: "Book Now",
+            circuits: {
+                c1: "Diabat beach, forest",
+                c2: "Diabat beach, forest, wild dunes, fresh water spring",
+                c3: "Diabat beach, forest, fresh water spring, Cap-Cim",
+                c4: "Diabat beach, forest, fresh water spring, Cap-Cim, Taguenza, small port",
+                c5: "Wild beach and dunes along the beach",
+                c6: "Sidi M'barek waterfall, wild beach and dunes along the beach"
+            }
+        }
+    };
+
+    function changeLanguage(lang) {
+        const html = document.getElementById('htmlPage');
+        html.setAttribute('lang', lang);
+        html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+
+        const t = translations[lang];
+        document.getElementById('txt-main-title').innerText = t.title;
+        document.getElementById('txt-quad-title').innerText = t.quadTitle;
+        document.getElementById('txt-balades-title').innerText = t.baladesTitle;
+        
+        document.getElementById('th-duration').innerText = t.duration;
+        document.getElementById('th-simple').innerText = t.simple;
+        document.getElementById('th-double').innerText = t.double;
+        document.getElementById('th-circuit').innerText = t.circuit;
+        document.getElementById('th-action').innerText = t.action;
+        
+        document.getElementById('th-balade-duration').innerText = t.duration;
+        document.getElementById('th-balade-price').innerText = t.price;
+        document.getElementById('th-balade-action').innerText = t.action;
+
+        document.querySelectorAll('.txt-book').forEach(el => el.innerText = t.book);
+
+        document.querySelectorAll('.circuit-text').forEach(el => {
+            const key = el.getAttribute('data-key');
+            if (t.circuits[key]) el.innerText = t.circuits[key];
+        });
+    }
+</script>
+</body>
+</html>
