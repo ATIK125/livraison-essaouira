@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atelier Gourmand Essaouira - Menu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background-color: #0d131a; color: #f3f4f6; font-family: sans-serif; }
+        .gold-border { border: 2px solid #c5a059; }
+        .gold-text { color: #c5a059; }
+        .gold-bg { background-color: #c5a059; }
+    </style>
+</head>
+<body class="pb-24">
+
+    <!-- Header -->
+    <header class="text-center py-6 border-b border-yellow-700/30 bg-[#0a0e14] sticky top-0 z-10 shadow-md">
+        <h1 class="text-3xl font-bold gold-text font-serif tracking-wide">Atelier Gourmand</h1>
+        <p class="text-xs text-gray-400 tracking-widest uppercase mt-1">Essaouira</p>
+    </header>
+
+    <!-- Menu Container -->
+    <main class="max-w-2xl mx-auto p-4 space-y-8">
+
+        <!-- PETIT DÉJEUNER A LA CARTE -->
+        <section class="bg-[#131b24] p-4 rounded-lg gold-border">
+            <h2 class="text-xl font-bold gold-text border-b border-gray-700 pb-2 mb-4">🥐 Petit Déjeuner à la Carte</h2>
+            <div class="space-y-3">
+                <div class="flex justify-between items-center">
+                    <div><p class="font-semibold">Œufs</p></div>
+                    <div class="flex items-center gap-3"><span class="gold-text font-bold">20 DH</span><button onclick="addToCart('Œufs', 20)" class="gold-bg text-black px-3 py-1 rounded font-bold hover:bg-yellow-500">+</button></div>
+                </div>
+                <div class="flex justify-between items-center">
+                    <div><p class="font-semibold">Omelette fromage</p></div>
+                    <div class="flex items-center gap-3"><span class="gold-text font-bold">25 DH</span><button onclick="addToCart('Omelette fromage', 25)" class="gold-bg text-black px-3 py-1 rounded font-bold hover:bg-yellow-500">+</button></div>
+                </div>
+                <div class="flex justify-between items-center">
+                    <div><p class="font-semibold">Œufs au khlii</p></div>
+                    <div class="flex items-center gap-3"><span class="gold-text font-bold">30 DH</span><button onclick="addToCart('Œufs au khlii', 30)" class="gold-bg text-black px-3 py-1 rounded font-bold hover:bg-yellow-500">+</button></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FORMULE PETIT DEJEUNER -->
+        <section class="bg-[#131b24] p-4 rounded-lg gold-border">
+            <h2 class="text-xl font-bold gold-text border-b border-gray-700 pb-2 mb-4">☕ Formule Petit Déjeuner</h2>
+            <div class="space-y-4">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="font-semibold">Classique</p>
+                        <p class="text-xs text-gray-400">Œufs au choix, pain frais, beurre, confiture, olive, boissons chaudes au choix et jus d'orange</p>
+                    </div>
+                    <div class="flex items-center gap-3 ml-2"><span class="gold-text font-bold whitespace-nowrap">40 DH</span><button onclick="addToCart('Formule Classique', 40)" class="gold-bg text-black px-3 py-1 rounded font-bold hover:bg-yellow-500">+</button></div>
+                </div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="font-semibold">Marocain</p>
+                        <p class="text-xs text-gray-400">Msemmen, baghrir, pain, Amlou, huile d'olive, miel, beurre, olive, boissons chaudes au choix et jus d'orange</p>
+                    </div>
+                    <div class="flex items-center gap-3 ml-2"><span class="gold-text font-bold whitespace-nowrap">40 DH</span><button onclick="addToCart('Formule Marocain', 40)" class="gold-bg text-black px-3 py-1 rounded font-bold hover:bg-yellow-500">+</button></div>
+                </div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="font-semibold">Gourmand</p>
+                        <p class="text-xs text-gray-400">Œufs au choix, msemmen, baghrir, pain, beurre, confiture, miel, amlou, olives, boissons chaudes au choix et jus d'orange</p>
+                    </div>
+                    <div class="flex items-center gap-3 ml-2"><span class="gold-text font-bold whitespace-nowrap">55 DH</span><button onclick="addToCart('Formule Gourmand', 55)" class="gold-bg text-black px-3 py-1 rounded font-bold hover:bg-yellow-500">+</button></div>
+                </div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="font-semibold">Khlii</p>
+                        <p class="text-xs text-gray-400">Œufs au khlii, pain, huile d'olive, olives, boissons chaudes aux choix et jus d'orange</p>
+                    </div>
+                    <div class="flex items-center gap-3 ml-2"><span class="gold-text font-bold whitespace-nowrap">45 DH</span><button onclick="addToCart('Formule Khlii', 45)" class="gold-bg text-black px-3 py-1 rounded font-bold hover:bg-yellow-500">+</button></div>
+                </div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="font-semibold">Swira</p>
+                        <p class="text-xs text-gray-400">Dinde fumé, fromage rouge, fromage jben, msemmen, baghrir, beurre, confiture, miel, amlou, pain, huile d'olive, olive, boissons chaudes au choix et jus d'orange</p>
+                    </div>
+                    <div class="flex items-center gap-3 ml-2"><span class="gold-text font-bold whitespace-nowrap">65 DH</span><button onclick="addToCart('Formule Swira', 65)" class="gold-bg text-black px-3 py-1 rounded font-bold hover:bg-yellow-500">+</button></div>
+                </div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="font-semibold">Beyrouth</p>
+                        <p class="text-xs text-gray-400">Labné, olives vertes, pain libanais, boissons chaudes au choix et jus d'orange</p>
+                    </div>
+                    <div class="flex items-center gap-3 ml-2"><span class="gold-text font-bold whitespace-nowrap">35 DH</span><button onclick="addToCart('Formule Beyrouth', 35)" class="gold-bg text-black px-3 py-1 rounded font-bold hover:bg-yellow-500">+</button></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BRUNCHS -->
+        <section class="bg-[#131b24] p-4 rounded-lg gold-border">
+            <h2 class="text-xl font-bold gold-text border-b border-gray-700 pb-2 mb-4">🥞 Brunchs</h2>
+            <div class="space-y-4">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="font-semibold">Brunch Classique</p>
+                        <p class="text-xs text-gray-400">Dinde fumé, saucisse, fromage rouge, œufs au choix, msemmen, baghrir, pain, beurre, confiture, miel, amlou, olives, concombre, tomates, boissons chaudes au choix et jus d'orange</p>
+                    </div>
+                    <div class="flex items-center gap-3 ml-2"><span class="gold-text font-bold whitespace-nowrap">75 DH</span><button onclick="addToCart('Brunch Classique', 75)" class="gold-bg text-black px-3 py-1 rounded font-bold hover:bg-yellow-500">+</button></div>
+                </div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="font-semibold">Brunch Terre/mer</p>
+                        <p class="text-xs text-gray-400">Œufs au choix, saumon, avocats, yaourt grec, granola, miel, confitures, beurre, amlou, pain, fruit de saisons, boissons chaudes au choix et jus d'orange</p>
+                    </div>
+                    <div class="flex items-center gap-3 ml-2"><span class="gold-text font-bold whitespace-nowrap">75 DH</span><button onclick="addToCart('Brunch Terre/mer', 75)" class="gold-bg text-black px-3 py-1 rounded font-bold hover:bg-yellow-500">+</button></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SALADES -->
+        <section class="bg-[#131b24] p-4 rounded-lg gold-border">
+            <h2 class="text-xl font-bold gold-text border-b border-gray-700 pb-2 mb-4">🥗 Salades</h2>
+            <div class="space-y-3">
+                <div class="flex justify-between items-center">
+                    <div><p class="font-semibold">Salade marocaine</p><p class="text-xs text-gray-400">Tomates, oignons</p></div>
+                    <div class="flex items-center gap-3"><span class="gold-text font-bold">15 DH</span><button onclick="addToCart('Salade marocaine', 15)" class="gold-bg text-black px-3 py-1 rounded font-bold hover:bg-yellow-500">+</button></div>
+                </div>
+                <div class="flex justify-between items-center">
+                    <div><p class="font-semibold">Salade classique</p><p class="text-xs text-gray-400">Salade verte, tomates, olives</p></div>
+                    <div class="flex items-center gap-3"><span class="gold-text font-bold">25 DH</span><button onclick="addToCart('Salade classique', 25)" class="gold-bg text-black px-3 py-1 rounded font-bold hover:bg-yellow-500">+</button></div>
+                </div>
+                <div class="flex justify-between items-center">
+                    <div><p class="font-semibold">Salade chèvre chaud</p><p class="text-xs text-gray-400">Salade verte, tomates, concombres, olives, noix, chèvre chaud et son filet de miel</p></div>
+                    <div class="flex items-center gap-3"><span class="gold-text font-bold">55 DH</span><button onclick="addToCart('Salade chèvre chaud', 55)" class="gold-bg text-black px-3 py-1 rounded font-bold hover:bg-yellow-500">+</button></div>
+                </div>
+                <div class="flex justify-between items-center">
+                    <div><p class="font-semibold">Salade saumon</p><p class="text-xs text-gray-400">Salade verte, tomates, olives, toast fromage blanc ciboulette, saumon et avocats</p></div>
+                    <div class="flex items-center gap-3"><span class="gold-text font-bold">60 DH</span><button onclick="addToCart('Salade saumon', 60)" class="gold-bg text-black px-3 py-1 rounded font-bold hover:bg-yellow-500">+</button></div>
+                </div>
+                <div class="flex justify-between items-center">
+                    <div><p class="font-semibold">Salade Méditerranéenne</p><p class="text-xs text-gray-400">Tomates, concombres, féta et olives</p></div>
+                    <div class="flex items-center gap-3"><span class="gold-text font-bold">50 DH</span><button onclick="addToCart('Salade Méditerranéenne', 50)" class="gold-bg text-black px-3 py-1 rounded font-bold hover:bg-yellow-500">+</button></div>
+                </div>
+                <div class="flex justify-between items-center">
+                    <div><p class="font-semibold">Edroso</p><p class="text-xs text-gray-400">Salade verte, poulet, tomates, olives et œuf dur</p></div>
+                    <div class="flex items-center gap-3"><span class="gold-text font-bold">50 DH</span><button onclick="addToCart('Salade Edroso', 50)" class="gold-bg text-black px-3 py-1 rounded font-bold hover:bg-yellow-500">+</button></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PLATS & MENU ENFANT -->
+        <section class="bg-[#131b24] p-4 rounded-lg gold-border">
+            <h2 class="text-xl font-bold gold-text border-b border-gray-700 pb-2 mb-4">🍽️ Plats & Menu Enfant</h2>
+            <div class="space-y-3">
+                <div class="flex justify-between items-center">
+                    <div><p class="font-semibold">Assiette Charwama</p></div>
+                    <div class="flex items-center gap-3"><span class="gold-text font-bold">65 DH</span><button onclick="addToCart('Assiette Charwama', 65)" class="gold-bg text-black px-3 py-1 rounded font-bold hover:bg-yellow-500">+</button></div>
+                </div>
+                <div class="flex justify-between items-center">
+                    <div><p class="font-semibold">Le Fabulous Burger</p></div>
+                    <div class="flex items-center gap-3"><span class="gold-text font-bold">65 DH</span><button onclick="addToCart('Le Fabulous Burger', 65)" class="gold-bg text-black px-3 py-1 rounded font-bold hover:bg-yellow-500">+</button></div>
+                </div>
+                <div class="flex justify-between items-center">
+                    <div><p class="font-semibold">Poulet à la crème</p></div>
+                    <div class="flex items-center gap-3"><span class="gold-text font-bold">65 DH</span><button onclick="addToCart('Poulet à la crème', 65)" class="gold-bg text-black px-3 py-1 rounded font-bold hover:bg-yellow-500">+</button></div>
+                </div>
+                <div class="flex justify-between items-center">
+                    <div><p class="font-semibold">Calamar suivant l'humeur du chef !!</p></div>
+                    <div class="flex items-center gap-3"><span class="gold-text font-bold">65 DH</span><button onclick="addToCart('Calamar du chef', 65)" class="gold-bg text-black px-3 py-1 rounded font-bold hover:bg-yellow-500">+</button></div>
+                </div>
+                <hr class="border-gray-700 my-2">
+                <div class="flex justify-between items-center">
+                    <div><p class="font-semibold">Menu enfant</p><p class="text-xs text-gray-400">Nuggets maison frites OU pâtes bolognaise OU pâtes au poulet OU hamburger</p></div>
+                    <div class="flex items-center gap-3"><span class="gold-text font-bold">60 DH</span><button onclick="addToCart('Menu enfant', 60)" class="gold-bg text-black px-3 py-1 rounded font-bold hover:bg-yellow-500">+</button></div>
+                </div>
+                <div class="flex justify-between items-center">
+                    <div><p class="font-semibold">Menu enfant végétarien</p><p class="text-xs text-gray-400">Pâtes sauce tomate OU Nuggets vegie et frites</p></div>
+                    <div class="flex items-center gap-3"><span class="gold-text font-bold">60 DH</span><button onclick="addToCart('Menu enfant végétarien', 60)" class="gold-bg text-black px-3 py-1 rounded font-bold hover:bg-yellow-500">+</button></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CAFES, THES & BOISSONS -->
+        <section class="bg-[#131b24] p-4 rounded-lg gold-border">
+            <h2 class="text-xl font-bold gold-text border-b border-gray-700 pb-2 mb-4">☕ Boissons & Cafés</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="space-y-2">
+                    <div class="flex justify-between items-center"><span>Thé infusion</span><div><span class="gold-text font-bold mr-2">15 DH</span><button onclick="addToCart('Thé infusion', 15)" class="gold-bg text-black px-2 py-0.5 rounded font-bold">+</button></div></div>
+                    <div class="flex justify-between items-center"><span>Thé marocain</span><div><span class="gold-text font-bold mr-2">15 DH</span><button onclick="addToCart('Thé marocain', 15)" class="gold-bg text-black px-2 py-0.5 rounded font-bold">+</button></div></div>
+                    <div class="flex justify-between items-center"><span>Chocolat chaud</span><div><span class="gold-text font-bold mr-2">17 DH</span><button onclick="addToCart('Chocolat chaud', 17)" class="gold-bg text-black px-2 py-0.5 rounded font-bold">+</button></div></div>
+                    <div class="flex justify-between items-center"><span>Espresso</span><div><span class="gold-text font-bold mr-2">18 DH</span><button onclick="addToCart('Espresso', 18)" class="gold-bg text-black px-2 py-0.5 rounded font-bold">+</button></div></div>
+                    <div class="flex justify-between items-center"><span>Double Espresso</span><div><span class="gold-text font-bold mr-2">25 DH</span><button onclick="addToCart('Double Espresso', 25)" class="gold-bg text-black px-2 py-0.5 rounded font-bold">+</button></div></div>
+                    <div class="flex justify-between items-center"><span>Café allongé</span><div><span class="gold-text font-bold mr-2">20 DH</span><button onclick="addToCart('Café allongé', 20)" class="gold-bg text-black px-2 py-0.5 rounded font-bold">+</button></div></div>
+                    <div class="flex justify-between items-center"><span>Café au lait</span><div><span class="gold-text font-bold mr-2">20 DH</span><button onclick="addToCart('Café au lait', 20)" class="gold-bg text-black px-2 py-0.5 rounded font-bold">+</button></div></div>
+                    <div class="flex justify-between items-center"><span>Cappuccino</span><div><span class="gold-text font-bold mr-2">25 DH</span><button onclick="addToCart('Cappuccino', 25)" class="gold-bg text-black px-2 py-0.5 rounded font-bold">+</button></div></div>
+                </div>
+                <div class="space-y-2">
+                    <div class="flex justify-between items-center"><span>Eau plate Sidi Ali 50cl</span><div><span class="gold-text font-bold mr-2">12 DH</span><button onclick="addToCart('Eau Sidi Ali 50cl', 12)" class="gold-bg text-black px-2 py-0.5 rounded font-bold">+</button></div></div>
+                    <div class="flex justify-between items-center"><span>Eau plate Sidi Ali 1.5l</span><div><span class="gold-text font-bold mr-2">20 DH</span><button onclick="addToCart('Eau Sidi Ali 1.5l', 20)" class="gold-bg text-black px-2 py-0.5 rounded font-bold">+</button></div></div>
+                    <div class="flex justify-between items-center"><span>Eau gazeuse Oulmes 50cl</span><div><span class="gold-text font-bold mr-2">15 DH</span><button onclick="addToCart('Oulmes 50cl', 15)" class="gold-bg text-black px-2 py-0.5 rounded font-bold">+</button></div></div>
+                    <div class="flex justify-between items-center"><span>Eau gazeuse Oulmes 1.0l</span><div><span class="gold-text font-bold mr-2">23 DH</span><button onclick="addToCart('Oulmes 1.0l', 23)" class="gold-bg text-black px-2 py-0.5 rounded font-bold">+</button></div></div>
+                    <div class="flex justify-between items-center"><span>Sodas (Coca, Sprite, Fanta...)</span><div><span class="gold-text font-bold mr-2">15 DH</span><button onclick="addToCart('Soda', 15)" class="gold-bg text-black px-2 py-0.5 rounded font-bold">+</button></div></div>
+                    <div class="flex justify-between items-center"><span>Jus d'orange pressé</span><div><span class="gold-text font-bold mr-2">20 DH</span><button onclick="addToCart('Jus d orange pressé', 20)" class="gold-bg text-black px-2 py-0.5 rounded font-bold">+</button></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LES P'TITS DELICES FAITS MAISON -->
+        <section class="bg-[#131b24] p-4 rounded-lg gold-border">
+            <h2 class="text-xl font-bold gold-text border-b border-gray-700 pb-2 mb-4">🍰 Les P'tits Délices Faits Maison</h2>
+            <div class="space-y-3">
+                <div class="flex justify-between items-center">
+                    <div><p class="font-semibold">Crêpes</p><p class="text-xs text-gray-400">Sucre, Nutella, Confiture, Caramel beurre salé</p></div>
+                    <div class="flex items-center gap-3"><span class="gold-text font-bold">20 DH</span><button onclick="addToCart('Crêpes', 20)" class="gold-bg text-black px-3 py-1 rounded font-bold hover:bg-yellow-500">+</button></div>
+                </div>
+                <div class="flex justify-between items-center">
+                    <div><p class="font-semibold">La "Mystérieuse" brioche perdue avec son caramel beurre salé</p></div>
+                    <div class="flex items-center gap-3"><span class="gold-text font-bold">35 DH</span><button onclick="addToCart('Brioche perdue', 35)" class="gold-bg text-black px-3 py-1 rounded font-bold hover:bg-yellow-500">+</button></div>
+                </div>
+                <div class="flex justify-between items-center">
+                    <div><p class="font-semibold">Mousse au chocolat</p></div>
+                    <div class="flex items-center gap-3"><span class="gold-text font-bold">35 DH</span><button onclick="addToCart('Mousse au chocolat', 35)" class="gold-bg text-black px-3 py-1 rounded font-bold hover:bg-yellow-500">+</button></div>
+                </div>
+                <div class="flex justify-between items-center">
+                    <div><p class="font-semibold">Gourmandise du comptoir</p></div>
+                    <div class="flex items-center gap-3"><span class="gold-text font-bold">15 DH</span><button onclick="addToCart('Gourmandise du comptoir', 15)" class="gold-bg text-black px-3 py-1 rounded font-bold hover:bg-yellow-500">+</button></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FLOATING CART BUTTON -->
+    <div id="floating-cart-btn" class="fixed bottom-4 right-4 z-40 hidden">
+        <button onclick="toggleCartModal()" class="bg-green-600 text-white p-4 rounded-full shadow-2xl flex items-center gap-3 border-2 border-white hover:bg-green-700 transition">
+            <i class="fa-solid fa-cart-shopping text-xl"></i>
+            <span id="cart-count" class="bg-white text-green-800 font-bold px-2 py-0.5 rounded-full text-sm">0</span>
+            <span id="cart-total-btn" class="font-bold">0 DH</span>
+        </button>
+    </div>
+
+    <!-- CART & DELIVERY MODAL -->
+    <div id="cart-modal" class="fixed inset-0 bg-black/80 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-[#131b24] border gold-border rounded-xl w-full max-w-md p-5 text-white relative max-h-[90vh] overflow-y-auto">
+            <button onclick="toggleCartModal()" class="absolute top-3 right-3 text-gray-400 hover:text-white text-xl">&times;</button>
+            <h3 class="text-xl font-bold gold-text mb-4 border-b border-gray-700 pb-2">Votre Commande</h3>
+
+            <!-- Cart Items List -->
+            <div id="cart-items" class="space-y-2 mb-4 text-sm divide-y divide-gray-700">
+                <!-- Items inserted by JS -->
+            </div>
+
+            <!-- Delivery Zone Selection -->
+            <div class="mt-4 border-t border-gray-700 pt-3">
+                <label class="block text-sm font-semibold mb-2 gold-text">Choisissez le mode / la zone :</label>
+                <select id="delivery-zone" onchange="updateTotal()" class="w-full bg-[#0d131a] border border-gray-600 rounded p-2 text-white text-sm focus:border-yellow-500 outline-none">
+                    <option value="0" data-name="Sur place / Emporter">🍽️ Sur place </option>
+                    <option value="10" data-name="Essaouira">🛵 Livraison: Essaouira (+10 DH)</option>
+                    <option value="15" data-name="Médina">🛵 Livraison: Médina (+15 DH)</option>
+                    <option value="20" data-name="Ghazoua">🛵 Livraison: Ghazoua (+30 DH)</option>
+                    <option value="20" data-name="Diabat">🛵 Livraison: Diabat (+20 DH)</option>
+                    <option value="30" data-name="Km8">🛵 Livraison: Km8 (+35 DH)</option>
+                    <option value="50" data-name="Douar El Arab">🛵 Livraison: Douar El Arab (+50 DH)</option>
+                    <option value="70" data-name="Sidi Kaouki">🛵 Livraison: Sidi Kaouki (+70 DH)</option>
+                </select>
+            </div>
+
+            <!-- Total Price Summary -->
+            <div class="mt-4 bg-[#0d131a] p-3 rounded border border-gray-700 space-y-1 text-sm">
+                <div class="flex justify-between"><span>Sous-total:</span><span id="subtotal-price">0 DH</span></div>
+                <div class="flex justify-between"><span>Frais de livraison:</span><span id="delivery-price">0 DH</span></div>
+                <div class="flex justify-between font-bold text-base gold-text border-t border-gray-700 pt-1"><span>Total:</span><span id="final-total">0 DH</span></div>
+            </div>
+
+            <!-- Dynamic WhatsApp Target Info Badge -->
+            <div id="whatsapp-target-badge" class="mt-3 p-2.5 bg-[#0d131a] rounded border border-yellow-600/40 text-xs text-center">
+                <!-- Text updated by JS -->
+            </div>
+
+            <!-- Send Order Button -->
+            <button onclick="sendToWhatsApp()" class="w-full mt-3 bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg flex items-center justify-center gap-2 transition">
+                <i class="fa-brands fa-whatsapp text-xl"></i> Envoyer la commande
+            </button>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        let cart = [];
+        const phoneDelivery = "212646897111"; // Livraison Ghaith Jad
+        const phoneRestaurant = "212708410505"; // Sur place / Emporter
+
+        function addToCart(title, price) {
+            const existingItem = cart.find(item => item.title === title);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ title, price, quantity: 1 });
+            }
+            renderCart();
+        }
+
+        function changeQuantity(title, delta) {
+            const item = cart.find(item => item.title === title);
+            if (item) {
+                item.quantity += delta;
+                if (item.quantity <= 0) {
+                    cart = cart.filter(i => i.title !== title);
+                }
+            }
+            renderCart();
+        }
+
+        function renderCart() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const floatingCartBtn = document.getElementById('floating-cart-btn');
+            const cartCount = document.getElementById('cart-count');
+            
+            cartItemsContainer.innerHTML = '';
+            let totalItems = 0;
+            let subtotal = 0;
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p class="text-gray-400 text-center py-2">Votre panier est vide.</p>';
+                floatingCartBtn.classList.add('hidden');
+                document.getElementById('cart-modal').classList.add('hidden');
+            } else {
+                floatingCartBtn.classList.remove('hidden');
+                cart.forEach(item => {
+                    totalItems += item.quantity;
+                    subtotal += item.price * item.quantity;
+
+                    const itemEl = document.createElement('div');
+                    itemEl.className = 'flex justify-between items-center py-2';
+                    itemEl.innerHTML = `
+                        <div>
+                            <p class="font-semibold">${item.title}</p>
+                            <p class="text-xs text-gray-400">${item.price} DH x ${item.quantity} = ${item.price * item.quantity} DH</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button onclick="changeQuantity('${item.title}', -1)" class="bg-gray-700 text-white px-2 rounded font-bold">-</button>
+                            <span>${item.quantity}</span>
+                            <button onclick="changeQuantity('${item.title}', 1)" class="bg-gray-700 text-white px-2 rounded font-bold">+</button>
+                        </div>
+                    `;
+                    cartItemsContainer.appendChild(itemEl);
+                });
+            }
+
+            cartCount.innerText = totalItems;
+            document.getElementById('subtotal-price').innerText = subtotal + ' DH';
+            updateTotal();
+        }
+
+        function updateTotal() {
+            let subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const deliverySelect = document.getElementById('delivery-zone');
+            const isDelivery = deliverySelect.value !== "0";
+            const deliveryFee = parseInt(deliverySelect.value) || 0;
+            const finalTotal = subtotal + deliveryFee;
+
+            document.getElementById('delivery-price').innerText = deliveryFee + ' DH';
+            document.getElementById('final-total').innerText = finalTotal + ' DH';
+            document.getElementById('cart-total-btn').innerText = finalTotal + ' DH';
+
+            // Update info badge
+            const targetBadge = document.getElementById('whatsapp-target-badge');
+            if (isDelivery) {
+                targetBadge.innerHTML = `<span class="text-gray-300">Service de livraison :</span> <strong class="gold-text">Livraison Ghaith Jad</strong> (+212 646 897 111)`;
+            } else {
+                targetBadge.innerHTML = `<span class="text-gray-300">Service commande :</span> <strong class="gold-text">Atelier Gourmand</strong> (+212 708 410 505)`;
+            }
+        }
+
+        function toggleCartModal() {
+            const modal = document.getElementById('cart-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        function sendToWhatsApp() {
+            if (cart.length === 0) return;
+
+            const deliverySelect = document.getElementById('delivery-zone');
+            const selectedOption = deliverySelect.options[deliverySelect.selectedIndex];
+            const zoneName = selectedOption.getAttribute('data-name');
+            const deliveryFee = parseInt(deliverySelect.value) || 0;
+            const isDelivery = deliverySelect.value !== "0";
+
+            // Target Phone Selection
+            const targetPhone = isDelivery ? phoneDelivery : phoneRestaurant;
+
+            let subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            let finalTotal = subtotal + deliveryFee;
+
+            // WhatsApp Message Builder
+            let message = "✨ *NOUVELLE COMMANDE - ATELIER GOURMAND* ✨\n";
+            message += "--------------------------------------\n";
+            
+            if (isDelivery) {
+                message += "🛵 *MODE:* Livraison (Ghaith Jad)\n";
+                message += `📍 *ZONE DE LIVRAISON:* ${zoneName}\n`;
+            } else {
+                message += "🍽️ *MODE:* Sur place / Emporter\n";
+            }
+            
+            message += "--------------------------------------\n\n";
+            message += "📋 *DÉTAILS DU PANIER :*\n";
+
+            cart.forEach(item => {
+                message += `• *${item.title}* (x${item.quantity}) : ${item.price * item.quantity} DH\n`;
+            });
+
+            message += "\n--------------------------------------\n";
+            message += `💵 *Sous-total:* ${subtotal} DH\n`;
+            if (isDelivery) {
+                message += `🚚 *Frais de livraison:* ${deliveryFee} DH\n`;
+            }
+            message += `💰 *TOTAL À PAYER:* ${finalTotal} DH\n`;
+            message += "--------------------------------------\n";
+            message += "🙏 Merci d'avance pour la préparation !";
+
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/${targetPhone}?text=${encodedMessage}`, '_blank');
+        }
+    </script>
+</body>
+</html>
