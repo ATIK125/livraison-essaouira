@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chez Flouka - Commander en Ligne & Réservation</title>
+    <title id="page-title">Chez Flouka - Commander en Ligne & Réservation</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
@@ -39,16 +39,67 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         header .logo {
             color: #fff;
-            font-size: 22px;
+            font-size: 20px;
             font-weight: bold;
             text-decoration: none;
             display: flex;
             align-items: center;
             gap: 10px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Language Switcher */
+        .lang-switcher {
+            display: flex;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 3px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.8rem;
+            transition: 0.3s;
+        }
+
+        .lang-btn.active {
+            background: var(--secondary-color);
+            color: #000;
+        }
+
+        .btn-back-home {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 6px 14px;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+
+        .btn-back-home:hover {
+            background: rgba(255, 255, 255, 0.3);
         }
 
         /* Mode Switcher */
@@ -102,6 +153,11 @@
             background: #fff;
             border-left: 5px solid var(--secondary-color);
             display: none;
+        }
+
+        [dir="rtl"] .banner-surplace {
+            border-left: none;
+            border-right: 5px solid var(--secondary-color);
         }
 
         .banner-emporter {
@@ -211,6 +267,11 @@
             padding-right: 10px;
         }
 
+        [dir="rtl"] .item-info {
+            padding-right: 0;
+            padding-left: 10px;
+        }
+
         .item-name { font-weight: 600; font-size: 0.95rem; }
         .item-desc { font-size: 0.78rem; color: #7f8c8d; margin-top: 2px; }
         
@@ -299,28 +360,41 @@
 <body>
 
     <header>
-        <a href="#" class="logo"><i class="fas fa-fish"></i> Chez Flouka</a>
+        <a href="index.html" class="logo">
+            <i class="fas fa-fish"></i> Chez Flouka
+        </a>
+        <div class="header-actions">
+            <!-- Selector Switcher: FR / EN / AR -->
+            <div class="lang-switcher">
+                <button class="lang-btn active" onclick="changeLanguage('fr')">FR</button>
+                <button class="lang-btn" onclick="changeLanguage('en')">EN</button>
+                <button class="lang-btn" onclick="changeLanguage('ar')">AR</button>
+            </div>
+            <a href="index.html" class="btn-back-home">
+                <i class="fas fa-home"></i> <span data-key="btn_home">Accueil</span>
+            </a>
+        </div>
     </header>
 
     <!-- Type Switcher -->
     <div class="order-type-container">
         <div class="type-switcher">
             <button class="type-btn active" id="btn-mode-emporter" onclick="setOrderMode('emporter')">
-                <i class="fas fa-motorcycle"></i> À Emporter / Livraison
+                <i class="fas fa-motorcycle"></i> <span data-key="mode_emporter">À Emporter / Livraison</span>
             </button>
             <button class="type-btn" id="btn-mode-surplace" onclick="setOrderMode('surplace')">
-                <i class="fas fa-utensils"></i> Sur Place
+                <i class="fas fa-utensils"></i> <span data-key="mode_surplace">Sur Place</span>
             </button>
         </div>
     </div>
 
     <!-- Mode Sur Place Banner -->
     <div class="info-banner banner-surplace" id="sur-place-section">
-        <h3><i class="fas fa-chair"></i> Commande & Réservation Sur Place</h3>
-        <p style="margin-top: 5px; color: #555;">Choisissez vos plats ci-dessous et envoyez votre commande directement au restaurant, ou contactez-nous :</p>
+        <h3><i class="fas fa-chair"></i> <span data-key="surplace_title">Commande & Réservation Sur Place</span></h3>
+        <p style="margin-top: 5px; color: #555;" data-key="surplace_desc">Choisissez vos plats ci-dessous et envoyez votre commande directement au restaurant, ou contactez-nous :</p>
         <div class="contact-links">
             <a href="tel:+212690828285" class="contact-btn btn-phone">
-                <i class="fas fa-phone-alt"></i> Appel : +212 6 90 82 82 85
+                <i class="fas fa-phone-alt"></i> <span data-key="call_us">Appel</span> : +212 6 90 82 82 85
             </a>
             <a href="https://wa.me/212676221459?text=Bonjour,%20je%20souhaite%20réserver%20une%20table" target="_blank" class="contact-btn btn-wa">
                 <i class="fab fa-whatsapp"></i> WhatsApp : +212 6 76 22 14 59
@@ -331,401 +405,37 @@
     <!-- Mode Emporter / Livraison Banner -->
     <div class="info-banner banner-emporter" id="emporter-section">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-            <h3><i class="fas fa-truck"></i> Commande À Emporter / Livraison</h3>
+            <h3><i class="fas fa-truck"></i> <span data-key="emporter_title">Commande À Emporter / Livraison</span></h3>
             <span><i class="fas fa-phone-alt"></i> Contact : <strong>+212 6 46 89 71 11</strong></span>
         </div>
         
         <div class="zone-selector-box">
-            <label for="delivery-zone"><i class="fas fa-map-marker-alt"></i> Choisissez la zone de livraison :</label>
+            <label for="delivery-zone"><i class="fas fa-map-marker-alt"></i> <span data-key="select_zone_label">Choisissez la zone de livraison :</span></label>
             <select id="delivery-zone" onchange="updateCartUI()">
-                <option value="0" data-name="Sélectionner zone">-- Choisissez la zone --</option>
-                <option value="10" data-name="Essaouira">Essaouira (10 DH)</option>
-                <option value="15" data-name="Médina">Médina (15 DH)</option>
-                <option value="30" data-name="Ghazoua">Ghazoua (30 DH)</option>
-                <option value="20" data-name="Diabat">Diabat (20 DH)</option>
-                <option value="35" data-name="Km8">Km8 (35 DH)</option>
-                <option value="50" data-name="Douar El Arab">Douar El Arab (50 DH)</option>
-                <option value="70" data-name="Sidi Kaouki">Sidi Kaouki (70 DH)</option>
+                <option value="0" data-name-fr="Sélectionner zone" data-name-en="Select zone" data-name-ar="اختر المنطقة" data-key="opt_select">-- Choisissez la zone --</option>
+                <option value="10" data-name-fr="Essaouira" data-name-en="Essaouira" data-name-ar="الصويرة">Essaouira (10 DH)</option>
+                <option value="15" data-name-fr="Médina" data-name-en="Medina" data-name-ar="المدينة القديمة">Médina (15 DH)</option>
+                <option value="30" data-name-fr="Ghazoua" data-name-en="Ghazoua" data-name-ar="الغزوة">Ghazoua (30 DH)</option>
+                <option value="20" data-name-fr="Diabat" data-name-en="Diabat" data-name-ar="ديابات">Diabat (20 DH)</option>
+                <option value="35" data-name-fr="Km8" data-name-en="Km8" data-name-ar="الكيلومتر 8">Km8 (35 DH)</option>
+                <option value="50" data-name-fr="Douar El Arab" data-name-en="Douar El Arab" data-name-ar="دوار العرب">Douar El Arab (50 DH)</option>
+                <option value="70" data-name-fr="Sidi Kaouki" data-name-en="Sidi Kaouki" data-name-ar="سيدي كاوكي">Sidi Kaouki (70 DH)</option>
             </select>
         </div>
     </div>
 
     <!-- Menu Section -->
     <div class="container">
-        <h2 class="section-title">Notre Carte & Menu</h2>
-        <div class="menu-grid">
-            
-            <!-- NOS ENTRÉES -->
-            <div class="category-card">
-                <h3><span>Nos Entrées</span> <i class="fas fa-leaf"></i></h3>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Salade La Flouka</div></div>
-                    <div class="item-action">
-                        <span class="item-price">45 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Salade La Flouka', 45, -1)">-</button><span class="qty-count" id="qty-Salade La Flouka">0</span><button class="qty-btn" onclick="changeQty('Salade La Flouka', 45, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Salade Poulpe et Avocat</div></div>
-                    <div class="item-action">
-                        <span class="item-price">45 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Salade Poulpe et Avocat', 45, -1)">-</button><span class="qty-count" id="qty-Salade Poulpe et Avocat">0</span><button class="qty-btn" onclick="changeQty('Salade Poulpe et Avocat', 45, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Salade Végétarienne</div></div>
-                    <div class="item-action">
-                        <span class="item-price">30 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Salade Végétarienne', 30, -1)">-</button><span class="qty-count" id="qty-Salade Végétarienne">0</span><button class="qty-btn" onclick="changeQty('Salade Végétarienne', 30, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Soupe de Poisson</div></div>
-                    <div class="item-action">
-                        <span class="item-price">30 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Soupe de Poisson', 30, -1)">-</button><span class="qty-count" id="qty-Soupe de Poisson">0</span><button class="qty-btn" onclick="changeQty('Soupe de Poisson', 30, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Salade Pêcheur</div></div>
-                    <div class="item-action">
-                        <span class="item-price">80 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Salade Pêcheur', 80, -1)">-</button><span class="qty-count" id="qty-Salade Pêcheur">0</span><button class="qty-btn" onclick="changeQty('Salade Pêcheur', 80, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Salade Marocaine</div></div>
-                    <div class="item-action">
-                        <span class="item-price">30 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Salade Marocaine', 30, -1)">-</button><span class="qty-count" id="qty-Salade Marocaine">0</span><button class="qty-btn" onclick="changeQty('Salade Marocaine', 30, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Salade Crevettes Avocat</div></div>
-                    <div class="item-action">
-                        <span class="item-price">70 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Salade Crevettes Avocat', 70, -1)">-</button><span class="qty-count" id="qty-Salade Crevettes Avocat">0</span><button class="qty-btn" onclick="changeQty('Salade Crevettes Avocat', 70, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Salade Royal</div></div>
-                    <div class="item-action">
-                        <span class="item-price">90 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Salade Royal', 90, -1)">-</button><span class="qty-count" id="qty-Salade Royal">0</span><button class="qty-btn" onclick="changeQty('Salade Royal', 90, 1)">+</button></div>
-                    </div>
-                </div>
-            </div>
+        <h2 class="section-title" data-key="menu_title">Notre Carte & Menu</h2>
+        <div class="menu-grid" id="menu-grid-container">
+            <!-- Dynamically populated menu items -->
+        </div>
 
-            <!-- NOS FRITURES -->
-            <div class="category-card">
-                <h3><span>Nos Fritures</span> <i class="fas fa-utensils"></i></h3>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Friture Individuelle</div><div class="item-desc">Calamar, crevettes, poisson du jour + Frite</div></div>
-                    <div class="item-action">
-                        <span class="item-price">80 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Friture Individuelle', 80, -1)">-</button><span class="qty-count" id="qty-Friture Individuelle">0</span><button class="qty-btn" onclick="changeQty('Friture Individuelle', 80, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Friture La Flouka 2 Pers</div><div class="item-desc">Calamar, crevettes, poisson du jour + Frite</div></div>
-                    <div class="item-action">
-                        <span class="item-price">150 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Friture La Flouka 2 Pers', 150, -1)">-</button><span class="qty-count" id="qty-Friture La Flouka 2 Pers">0</span><button class="qty-btn" onclick="changeQty('Friture La Flouka 2 Pers', 150, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Friture Poisson 4 Pers</div><div class="item-desc">Calamar, crevettes, poisson du jour + Frite</div></div>
-                    <div class="item-action">
-                        <span class="item-price">300 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Friture Poisson 4 Pers', 300, -1)">-</button><span class="qty-count" id="qty-Friture Poisson 4 Pers">0</span><button class="qty-btn" onclick="changeQty('Friture Poisson 4 Pers', 300, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Friture Flouka Royal 5 Pers</div><div class="item-desc">Calamar, crevettes, gambas, crevettes gris, poisson + Frite</div></div>
-                    <div class="item-action">
-                        <span class="item-price">450 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Friture Flouka Royal 5 Pers', 450, -1)">-</button><span class="qty-count" id="qty-Friture Flouka Royal 5 Pers">0</span><button class="qty-btn" onclick="changeQty('Friture Flouka Royal 5 Pers', 450, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Friture Calamars</div></div>
-                    <div class="item-action">
-                        <span class="item-price">100 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Friture Calamars', 100, -1)">-</button><span class="qty-count" id="qty-Friture Calamars">0</span><button class="qty-btn" onclick="changeQty('Friture Calamars', 100, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Friture Crevettes</div></div>
-                    <div class="item-action">
-                        <span class="item-price">100 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Friture Crevettes', 100, -1)">-</button><span class="qty-count" id="qty-Friture Crevettes">0</span><button class="qty-btn" onclick="changeQty('Friture Crevettes', 100, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Duo Calamars & Crevettes</div></div>
-                    <div class="item-action">
-                        <span class="item-price">140 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Duo Calamars & Crevettes', 140, -1)">-</button><span class="qty-count" id="qty-Duo Calamars & Crevettes">0</span><button class="qty-btn" onclick="changeQty('Duo Calamars & Crevettes', 140, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Duo aux Choix</div></div>
-                    <div class="item-action">
-                        <span class="item-price">140 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Duo aux Choix', 140, -1)">-</button><span class="qty-count" id="qty-Duo aux Choix">0</span><button class="qty-btn" onclick="changeQty('Duo aux Choix', 140, 1)">+</button></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- PLAT DU CHEF -->
-            <div class="category-card">
-                <h3><span>Plat du Chef</span> <i class="fas fa-concierge-bell"></i></h3>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Paella Fruits de Mer</div><div class="item-desc">Temps d'attente 30min - 45min</div></div>
-                    <div class="item-action">
-                        <span class="item-price">120 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Paella Fruits de Mer', 120, -1)">-</button><span class="qty-count" id="qty-Paella Fruits de Mer">0</span><button class="qty-btn" onclick="changeQty('Paella Fruits de Mer', 120, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Crevettes Gris à la Persillade</div></div>
-                    <div class="item-action">
-                        <span class="item-price">110 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Crevettes Gris à la Persillade', 110, -1)">-</button><span class="qty-count" id="qty-Crevettes Gris à la Persillade">0</span><button class="qty-btn" onclick="changeQty('Crevettes Gris à la Persillade', 110, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Calamars à la Persillade</div></div>
-                    <div class="item-action">
-                        <span class="item-price">110 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Calamars à la Persillade', 110, -1)">-</button><span class="qty-count" id="qty-Calamars à la Persillade">0</span><button class="qty-btn" onclick="changeQty('Calamars à la Persillade', 110, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Brochettes de Thon</div></div>
-                    <div class="item-action">
-                        <span class="item-price">110 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Brochettes de Thon', 110, -1)">-</button><span class="qty-count" id="qty-Brochettes de Thon">0</span><button class="qty-btn" onclick="changeQty('Brochettes de Thon', 110, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Brochettes de Requin</div></div>
-                    <div class="item-action">
-                        <span class="item-price">110 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Brochettes de Requin', 110, -1)">-</button><span class="qty-count" id="qty-Brochettes de Requin">0</span><button class="qty-btn" onclick="changeQty('Brochettes de Requin', 110, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Brochettes Trio</div><div class="item-desc">Thon, requin, crevette gris</div></div>
-                    <div class="item-action">
-                        <span class="item-price">130 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Brochettes Trio', 130, -1)">-</button><span class="qty-count" id="qty-Brochettes Trio">0</span><button class="qty-btn" onclick="changeQty('Brochettes Trio', 130, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Frite</div></div>
-                    <div class="item-action">
-                        <span class="item-price">10 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Frite', 10, -1)">-</button><span class="qty-count" id="qty-Frite">0</span><button class="qty-btn" onclick="changeQty('Frite', 10, 1)">+</button></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SAVEUR D'AILLEURS -->
-            <div class="category-card">
-                <h3><span>Saveur d'Ailleurs</span> <i class="fas fa-globe"></i></h3>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Briouates / Cigares (5 Pcs)</div></div>
-                    <div class="item-action">
-                        <span class="item-price">80 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Briouates / Cigares (5 Pcs)', 80, -1)">-</button><span class="qty-count" id="qty-Briouates / Cigares (5 Pcs)">0</span><button class="qty-btn" onclick="changeQty('Briouates / Cigares (5 Pcs)', 80, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Fish Burger</div></div>
-                    <div class="item-action">
-                        <span class="item-price">45 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Fish Burger', 45, -1)">-</button><span class="qty-count" id="qty-Fish Burger">0</span><button class="qty-btn" onclick="changeQty('Fish Burger', 45, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Pasta Del Mar</div></div>
-                    <div class="item-action">
-                        <span class="item-price">80 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Pasta Del Mar', 80, -1)">-</button><span class="qty-count" id="qty-Pasta Del Mar">0</span><button class="qty-btn" onclick="changeQty('Pasta Del Mar', 80, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Pasta aux Poulpe</div></div>
-                    <div class="item-action">
-                        <span class="item-price">80 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Pasta aux Poulpe', 80, -1)">-</button><span class="qty-count" id="qty-Pasta aux Poulpe">0</span><button class="qty-btn" onclick="changeQty('Pasta aux Poulpe', 80, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Risotto Fruits de Mer</div></div>
-                    <div class="item-action">
-                        <span class="item-price">120 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Risotto Fruits de Mer', 120, -1)">-</button><span class="qty-count" id="qty-Risotto Fruits de Mer">0</span><button class="qty-btn" onclick="changeQty('Risotto Fruits de Mer', 120, 1)">+</button></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- NOS TAJINES -->
-            <div class="category-card">
-                <h3><span>Nos Tajines</span> <i class="fas fa-fire"></i></h3>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Tajine de Poisson et Légumes</div></div>
-                    <div class="item-action">
-                        <span class="item-price">65 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Tajine de Poisson et Légumes', 65, -1)">-</button><span class="qty-count" id="qty-Tajine de Poisson et Légumes">0</span><button class="qty-btn" onclick="changeQty('Tajine de Poisson et Légumes', 65, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Tajine de Poulpe</div></div>
-                    <div class="item-action">
-                        <span class="item-price">70 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Tajine de Poulpe', 70, -1)">-</button><span class="qty-count" id="qty-Tajine de Poulpe">0</span><button class="qty-btn" onclick="changeQty('Tajine de Poulpe', 70, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Tajine Fruits de Mer</div></div>
-                    <div class="item-action">
-                        <span class="item-price">70 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Tajine Fruits de Mer', 70, -1)">-</button><span class="qty-count" id="qty-Tajine Fruits de Mer">0</span><button class="qty-btn" onclick="changeQty('Tajine Fruits de Mer', 70, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Tajine Crevette & Œuf</div></div>
-                    <div class="item-action">
-                        <span class="item-price">65 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Tajine Crevette & Œuf', 65, -1)">-</button><span class="qty-count" id="qty-Tajine Crevette & Œuf">0</span><button class="qty-btn" onclick="changeQty('Tajine Crevette & Œuf', 65, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Crevettes Pilpil</div></div>
-                    <div class="item-action">
-                        <span class="item-price">80 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Crevettes Pilpil', 80, -1)">-</button><span class="qty-count" id="qty-Crevettes Pilpil">0</span><button class="qty-btn" onclick="changeQty('Crevettes Pilpil', 80, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Boulettes de Sardines</div></div>
-                    <div class="item-action">
-                        <span class="item-price">65 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Boulettes de Sardines', 65, -1)">-</button><span class="qty-count" id="qty-Boulettes de Sardines">0</span><button class="qty-btn" onclick="changeQty('Boulettes de Sardines', 65, 1)">+</button></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- DESSERTS & MARINADES -->
-            <div class="category-card">
-                <h3><span>Desserts & Marinades</span> <i class="fas fa-cookie-bite"></i></h3>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Salade de Fruits</div></div>
-                    <div class="item-action">
-                        <span class="item-price">20 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Salade de Fruits', 20, -1)">-</button><span class="qty-count" id="qty-Salade de Fruits">0</span><button class="qty-btn" onclick="changeQty('Salade de Fruits', 20, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Anchois Marinés</div></div>
-                    <div class="item-action">
-                        <span class="item-price">40 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Anchois Marinés', 40, -1)">-</button><span class="qty-count" id="qty-Anchois Marinés">0</span><button class="qty-btn" onclick="changeQty('Anchois Marinés', 40, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Anchois (Poulpe, Moules)</div></div>
-                    <div class="item-action">
-                        <span class="item-price">70 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Anchois (Poulpe, Moules)', 70, -1)">-</button><span class="qty-count" id="qty-Anchois (Poulpe, Moules)">0</span><button class="qty-btn" onclick="changeQty('Anchois (Poulpe, Moules)', 70, 1)">+</button></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- NOS BOISSONS & JUS -->
-            <div class="category-card">
-                <h3><span>Boissons & Jus</span> <i class="fas fa-glass-martini-alt"></i></h3>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Jus Citron</div></div>
-                    <div class="item-action">
-                        <span class="item-price">15 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Jus Citron', 15, -1)">-</button><span class="qty-count" id="qty-Jus Citron">0</span><button class="qty-btn" onclick="changeQty('Jus Citron', 15, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Jus d'Orange</div></div>
-                    <div class="item-action">
-                        <span class="item-price">20 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Jus d\'Orange', 20, -1)">-</button><span class="qty-count" id="qty-Jus d'Orange">0</span><button class="qty-btn" onclick="changeQty('Jus d\'Orange', 20, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Jus d'Avocat</div></div>
-                    <div class="item-action">
-                        <span class="item-price">20 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Jus d\'Avocat', 20, -1)">-</button><span class="qty-count" id="qty-Jus d'Avocat">0</span><button class="qty-btn" onclick="changeQty('Jus d\'Avocat', 20, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Jus de Fruits</div></div>
-                    <div class="item-action">
-                        <span class="item-price">25 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Jus de Fruits', 25, -1)">-</button><span class="qty-count" id="qty-Jus de Fruits">0</span><button class="qty-btn" onclick="changeQty('Jus de Fruits', 25, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Soda 25 cl</div></div>
-                    <div class="item-action">
-                        <span class="item-price">10 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Soda 25 cl', 10, -1)">-</button><span class="qty-count" id="qty-Soda 25 cl">0</span><button class="qty-btn" onclick="changeQty('Soda 25 cl', 10, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Soda Grande</div></div>
-                    <div class="item-action">
-                        <span class="item-price">20 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Soda Grande', 20, -1)">-</button><span class="qty-count" id="qty-Soda Grande">0</span><button class="qty-btn" onclick="changeQty('Soda Grande', 20, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Eau Minérale 50cl</div></div>
-                    <div class="item-action">
-                        <span class="item-price">10 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Eau Minérale 50cl', 10, -1)">-</button><span class="qty-count" id="qty-Eau Minérale 50cl">0</span><button class="qty-btn" onclick="changeQty('Eau Minérale 50cl', 10, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Eau Minérale 1,5L</div></div>
-                    <div class="item-action">
-                        <span class="item-price">15 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Eau Minérale 1,5L', 15, -1)">-</button><span class="qty-count" id="qty-Eau Minérale 1,5L">0</span><button class="qty-btn" onclick="changeQty('Eau Minérale 1,5L', 15, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Eau Gazeuse 50cl</div></div>
-                    <div class="item-action">
-                        <span class="item-price">10 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Eau Gazeuse 50cl', 10, -1)">-</button><span class="qty-count" id="qty-Eau Gazeuse 50cl">0</span><button class="qty-btn" onclick="changeQty('Eau Gazeuse 50cl', 10, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Eau Gazeuse 1L</div></div>
-                    <div class="item-action">
-                        <span class="item-price">15 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Eau Gazeuse 1L', 15, -1)">-</button><span class="qty-count" id="qty-Eau Gazeuse 1L">0</span><button class="qty-btn" onclick="changeQty('Eau Gazeuse 1L', 15, 1)">+</button></div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-info"><div class="item-name">Café</div></div>
-                    <div class="item-action">
-                        <span class="item-price">20 DH</span>
-                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Café', 20, -1)">-</button><span class="qty-count" id="qty-Café">0</span><button class="qty-btn" onclick="changeQty('Café', 20, 1)">+</button></div>
-                    </div>
-                </div>
-            </div>
-
+        <!-- Button to Return to Homepage -->
+        <div style="text-align: center; margin: 40px 0 20px;">
+            <a href="index.html" style="background-color: var(--primary-color); color: white; padding: 12px 28px; border-radius: 25px; text-decoration: none; font-weight: bold; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">
+                <i class="fas fa-home"></i> <span data-key="btn_back_full">Retour à l'accueil</span>
+            </a>
         </div>
     </div>
 
@@ -736,13 +446,282 @@
             <span class="cart-details" id="cart-details-text">0 articles</span>
         </div>
         <a href="#" class="btn-order-whatsapp" onclick="sendOrderWhatsApp(event)">
-            <i class="fab fa-whatsapp"></i> Envoyer la commande
+            <i class="fab fa-whatsapp"></i> <span data-key="btn_send_order">Envoyer la commande</span>
         </a>
     </div>
 
     <script>
+        // Languages Dictionary
+        const i18n = {
+            fr: {
+                page_title: "Chez Flouka - Commander en Ligne & Réservation",
+                btn_home: "Accueil",
+                mode_emporter: "À Emporter / Livraison",
+                mode_surplace: "Sur Place",
+                surplace_title: "Commande & Réservation Sur Place",
+                surplace_desc: "Choisissez vos plats ci-dessous et envoyez votre commande directement au restaurant, ou contactez-nous :",
+                call_us: "Appel",
+                emporter_title: "Commande À Emporter / Livraison",
+                select_zone_label: "Choisissez la zone de livraison :",
+                opt_select: "-- Choisissez la zone --",
+                menu_title: "Notre Carte & Menu",
+                btn_back_full: "Retour à l'accueil",
+                btn_send_order: "Envoyer la commande",
+                total: "Total",
+                items: "articles",
+                delivery: "Livraison",
+                mode_label: "Mode",
+                alert_no_items: "Veuillez ajouter des articles à votre panier.",
+                alert_no_zone: "Veuillez sélectionner votre zone de livraison.",
+                msg_emporter_header: "Bonjour Chez Flouka, commande À EMPORTER / LIVRAISON :\n\n",
+                msg_surplace_header: "Bonjour Chez Flouka, commande SUR PLACE / RÉSERVATION :\n\n",
+                msg_zone: "📍 Zone : ",
+                msg_subtotal: "💵 Sous-total : ",
+                msg_grand_total: "💰 Total Général : ",
+                msg_total_pay: "💰 Total à payer : "
+            },
+            en: {
+                page_title: "Chez Flouka - Online Order & Reservation",
+                btn_home: "Home",
+                mode_emporter: "Takeaway / Delivery",
+                mode_surplace: "Dine-in",
+                surplace_title: "Dine-in Order & Reservation",
+                surplace_desc: "Choose your dishes below and send your order directly to the restaurant, or contact us:",
+                call_us: "Call",
+                emporter_title: "Takeaway / Delivery Order",
+                select_zone_label: "Choose delivery zone:",
+                opt_select: "-- Choose zone --",
+                menu_title: "Our Menu",
+                btn_back_full: "Back to home",
+                btn_send_order: "Send Order",
+                total: "Total",
+                items: "items",
+                delivery: "Delivery",
+                mode_label: "Mode",
+                alert_no_items: "Please add items to your cart.",
+                alert_no_zone: "Please select your delivery zone.",
+                msg_emporter_header: "Hello Chez Flouka, TAKEAWAY / DELIVERY order:\n\n",
+                msg_surplace_header: "Hello Chez Flouka, DINE-IN / RESERVATION order:\n\n",
+                msg_zone: "📍 Zone: ",
+                msg_subtotal: "💵 Subtotal: ",
+                msg_grand_total: "💰 Grand Total: ",
+                msg_total_pay: "💰 Total to pay: "
+            },
+            ar: {
+                page_title: "شيز فلوكة - الطلب عبر الإنترنت والحجز",
+                btn_home: "الرئيسية",
+                mode_emporter: "للأخذ / التوصيل",
+                mode_surplace: "في عين المكان",
+                surplace_title: "الطلب والحجز في المطعم",
+                surplace_desc: "اختر أطباقك أدناه وأرسل طلبك مباشرة إلى المطعم، أو اتصل بنا:",
+                call_us: "اتصال",
+                emporter_title: "طلب سفري / توصيل",
+                select_zone_label: "اختر منطقة التوصيل:",
+                opt_select: "-- اختر المنطقة --",
+                menu_title: "قائمة الطعام والوجبات",
+                btn_back_full: "الرجوع للرئيسية",
+                btn_send_order: "إرسال الطلب",
+                total: "المجموع",
+                items: "عناصر",
+                delivery: "التوصيل",
+                mode_label: "النوع",
+                alert_no_items: "يرجى إضافة أطباق إلى السلة أولاً.",
+                alert_no_zone: "يرجى تحديد منطقة التوصيل.",
+                msg_emporter_header: "مرحباً شيز فلوكة، طلب سفري / توصيل:\n\n",
+                msg_surplace_header: "مرحباً شيز فلوكة، طلب في المطعم / حجز:\n\n",
+                msg_zone: "📍 المنطقة: ",
+                msg_subtotal: "💵 المجموع الجزئي: ",
+                msg_grand_total: "💰 المجموع الكلي: ",
+                msg_total_pay: "💰 المجموع للاداء: "
+            }
+        };
+
+        // Complete Menu Database in 3 Languages
+        const menuData = [
+            {
+                category: { fr: "Nos Entrées", en: "Starters", ar: "المقبلات", icon: "fa-leaf" },
+                items: [
+                    { id: "e1", price: 45, name: { fr: "Salade La Flouka", en: "La Flouka Salad", ar: "سلطة الفلوكة" } },
+                    { id: "e2", price: 45, name: { fr: "Salade Poulpe et Avocat", en: "Octopus & Avocado Salad", ar: "سلطة الأخطبوط والأفوكادو" } },
+                    { id: "e3", price: 30, name: { fr: "Salade Végétarienne", en: "Vegetarian Salad", ar: "سلطة نباتية" } },
+                    { id: "e4", price: 30, name: { fr: "Soupe de Poisson", en: "Fish Soup", ar: "حساء السمك" } },
+                    { id: "e5", price: 80, name: { fr: "Salade Pêcheur", en: "Fisherman Salad", ar: "سلطة الصياد" } },
+                    { id: "e6", price: 30, name: { fr: "Salade Marocaine", en: "Moroccan Salad", ar: "سلطة مغربية" } },
+                    { id: "e7", price: 70, name: { fr: "Salade Crevettes Avocat", en: "Shrimp & Avocado Salad", ar: "سلطة الكروفيت والأفوكادو" } },
+                    { id: "e8", price: 90, name: { fr: "Salade Royal", en: "Royal Salad", ar: "سلطة ملكية" } }
+                ]
+            },
+            {
+                category: { fr: "Nos Fritures", en: "Fried Seafood", ar: "المقليات", icon: "fa-utensils" },
+                items: [
+                    { id: "f1", price: 80, name: { fr: "Friture Individuelle", en: "Solo Fried Platter", ar: "طبق مقليات فردي" }, desc: { fr: "Calamar, crevettes, poisson du jour + Frite", en: "Calamari, shrimps, fish of the day + Fries", ar: "كلامار، كروفيت، سمك اليوم + بطاطس مقلية" } },
+                    { id: "f2", price: 150, name: { fr: "Friture La Flouka 2 Pers", en: "La Flouka Platter 2 Pax", ar: "طبق مقليات لشخصين" }, desc: { fr: "Calamar, crevettes, poisson du jour + Frite", en: "Calamari, shrimps, fish of the day + Fries", ar: "كلامار، كروفيت، سمك اليوم + بطاطس مقلية" } },
+                    { id: "f3", price: 300, name: { fr: "Friture Poisson 4 Pers", en: "Fish Platter 4 Pax", ar: "طبق مقليات لـ 4 أشخاص" }, desc: { fr: "Calamar, crevettes, poisson du jour + Frite", en: "Calamari, shrimps, fish of the day + Fries", ar: "كلامار، كروفيت، سمك اليوم + بطاطس مقلية" } },
+                    { id: "f4", price: 450, name: { fr: "Friture Flouka Royal 5 Pers", en: "Flouka Royal Platter 5 Pax", ar: "طبق فلوكة الملكي لـ 5 أشخاص" }, desc: { fr: "Calamar, crevettes, gambas, crevettes gris, poisson + Frite", en: "Calamari, shrimps, gambas, gray shrimps, fish + Fries", ar: "كلامار، كروفيت، جامبوس، كروفيت رمادي، سمك + بطاطس" } },
+                    { id: "f5", price: 100, name: { fr: "Friture Calamars", en: "Fried Calamari", ar: "كلامار مقلي" } },
+                    { id: "f6", price: 100, name: { fr: "Friture Crevettes", en: "Fried Shrimps", ar: "كروفيت مقلي" } },
+                    { id: "f7", price: 140, name: { fr: "Duo Calamars & Crevettes", en: "Calamari & Shrimp Duo", ar: "ثنائي كلامار وكروفيت" } },
+                    { id: "f8", price: 140, name: { fr: "Duo aux Choix", en: "Duo Choice", ar: "ثنائي حسب الاختيار" } }
+                ]
+            },
+            {
+                category: { fr: "Plat du Chef", en: "Chef's Specials", ar: "أطباق الشيف", icon: "fa-concierge-bell" },
+                items: [
+                    { id: "c1", price: 120, name: { fr: "Paella Fruits de Mer", en: "Seafood Paella", ar: "بايلية الفواكه البحرية" }, desc: { fr: "Temps d'attente 30min - 45min", en: "Wait time 30min - 45min", ar: "مدة التحضير 30 إلى 45 دقيقة" } },
+                    { id: "c2", price: 110, name: { fr: "Crevettes Gris à la Persillade", en: "Sautéed Shrimps with Parsley", ar: "كروفيت رمادي بالثوم والبقدونس" } },
+                    { id: "c3", price: 110, name: { fr: "Calamars à la Persillade", en: "Sautéed Calamari with Parsley", ar: "كلامار بالثوم والبقدونس" } },
+                    { id: "c4", price: 110, name: { fr: "Brochettes de Thon", en: "Tuna Skewers", ar: "قطبان التونة" } },
+                    { id: "c5", price: 110, name: { fr: "Brochettes de Requin", en: "Shark Skewers", ar: "قطبان القرش" } },
+                    { id: "c6", price: 130, name: { fr: "Brochettes Trio", en: "Trio Skewers", ar: "قطبان ثلاثية" }, desc: { fr: "Thon, requin, crevette gris", en: "Tuna, shark, gray shrimp", ar: "تونة، قرش، كروفيت رمادي" } },
+                    { id: "c7", price: 10, name: { fr: "Frite", en: "French Fries", ar: "بطاطس مقلية" } }
+                ]
+            },
+            {
+                category: { fr: "Saveur d'Ailleurs", en: "International Flavors", ar: "أذواق عالمية", icon: "fa-globe" },
+                items: [
+                    { id: "s1", price: 80, name: { fr: "Briouates / Cigares (5 Pcs)", en: "Briouates / Cigars (5 Pcs)", ar: "بريوات / سيكار (5 قطع)" } },
+                    { id: "s2", price: 45, name: { fr: "Fish Burger", en: "Fish Burger", ar: "فيش برغر" } },
+                    { id: "s3", price: 80, name: { fr: "Pasta Del Mar", en: "Pasta Del Mar", ar: "باستا ديل مار" } },
+                    { id: "s4", price: 80, name: { fr: "Pasta aux Poulpe", en: "Octopus Pasta", ar: "باستا بالأخطبوط" } },
+                    { id: "s5", price: 120, name: { fr: "Risotto Fruits de Mer", en: "Seafood Risotto", ar: "ريزوتو فواكه البحر" } }
+                ]
+            },
+            {
+                category: { fr: "Nos Tajines", en: "Tajines", ar: "الطواجن", icon: "fa-fire" },
+                items: [
+                    { id: "t1", price: 65, name: { fr: "Tajine de Poisson et Légumes", en: "Fish & Vegetable Tajine", ar: "طاجين سمك بالخضر" } },
+                    { id: "t2", price: 70, name: { fr: "Tajine de Poulpe", en: "Octopus Tajine", ar: "طاجين الأخطبوط" } },
+                    { id: "t3", price: 70, name: { fr: "Tajine Fruits de Mer", en: "Seafood Tajine", ar: "طاجين فواكه البحر" } },
+                    { id: "t4", price: 65, name: { fr: "Tajine Crevette & Œuf", en: "Shrimp & Egg Tajine", ar: "طاجين الكروفيت والبيض" } },
+                    { id: "t5", price: 80, name: { fr: "Crevettes Pilpil", en: "Shrimp Pil Pil", ar: "كروفيت بيل بيل" } },
+                    { id: "t6", price: 65, name: { fr: "Boulettes de Sardines", en: "Sardine Meatballs Tajine", ar: "كويرات السردين" } }
+                ]
+            },
+            {
+                category: { fr: "Desserts & Marinades", en: "Desserts & Marinades", ar: "تحليات ومخللات", icon: "fa-cookie-bite" },
+                items: [
+                    { id: "d1", price: 20, name: { fr: "Salade de Fruits", en: "Fruit Salad", ar: "سلطة فواكه" } },
+                    { id: "d2", price: 40, name: { fr: "Anchois Marinés", en: "Marinated Anchovies", ar: "أنشوبة متبلة" } },
+                    { id: "d3", price: 70, name: { fr: "Anchois (Poulpe, Moules)", en: "Marinated Seafood Mix", ar: "أنشوبة (أخطبوط، بلح البحر)" } }
+                ]
+            },
+            {
+                category: { fr: "Boissons & Jus", en: "Drinks & Juices", ar: "مشروبات وعصائر", icon: "fa-glass-martini-alt" },
+                items: [
+                    { id: "b1", price: 15, name: { fr: "Jus Citron", en: "Lemon Juice", ar: "عصير الليمون الحامض" } },
+                    { id: "b2", price: 20, name: { fr: "Jus d'Orange", en: "Orange Juice", ar: "عصير البرتقال" } },
+                    { id: "b3", price: 20, name: { fr: "Jus d'Avocat", en: "Avocado Juice", ar: "عصير الأفوكادو" } },
+                    { id: "b4", price: 25, name: { fr: "Jus de Fruits", en: "Mixed Fruit Juice", ar: "عصير فواكه مشكلة" } },
+                    { id: "b5", price: 10, name: { fr: "Soda 25 cl", en: "Soft Drink 25cl", ar: "مشروب غازي 25 كل" } },
+                    { id: "b6", price: 20, name: { fr: "Soda Grande", en: "Large Soft Drink", ar: "مشروب غازي كبير" } },
+                    { id: "b7", price: 10, name: { fr: "Eau Minérale 50cl", en: "Mineral Water 50cl", ar: "ماء معدني 50 كل" } },
+                    { id: "b8", price: 15, name: { fr: "Eau Minérale 1,5L", en: "Mineral Water 1.5L", ar: "ماء معدني 1.5 لتر" } },
+                    { id: "b9", price: 10, name: { fr: "Eau Gazeuse 50cl", en: "Sparkling Water 50cl", ar: "ماء غازي 50 كل" } },
+                    { id: "b10", price: 15, name: { fr: "Eau Gazeuse 1L", en: "Sparkling Water 1L", ar: "ماء غازي 1 لتر" } },
+                    { id: "b11", price: 20, name: { fr: "Café", en: "Coffee", ar: "قهوة" } }
+                ]
+            }
+        ];
+
         let cart = {};
         let currentMode = 'emporter';
+        let currentLang = 'fr';
+
+        function initApp() {
+            renderMenu();
+            changeLanguage('fr');
+        }
+
+        function renderMenu() {
+            const container = document.getElementById('menu-grid-container');
+            container.innerHTML = '';
+
+            menuData.forEach(cat => {
+                const card = document.createElement('div');
+                card.className = 'category-card';
+
+                let itemsHTML = '';
+                cat.items.forEach(item => {
+                    const descHTML = item.desc ? `<div class="item-desc" id="desc-${item.id}">${item.desc[currentLang]}</div>` : '';
+                    itemsHTML += `
+                        <div class="menu-item">
+                            <div class="item-info">
+                                <div class="item-name" id="name-${item.id}">${item.name[currentLang]}</div>
+                                ${descHTML}
+                            </div>
+                            <div class="item-action">
+                                <span class="item-price">${item.price} DH</span>
+                                <div class="qty-controls">
+                                    <button class="qty-btn" onclick="changeQty('${item.id}', ${item.price}, -1)">-</button>
+                                    <span class="qty-count" id="qty-${item.id}">${cart[item.id] ? cart[item.id].qty : 0}</span>
+                                    <button class="qty-btn" onclick="changeQty('${item.id}', ${item.price}, 1)">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                card.innerHTML = `
+                    <h3>
+                        <span id="cat-${cat.category.fr}">${cat.category[currentLang]}</span> 
+                        <i class="fas ${cat.category.icon}"></i>
+                    </h3>
+                    ${itemsHTML}
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+            document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+
+            // Active button highlight
+            const buttons = document.querySelectorAll('.lang-btn');
+            buttons.forEach(btn => {
+                btn.classList.toggle('active', btn.innerText.toLowerCase() === lang);
+            });
+
+            // Update static elements with data-key
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (i18n[lang][key]) {
+                    el.innerText = i18n[lang][key];
+                }
+            });
+
+            // Update Title
+            document.getElementById('page-title').innerText = i18n[lang].page_title;
+
+            // Update delivery zone select option titles
+            const zoneSelect = document.getElementById('delivery-zone');
+            Array.from(zoneSelect.options).forEach(opt => {
+                const zoneName = opt.getAttribute(`data-name-${lang}`);
+                const price = opt.value > 0 ? ` (${opt.value} DH)` : '';
+                if (zoneName) {
+                    opt.text = zoneName + price;
+                }
+            });
+
+            // Re-render menu item texts
+            menuData.forEach(cat => {
+                const catEl = document.getElementById(`cat-${cat.category.fr}`);
+                if (catEl) catEl.innerText = cat.category[lang];
+
+                cat.items.forEach(item => {
+                    const nameEl = document.getElementById(`name-${item.id}`);
+                    if (nameEl) nameEl.innerText = item.name[lang];
+
+                    if (item.desc) {
+                        const descEl = document.getElementById(`desc-${item.id}`);
+                        if (descEl) descEl.innerText = item.desc[lang];
+                    }
+                });
+            });
+
+            updateCartUI();
+        }
 
         function setOrderMode(mode) {
             currentMode = mode;
@@ -762,17 +741,26 @@
             updateCartUI();
         }
 
-        function changeQty(name, price, change) {
-            if (!cart[name]) {
-                cart[name] = { price: price, qty: 0 };
+        function getItemObjectById(id) {
+            for (let cat of menuData) {
+                for (let item of cat.items) {
+                    if (item.id === id) return item;
+                }
             }
-            cart[name].qty += change;
-            if (cart[name].qty <= 0) {
-                delete cart[name];
+            return null;
+        }
+
+        function changeQty(id, price, change) {
+            if (!cart[id]) {
+                cart[id] = { price: price, qty: 0 };
             }
-            const qtyElement = document.getElementById(`qty-${name}`);
+            cart[id].qty += change;
+            if (cart[id].qty <= 0) {
+                delete cart[id];
+            }
+            const qtyElement = document.getElementById(`qty-${id}`);
             if (qtyElement) {
-                qtyElement.innerText = cart[name] ? cart[name].qty : 0;
+                qtyElement.innerText = cart[id] ? cart[id].qty : 0;
             }
             updateCartUI();
         }
@@ -781,9 +769,9 @@
             let itemsTotal = 0;
             let totalItemsCount = 0;
 
-            for (let name in cart) {
-                itemsTotal += cart[name].price * cart[name].qty;
-                totalItemsCount += cart[name].qty;
+            for (let id in cart) {
+                itemsTotal += cart[id].price * cart[id].qty;
+                totalItemsCount += cart[id].qty;
             }
 
             let deliveryFee = 0;
@@ -793,13 +781,14 @@
             }
 
             const grandTotal = itemsTotal + deliveryFee;
+            const langObj = i18n[currentLang];
 
-            document.getElementById('cart-total-price').innerText = `Total : ${grandTotal} DH`;
+            document.getElementById('cart-total-price').innerText = `${langObj.total} : ${grandTotal} DH`;
             
             if (currentMode === 'emporter') {
-                document.getElementById('cart-details-text').innerText = `${totalItemsCount} articles | Livraison: ${deliveryFee} DH`;
+                document.getElementById('cart-details-text').innerText = `${totalItemsCount} ${langObj.items} | ${langObj.delivery}: ${deliveryFee} DH`;
             } else {
-                document.getElementById('cart-details-text').innerText = `${totalItemsCount} articles | Mode: Sur Place`;
+                document.getElementById('cart-details-text').innerText = `${totalItemsCount} ${langObj.items} | ${langObj.mode_label}: ${langObj.mode_surplace}`;
             }
         }
 
@@ -807,8 +796,10 @@
             e.preventDefault();
 
             let itemKeys = Object.keys(cart);
+            const langObj = i18n[currentLang];
+
             if (itemKeys.length === 0) {
-                alert('Veuillez ajouter des articles à votre panier.');
+                alert(langObj.alert_no_items);
                 return;
             }
 
@@ -821,41 +812,48 @@
                 const zoneSelect = document.getElementById('delivery-zone');
                 const deliveryFee = parseInt(zoneSelect.value) || 0;
                 const selectedOption = zoneSelect.options[zoneSelect.selectedIndex];
-                const zoneName = selectedOption.getAttribute('data-name');
+                const zoneName = selectedOption.getAttribute(`data-name-${currentLang}`) || selectedOption.text;
 
                 if (deliveryFee === 0 && zoneSelect.value === "0") {
-                    alert('Veuillez sélectionner votre zone de livraison.');
+                    alert(langObj.alert_no_zone);
                     return;
                 }
 
-                message = `Bonjour Chez Flouka, commande À EMPORTER / LIVRAISON :\n\n`;
-                itemKeys.forEach(name => {
-                    let item = cart[name];
-                    let subtotal = item.price * item.qty;
+                message = langObj.msg_emporter_header;
+                itemKeys.forEach(id => {
+                    let itemCart = cart[id];
+                    let itemObj = getItemObjectById(id);
+                    let name = itemObj ? itemObj.name[currentLang] : id;
+                    let subtotal = itemCart.price * itemCart.qty;
                     itemsTotal += subtotal;
-                    message += `• ${name} x${item.qty} = ${subtotal} DH\n`;
+                    message += `• ${name} x${itemCart.qty} = ${subtotal} DH\n`;
                 });
 
-                message += `\n📍 Zone : ${zoneName} (${deliveryFee} DH)`;
-                message += `\n💵 Sous-total : ${itemsTotal} DH`;
-                message += `\n💰 Total Général : ${itemsTotal + deliveryFee} DH`;
+                message += `\n${langObj.msg_zone}${zoneName} (${deliveryFee} DH)`;
+                message += `\n${langObj.msg_subtotal}${itemsTotal} DH`;
+                message += `\n${langObj.msg_grand_total}${itemsTotal + deliveryFee} DH`;
 
             } else {
                 phone = "212676221459";
-                message = `Bonjour Chez Flouka, commande SUR PLACE / RÉSERVATION :\n\n`;
-                itemKeys.forEach(name => {
-                    let item = cart[name];
-                    let subtotal = item.price * item.qty;
+                message = langObj.msg_surplace_header;
+                itemKeys.forEach(id => {
+                    let itemCart = cart[id];
+                    let itemObj = getItemObjectById(id);
+                    let name = itemObj ? itemObj.name[currentLang] : id;
+                    let subtotal = itemCart.price * itemCart.qty;
                     itemsTotal += subtotal;
-                    message += `• ${name} x${item.qty} = ${subtotal} DH\n`;
+                    message += `• ${name} x${itemCart.qty} = ${subtotal} DH\n`;
                 });
 
-                message += `\n💰 Total à payer : ${itemsTotal} DH`;
+                message += `\n${langObj.msg_total_pay}${itemsTotal} DH`;
             }
 
             const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
         }
+
+        // Initialize App
+        window.onload = initApp;
     </script>
 </body>
 </html>
