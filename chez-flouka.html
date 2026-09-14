@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chez Flouka - Commander en Ligne & Réservation</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0b3c5d;
+            --secondary-color: #d9b310;
+            --accent-color: #25d366;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #1d2731;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-bottom: 100px;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            padding: 15px 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header .logo {
+            color: #fff;
+            font-size: 22px;
+            font-weight: bold;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Mode Switcher */
+        .order-type-container {
+            max-width: 900px;
+            margin: 20px auto 10px;
+            padding: 0 15px;
+        }
+
+        .type-switcher {
+            display: flex;
+            background: #e9ecef;
+            border-radius: 30px;
+            padding: 5px;
+            gap: 5px;
+        }
+
+        .type-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            background: transparent;
+            color: #555;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .type-btn.active {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        /* Dynamic Banners */
+        .info-banner {
+            max-width: 900px;
+            margin: 15px auto;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .banner-surplace {
+            background: #fff;
+            border-left: 5px solid var(--secondary-color);
+            display: none;
+        }
+
+        .banner-emporter {
+            background: #1d2731;
+            color: white;
+            display: block;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .contact-btn {
+            padding: 10px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+        }
+
+        .btn-phone { background-color: #3498db; }
+        .btn-wa { background-color: #25d366; }
+
+        /* Delivery Zone Selector */
+        .zone-selector-box {
+            margin-top: 15px;
+        }
+
+        .zone-selector-box label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .zone-selector-box select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #444;
+            background: #2c3e50;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        /* Menu Section */
+        .container {
+            max-width: 1100px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .category-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--primary-color);
+        }
+
+        .category-card h3 {
+            color: var(--primary-color);
+            border-bottom: 2px solid #eee;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed #eee;
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .item-info {
+            flex: 1;
+            padding-right: 10px;
+        }
+
+        .item-name { font-weight: 600; font-size: 0.95rem; }
+        .item-desc { font-size: 0.78rem; color: #7f8c8d; margin-top: 2px; }
+        
+        .item-action {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .item-price {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 0.95rem;
+            white-space: nowrap;
+        }
+
+        /* Counter Buttons */
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #f1f3f5;
+            padding: 3px 8px;
+            border-radius: 20px;
+        }
+
+        .qty-btn {
+            background: #fff;
+            border: 1px solid #ccc;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qty-btn:hover { background: var(--secondary-color); color: white; border-color: var(--secondary-color); }
+        .qty-count { font-weight: bold; min-width: 16px; text-align: center; font-size: 0.9rem; }
+
+        /* Floating Cart Bar */
+        .floating-cart {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--primary-color);
+            color: white;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.25);
+            z-index: 2000;
+        }
+
+        .cart-info { display: flex; flex-direction: column; }
+        .cart-total { font-size: 1.2rem; font-weight: bold; color: var(--secondary-color); }
+        .cart-details { font-size: 0.85rem; opacity: 0.9; }
+
+        .btn-order-whatsapp {
+            background: #25d366;
+            color: white;
+            padding: 12px 22px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+
+        .btn-order-whatsapp:hover { background: #1eb854; }
+
+        @media (max-width: 600px) {
+            .type-btn { font-size: 0.85rem; padding: 10px; }
+            .floating-cart { padding: 12px 15px; }
+            .btn-order-whatsapp { padding: 10px 14px; font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo"><i class="fas fa-fish"></i> Chez Flouka</a>
+    </header>
+
+    <!-- Type Switcher -->
+    <div class="order-type-container">
+        <div class="type-switcher">
+            <button class="type-btn active" id="btn-mode-emporter" onclick="setOrderMode('emporter')">
+                <i class="fas fa-motorcycle"></i> À Emporter / Livraison
+            </button>
+            <button class="type-btn" id="btn-mode-surplace" onclick="setOrderMode('surplace')">
+                <i class="fas fa-utensils"></i> Sur Place
+            </button>
+        </div>
+    </div>
+
+    <!-- Mode Sur Place Banner -->
+    <div class="info-banner banner-surplace" id="sur-place-section">
+        <h3><i class="fas fa-chair"></i> Commande & Réservation Sur Place</h3>
+        <p style="margin-top: 5px; color: #555;">Choisissez vos plats ci-dessous et envoyez votre commande directement au restaurant, ou contactez-nous :</p>
+        <div class="contact-links">
+            <a href="tel:+212690828285" class="contact-btn btn-phone">
+                <i class="fas fa-phone-alt"></i> Appel : +212 6 90 82 82 85
+            </a>
+            <a href="https://wa.me/212676221459?text=Bonjour,%20je%20souhaite%20réserver%20une%20table" target="_blank" class="contact-btn btn-wa">
+                <i class="fab fa-whatsapp"></i> WhatsApp : +212 6 76 22 14 59
+            </a>
+        </div>
+    </div>
+
+    <!-- Mode Emporter / Livraison Banner -->
+    <div class="info-banner banner-emporter" id="emporter-section">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+            <h3><i class="fas fa-truck"></i> Commande À Emporter / Livraison</h3>
+            <span><i class="fas fa-phone-alt"></i> Contact : <strong>+212 6 46 89 71 11</strong></span>
+        </div>
+        
+        <div class="zone-selector-box">
+            <label for="delivery-zone"><i class="fas fa-map-marker-alt"></i> Choisissez la zone de livraison :</label>
+            <select id="delivery-zone" onchange="updateCartUI()">
+                <option value="0" data-name="Sélectionner zone">-- Choisissez la zone --</option>
+                <option value="10" data-name="Essaouira">Essaouira (10 DH)</option>
+                <option value="15" data-name="Médina">Médina (15 DH)</option>
+                <option value="30" data-name="Ghazoua">Ghazoua (30 DH)</option>
+                <option value="20" data-name="Diabat">Diabat (20 DH)</option>
+                <option value="35" data-name="Km8">Km8 (35 DH)</option>
+                <option value="50" data-name="Douar El Arab">Douar El Arab (50 DH)</option>
+                <option value="70" data-name="Sidi Kaouki">Sidi Kaouki (70 DH)</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Menu Section -->
+    <div class="container">
+        <h2 class="section-title">Notre Carte & Menu</h2>
+        <div class="menu-grid">
+            
+            <!-- NOS ENTRÉES -->
+            <div class="category-card">
+                <h3><span>Nos Entrées</span> <i class="fas fa-leaf"></i></h3>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Salade La Flouka</div></div>
+                    <div class="item-action">
+                        <span class="item-price">45 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Salade La Flouka', 45, -1)">-</button><span class="qty-count" id="qty-Salade La Flouka">0</span><button class="qty-btn" onclick="changeQty('Salade La Flouka', 45, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Salade Poulpe et Avocat</div></div>
+                    <div class="item-action">
+                        <span class="item-price">45 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Salade Poulpe et Avocat', 45, -1)">-</button><span class="qty-count" id="qty-Salade Poulpe et Avocat">0</span><button class="qty-btn" onclick="changeQty('Salade Poulpe et Avocat', 45, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Salade Végétarienne</div></div>
+                    <div class="item-action">
+                        <span class="item-price">30 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Salade Végétarienne', 30, -1)">-</button><span class="qty-count" id="qty-Salade Végétarienne">0</span><button class="qty-btn" onclick="changeQty('Salade Végétarienne', 30, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Soupe de Poisson</div></div>
+                    <div class="item-action">
+                        <span class="item-price">30 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Soupe de Poisson', 30, -1)">-</button><span class="qty-count" id="qty-Soupe de Poisson">0</span><button class="qty-btn" onclick="changeQty('Soupe de Poisson', 30, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Salade Pêcheur</div></div>
+                    <div class="item-action">
+                        <span class="item-price">80 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Salade Pêcheur', 80, -1)">-</button><span class="qty-count" id="qty-Salade Pêcheur">0</span><button class="qty-btn" onclick="changeQty('Salade Pêcheur', 80, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Salade Marocaine</div></div>
+                    <div class="item-action">
+                        <span class="item-price">30 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Salade Marocaine', 30, -1)">-</button><span class="qty-count" id="qty-Salade Marocaine">0</span><button class="qty-btn" onclick="changeQty('Salade Marocaine', 30, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Salade Crevettes Avocat</div></div>
+                    <div class="item-action">
+                        <span class="item-price">70 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Salade Crevettes Avocat', 70, -1)">-</button><span class="qty-count" id="qty-Salade Crevettes Avocat">0</span><button class="qty-btn" onclick="changeQty('Salade Crevettes Avocat', 70, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Salade Royal</div></div>
+                    <div class="item-action">
+                        <span class="item-price">90 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Salade Royal', 90, -1)">-</button><span class="qty-count" id="qty-Salade Royal">0</span><button class="qty-btn" onclick="changeQty('Salade Royal', 90, 1)">+</button></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NOS FRITURES -->
+            <div class="category-card">
+                <h3><span>Nos Fritures</span> <i class="fas fa-utensils"></i></h3>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Friture Individuelle</div><div class="item-desc">Calamar, crevettes, poisson du jour + Frite</div></div>
+                    <div class="item-action">
+                        <span class="item-price">80 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Friture Individuelle', 80, -1)">-</button><span class="qty-count" id="qty-Friture Individuelle">0</span><button class="qty-btn" onclick="changeQty('Friture Individuelle', 80, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Friture La Flouka 2 Pers</div><div class="item-desc">Calamar, crevettes, poisson du jour + Frite</div></div>
+                    <div class="item-action">
+                        <span class="item-price">150 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Friture La Flouka 2 Pers', 150, -1)">-</button><span class="qty-count" id="qty-Friture La Flouka 2 Pers">0</span><button class="qty-btn" onclick="changeQty('Friture La Flouka 2 Pers', 150, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Friture Poisson 4 Pers</div><div class="item-desc">Calamar, crevettes, poisson du jour + Frite</div></div>
+                    <div class="item-action">
+                        <span class="item-price">300 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Friture Poisson 4 Pers', 300, -1)">-</button><span class="qty-count" id="qty-Friture Poisson 4 Pers">0</span><button class="qty-btn" onclick="changeQty('Friture Poisson 4 Pers', 300, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Friture Flouka Royal 5 Pers</div><div class="item-desc">Calamar, crevettes, gambas, crevettes gris, poisson + Frite</div></div>
+                    <div class="item-action">
+                        <span class="item-price">450 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Friture Flouka Royal 5 Pers', 450, -1)">-</button><span class="qty-count" id="qty-Friture Flouka Royal 5 Pers">0</span><button class="qty-btn" onclick="changeQty('Friture Flouka Royal 5 Pers', 450, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Friture Calamars</div></div>
+                    <div class="item-action">
+                        <span class="item-price">100 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Friture Calamars', 100, -1)">-</button><span class="qty-count" id="qty-Friture Calamars">0</span><button class="qty-btn" onclick="changeQty('Friture Calamars', 100, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Friture Crevettes</div></div>
+                    <div class="item-action">
+                        <span class="item-price">100 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Friture Crevettes', 100, -1)">-</button><span class="qty-count" id="qty-Friture Crevettes">0</span><button class="qty-btn" onclick="changeQty('Friture Crevettes', 100, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Duo Calamars & Crevettes</div></div>
+                    <div class="item-action">
+                        <span class="item-price">140 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Duo Calamars & Crevettes', 140, -1)">-</button><span class="qty-count" id="qty-Duo Calamars & Crevettes">0</span><button class="qty-btn" onclick="changeQty('Duo Calamars & Crevettes', 140, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Duo aux Choix</div></div>
+                    <div class="item-action">
+                        <span class="item-price">140 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Duo aux Choix', 140, -1)">-</button><span class="qty-count" id="qty-Duo aux Choix">0</span><button class="qty-btn" onclick="changeQty('Duo aux Choix', 140, 1)">+</button></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PLAT DU CHEF -->
+            <div class="category-card">
+                <h3><span>Plat du Chef</span> <i class="fas fa-concierge-bell"></i></h3>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Paella Fruits de Mer</div><div class="item-desc">Temps d'attente 30min - 45min</div></div>
+                    <div class="item-action">
+                        <span class="item-price">120 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Paella Fruits de Mer', 120, -1)">-</button><span class="qty-count" id="qty-Paella Fruits de Mer">0</span><button class="qty-btn" onclick="changeQty('Paella Fruits de Mer', 120, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Crevettes Gris à la Persillade</div></div>
+                    <div class="item-action">
+                        <span class="item-price">110 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Crevettes Gris à la Persillade', 110, -1)">-</button><span class="qty-count" id="qty-Crevettes Gris à la Persillade">0</span><button class="qty-btn" onclick="changeQty('Crevettes Gris à la Persillade', 110, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Calamars à la Persillade</div></div>
+                    <div class="item-action">
+                        <span class="item-price">110 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Calamars à la Persillade', 110, -1)">-</button><span class="qty-count" id="qty-Calamars à la Persillade">0</span><button class="qty-btn" onclick="changeQty('Calamars à la Persillade', 110, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Brochettes de Thon</div></div>
+                    <div class="item-action">
+                        <span class="item-price">110 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Brochettes de Thon', 110, -1)">-</button><span class="qty-count" id="qty-Brochettes de Thon">0</span><button class="qty-btn" onclick="changeQty('Brochettes de Thon', 110, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Brochettes de Requin</div></div>
+                    <div class="item-action">
+                        <span class="item-price">110 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Brochettes de Requin', 110, -1)">-</button><span class="qty-count" id="qty-Brochettes de Requin">0</span><button class="qty-btn" onclick="changeQty('Brochettes de Requin', 110, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Brochettes Trio</div><div class="item-desc">Thon, requin, crevette gris</div></div>
+                    <div class="item-action">
+                        <span class="item-price">130 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Brochettes Trio', 130, -1)">-</button><span class="qty-count" id="qty-Brochettes Trio">0</span><button class="qty-btn" onclick="changeQty('Brochettes Trio', 130, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Frite</div></div>
+                    <div class="item-action">
+                        <span class="item-price">10 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Frite', 10, -1)">-</button><span class="qty-count" id="qty-Frite">0</span><button class="qty-btn" onclick="changeQty('Frite', 10, 1)">+</button></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SAVEUR D'AILLEURS -->
+            <div class="category-card">
+                <h3><span>Saveur d'Ailleurs</span> <i class="fas fa-globe"></i></h3>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Briouates / Cigares (5 Pcs)</div></div>
+                    <div class="item-action">
+                        <span class="item-price">80 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Briouates / Cigares (5 Pcs)', 80, -1)">-</button><span class="qty-count" id="qty-Briouates / Cigares (5 Pcs)">0</span><button class="qty-btn" onclick="changeQty('Briouates / Cigares (5 Pcs)', 80, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Fish Burger</div></div>
+                    <div class="item-action">
+                        <span class="item-price">45 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Fish Burger', 45, -1)">-</button><span class="qty-count" id="qty-Fish Burger">0</span><button class="qty-btn" onclick="changeQty('Fish Burger', 45, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Pasta Del Mar</div></div>
+                    <div class="item-action">
+                        <span class="item-price">80 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Pasta Del Mar', 80, -1)">-</button><span class="qty-count" id="qty-Pasta Del Mar">0</span><button class="qty-btn" onclick="changeQty('Pasta Del Mar', 80, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Pasta aux Poulpe</div></div>
+                    <div class="item-action">
+                        <span class="item-price">80 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Pasta aux Poulpe', 80, -1)">-</button><span class="qty-count" id="qty-Pasta aux Poulpe">0</span><button class="qty-btn" onclick="changeQty('Pasta aux Poulpe', 80, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Risotto Fruits de Mer</div></div>
+                    <div class="item-action">
+                        <span class="item-price">120 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Risotto Fruits de Mer', 120, -1)">-</button><span class="qty-count" id="qty-Risotto Fruits de Mer">0</span><button class="qty-btn" onclick="changeQty('Risotto Fruits de Mer', 120, 1)">+</button></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NOS TAJINES -->
+            <div class="category-card">
+                <h3><span>Nos Tajines</span> <i class="fas fa-fire"></i></h3>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Tajine de Poisson et Légumes</div></div>
+                    <div class="item-action">
+                        <span class="item-price">65 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Tajine de Poisson et Légumes', 65, -1)">-</button><span class="qty-count" id="qty-Tajine de Poisson et Légumes">0</span><button class="qty-btn" onclick="changeQty('Tajine de Poisson et Légumes', 65, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Tajine de Poulpe</div></div>
+                    <div class="item-action">
+                        <span class="item-price">70 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Tajine de Poulpe', 70, -1)">-</button><span class="qty-count" id="qty-Tajine de Poulpe">0</span><button class="qty-btn" onclick="changeQty('Tajine de Poulpe', 70, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Tajine Fruits de Mer</div></div>
+                    <div class="item-action">
+                        <span class="item-price">70 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Tajine Fruits de Mer', 70, -1)">-</button><span class="qty-count" id="qty-Tajine Fruits de Mer">0</span><button class="qty-btn" onclick="changeQty('Tajine Fruits de Mer', 70, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Tajine Crevette & Œuf</div></div>
+                    <div class="item-action">
+                        <span class="item-price">65 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Tajine Crevette & Œuf', 65, -1)">-</button><span class="qty-count" id="qty-Tajine Crevette & Œuf">0</span><button class="qty-btn" onclick="changeQty('Tajine Crevette & Œuf', 65, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Crevettes Pilpil</div></div>
+                    <div class="item-action">
+                        <span class="item-price">80 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Crevettes Pilpil', 80, -1)">-</button><span class="qty-count" id="qty-Crevettes Pilpil">0</span><button class="qty-btn" onclick="changeQty('Crevettes Pilpil', 80, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Boulettes de Sardines</div></div>
+                    <div class="item-action">
+                        <span class="item-price">65 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Boulettes de Sardines', 65, -1)">-</button><span class="qty-count" id="qty-Boulettes de Sardines">0</span><button class="qty-btn" onclick="changeQty('Boulettes de Sardines', 65, 1)">+</button></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DESSERTS & MARINADES -->
+            <div class="category-card">
+                <h3><span>Desserts & Marinades</span> <i class="fas fa-cookie-bite"></i></h3>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Salade de Fruits</div></div>
+                    <div class="item-action">
+                        <span class="item-price">20 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Salade de Fruits', 20, -1)">-</button><span class="qty-count" id="qty-Salade de Fruits">0</span><button class="qty-btn" onclick="changeQty('Salade de Fruits', 20, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Anchois Marinés</div></div>
+                    <div class="item-action">
+                        <span class="item-price">40 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Anchois Marinés', 40, -1)">-</button><span class="qty-count" id="qty-Anchois Marinés">0</span><button class="qty-btn" onclick="changeQty('Anchois Marinés', 40, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Anchois (Poulpe, Moules)</div></div>
+                    <div class="item-action">
+                        <span class="item-price">70 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Anchois (Poulpe, Moules)', 70, -1)">-</button><span class="qty-count" id="qty-Anchois (Poulpe, Moules)">0</span><button class="qty-btn" onclick="changeQty('Anchois (Poulpe, Moules)', 70, 1)">+</button></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NOS BOISSONS & JUS -->
+            <div class="category-card">
+                <h3><span>Boissons & Jus</span> <i class="fas fa-glass-martini-alt"></i></h3>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Jus Citron</div></div>
+                    <div class="item-action">
+                        <span class="item-price">15 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Jus Citron', 15, -1)">-</button><span class="qty-count" id="qty-Jus Citron">0</span><button class="qty-btn" onclick="changeQty('Jus Citron', 15, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Jus d'Orange</div></div>
+                    <div class="item-action">
+                        <span class="item-price">20 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Jus d\'Orange', 20, -1)">-</button><span class="qty-count" id="qty-Jus d'Orange">0</span><button class="qty-btn" onclick="changeQty('Jus d\'Orange', 20, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Jus d'Avocat</div></div>
+                    <div class="item-action">
+                        <span class="item-price">20 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Jus d\'Avocat', 20, -1)">-</button><span class="qty-count" id="qty-Jus d'Avocat">0</span><button class="qty-btn" onclick="changeQty('Jus d\'Avocat', 20, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Jus de Fruits</div></div>
+                    <div class="item-action">
+                        <span class="item-price">25 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Jus de Fruits', 25, -1)">-</button><span class="qty-count" id="qty-Jus de Fruits">0</span><button class="qty-btn" onclick="changeQty('Jus de Fruits', 25, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Soda 25 cl</div></div>
+                    <div class="item-action">
+                        <span class="item-price">10 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Soda 25 cl', 10, -1)">-</button><span class="qty-count" id="qty-Soda 25 cl">0</span><button class="qty-btn" onclick="changeQty('Soda 25 cl', 10, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Soda Grande</div></div>
+                    <div class="item-action">
+                        <span class="item-price">20 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Soda Grande', 20, -1)">-</button><span class="qty-count" id="qty-Soda Grande">0</span><button class="qty-btn" onclick="changeQty('Soda Grande', 20, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Eau Minérale 50cl</div></div>
+                    <div class="item-action">
+                        <span class="item-price">10 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Eau Minérale 50cl', 10, -1)">-</button><span class="qty-count" id="qty-Eau Minérale 50cl">0</span><button class="qty-btn" onclick="changeQty('Eau Minérale 50cl', 10, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Eau Minérale 1,5L</div></div>
+                    <div class="item-action">
+                        <span class="item-price">15 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Eau Minérale 1,5L', 15, -1)">-</button><span class="qty-count" id="qty-Eau Minérale 1,5L">0</span><button class="qty-btn" onclick="changeQty('Eau Minérale 1,5L', 15, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Eau Gazeuse 50cl</div></div>
+                    <div class="item-action">
+                        <span class="item-price">10 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Eau Gazeuse 50cl', 10, -1)">-</button><span class="qty-count" id="qty-Eau Gazeuse 50cl">0</span><button class="qty-btn" onclick="changeQty('Eau Gazeuse 50cl', 10, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Eau Gazeuse 1L</div></div>
+                    <div class="item-action">
+                        <span class="item-price">15 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Eau Gazeuse 1L', 15, -1)">-</button><span class="qty-count" id="qty-Eau Gazeuse 1L">0</span><button class="qty-btn" onclick="changeQty('Eau Gazeuse 1L', 15, 1)">+</button></div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info"><div class="item-name">Café</div></div>
+                    <div class="item-action">
+                        <span class="item-price">20 DH</span>
+                        <div class="qty-controls"><button class="qty-btn" onclick="changeQty('Café', 20, -1)">-</button><span class="qty-count" id="qty-Café">0</span><button class="qty-btn" onclick="changeQty('Café', 20, 1)">+</button></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Floating Cart Bar -->
+    <div class="floating-cart" id="floating-cart-bar">
+        <div class="cart-info">
+            <span class="cart-total" id="cart-total-price">Total : 0 DH</span>
+            <span class="cart-details" id="cart-details-text">0 articles</span>
+        </div>
+        <a href="#" class="btn-order-whatsapp" onclick="sendOrderWhatsApp(event)">
+            <i class="fab fa-whatsapp"></i> Envoyer la commande
+        </a>
+    </div>
+
+    <script>
+        let cart = {};
+        let currentMode = 'emporter';
+
+        function setOrderMode(mode) {
+            currentMode = mode;
+            document.getElementById('btn-mode-emporter').classList.toggle('active', mode === 'emporter');
+            document.getElementById('btn-mode-surplace').classList.toggle('active', mode === 'surplace');
+
+            const emporterSection = document.getElementById('emporter-section');
+            const surPlaceSection = document.getElementById('sur-place-section');
+
+            if (mode === 'surplace') {
+                emporterSection.style.display = 'none';
+                surPlaceSection.style.display = 'block';
+            } else {
+                emporterSection.style.display = 'block';
+                surPlaceSection.style.display = 'none';
+            }
+            updateCartUI();
+        }
+
+        function changeQty(name, price, change) {
+            if (!cart[name]) {
+                cart[name] = { price: price, qty: 0 };
+            }
+            cart[name].qty += change;
+            if (cart[name].qty <= 0) {
+                delete cart[name];
+            }
+            const qtyElement = document.getElementById(`qty-${name}`);
+            if (qtyElement) {
+                qtyElement.innerText = cart[name] ? cart[name].qty : 0;
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            let itemsTotal = 0;
+            let totalItemsCount = 0;
+
+            for (let name in cart) {
+                itemsTotal += cart[name].price * cart[name].qty;
+                totalItemsCount += cart[name].qty;
+            }
+
+            let deliveryFee = 0;
+            if (currentMode === 'emporter') {
+                const zoneSelect = document.getElementById('delivery-zone');
+                deliveryFee = parseInt(zoneSelect.value) || 0;
+            }
+
+            const grandTotal = itemsTotal + deliveryFee;
+
+            document.getElementById('cart-total-price').innerText = `Total : ${grandTotal} DH`;
+            
+            if (currentMode === 'emporter') {
+                document.getElementById('cart-details-text').innerText = `${totalItemsCount} articles | Livraison: ${deliveryFee} DH`;
+            } else {
+                document.getElementById('cart-details-text').innerText = `${totalItemsCount} articles | Mode: Sur Place`;
+            }
+        }
+
+        function sendOrderWhatsApp(e) {
+            e.preventDefault();
+
+            let itemKeys = Object.keys(cart);
+            if (itemKeys.length === 0) {
+                alert('Veuillez ajouter des articles à votre panier.');
+                return;
+            }
+
+            let message = "";
+            let itemsTotal = 0;
+            let phone = "";
+
+            if (currentMode === 'emporter') {
+                phone = "212646897111";
+                const zoneSelect = document.getElementById('delivery-zone');
+                const deliveryFee = parseInt(zoneSelect.value) || 0;
+                const selectedOption = zoneSelect.options[zoneSelect.selectedIndex];
+                const zoneName = selectedOption.getAttribute('data-name');
+
+                if (deliveryFee === 0 && zoneSelect.value === "0") {
+                    alert('Veuillez sélectionner votre zone de livraison.');
+                    return;
+                }
+
+                message = `Bonjour Chez Flouka, commande À EMPORTER / LIVRAISON :\n\n`;
+                itemKeys.forEach(name => {
+                    let item = cart[name];
+                    let subtotal = item.price * item.qty;
+                    itemsTotal += subtotal;
+                    message += `• ${name} x${item.qty} = ${subtotal} DH\n`;
+                });
+
+                message += `\n📍 Zone : ${zoneName} (${deliveryFee} DH)`;
+                message += `\n💵 Sous-total : ${itemsTotal} DH`;
+                message += `\n💰 Total Général : ${itemsTotal + deliveryFee} DH`;
+
+            } else {
+                phone = "212676221459";
+                message = `Bonjour Chez Flouka, commande SUR PLACE / RÉSERVATION :\n\n`;
+                itemKeys.forEach(name => {
+                    let item = cart[name];
+                    let subtotal = item.price * item.qty;
+                    itemsTotal += subtotal;
+                    message += `• ${name} x${item.qty} = ${subtotal} DH\n`;
+                });
+
+                message += `\n💰 Total à payer : ${itemsTotal} DH`;
+            }
+
+            const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+    </script>
+</body>
+</html>
